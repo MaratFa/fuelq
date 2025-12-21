@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - FuelQuality</title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Contact FuelQuality for inquiries about fuel quality and alternative energy sources."
+    />
+    <meta
+      name="keywords"
+      content="contact, fuels, quality, alternative energy, inquiry"
+    />
+    <meta
+      name="author"
+      content="FuelQuality Policy, Government and Public Affairs"
+    />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Contact Us - FuelQuality" />
+    <meta
+      property="og:description"
+      content="Contact FuelQuality for inquiries about fuel quality and alternative energy sources."
+    />
+    <meta property="og:url" content="https://www.fuelq.ru/contacts.html" />
+    <meta property="og:site_name" content="fuelq.ru" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+
+    <!-- External CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+
+    <!-- Additional Styles for Contact Page -->
+    <style>
+      .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      /* Contact Hero Styles */
+      .contact-hero {
+        background-color: var(--content-bg);
+        padding: 40px 30px;
+        border-radius: 8px;
+        margin: 20px 0;
+        box-shadow: var(--card-shadow);
+      }
+
+      .contact-hero h1 {
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      .hero-subtitle {
+        font-size: 1.3rem;
+        color: var(--secondary-color);
+        text-align: center;
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+
+      .hero-description {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+        line-height: 1.6;
+      }
+
+      /* Contact Cards Styles */
+      .contact-info h2 {
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .info-intro {
+        text-align: center;
+        margin-bottom: 30px;
+        color: var(--secondary-color);
+      }
+
+      .contact-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .contact-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: var(--card-shadow);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .contact-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--card-hover-shadow);
+      }
+
+      .card-icon {
+        background-color: var(--primary-color);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+      }
+
+      .card-icon i {
+        font-size: 1.5rem;
+      }
+
+      .card-content {
+        padding: 0 20px 20px;
+        flex-grow: 1;
+      }
+
+      .card-content h3 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+      }
+
+      .card-content p {
+        margin-bottom: 8px;
+        line-height: 1.5;
+      }
+
+      .card-content p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Social Section Styles */
+      .social-section {
+        background-color: rgba(4, 170, 109, 0.05);
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .social-section h3 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+
+      .social-section p {
+        margin-bottom: 15px;
+        color: var(--secondary-color);
+      }
+
+      .contact-info {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact-form {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .contact-item i {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        margin-right: 1rem;
+        width: 30px;
+        text-align: center;
+      }
+
+      .contact-item h3 {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+
+      .contact-item p {
+        margin: 0.2rem 0 0 0;
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-family: var(--font-family);
+        font-size: 1rem;
+      }
+
+      .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      /* Form Container Styles */
+      .form-container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: var(--card-shadow);
+        padding: 30px;
+      }
+
+      /* Form Actions Styles */
+      .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+      }
+
+      .btn-secondary:hover {
+        background-color: rgba(4, 170, 109, 0.1);
+      }
+
+      /* Checkbox Styles */
+      .checkbox-group {
+        margin: 15px 0;
+      }
+
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+
+      .checkbox-label input[type="checkbox"] {
+        display: none;
+      }
+
+      .checkmark {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border: 2px solid var(--primary-color);
+        border-radius: 4px;
+        margin-right: 10px;
+        position: relative;
+      }
+
+      .checkbox-label input:checked ~ .checkmark {
+        background-color: var(--primary-color);
+      }
+
+      .checkbox-label input:checked ~ .checkmark:after {
+        display: block;
+      }
+
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 5px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+
+      /* Form Success Message */
+      .form-success {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: var(--card-shadow);
+        padding: 30px;
+        text-align: center;
+      }
+
+      .form-success i {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+      }
+
+      .form-success h3 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: var(--font-family);
+        font-size: 1rem;
+        transition: background-color 0.3s;
+      }
+
+      .btn-primary:hover {
+        background-color: #038559;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+
+      .social-links a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--secondary-color);
+        color: white;
+        margin: 0 0.5rem;
+        transition: background-color 0.3s;
+      }
+
+      .social-links a:hover {
+        background-color: var(--primary-color);
+      }
+
+      @media (max-width: 768px) {
+        .contact-container {
+          grid-template-columns: 1fr;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+
+        /* Contact Page Responsive */
+        .contact-hero {
+          padding: 30px 20px;
+        }
+
+        .contact-cards {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .form-container {
+          padding: 20px;
+        }
+
+        .form-actions {
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header Component -->
+    <div
+      id="header-placeholder"
+      data-component="src/components/header/header.html"
+    ></div>
+
+    <main>
+      <section class="contact-hero">
+        <div class="hero-content">
+          <h1>Get in Touch</h1>
+          <p class="hero-subtitle">
+            On our forum, you can ask questions about fuel quality and
+            alternative energy sources.
+            <br />
+            For other questions, please use the information below!
+          </p>
+          <p class="hero-description">
+            Whether you have technical questions, partnership inquiries, or
+            feedback about our services, our team is ready to assist. Reach out
+            through any of the channels below and we'll respond as quickly as
+            possible.
+          </p>
+        </div>
+      </section>
+
+      <div class="contact-container">
+        <div class="contact-info">
+          <h2>Get in Touch</h2>
+          <p class="info-intro">
+            Connect with our team through any of these channels
+          </p>
+
+          <div class="contact-cards">
+            <div class="contact-card">
+              <div class="card-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="card-content">
+                <h3>Office Location</h3>
+                <p>123 Energy Avenue, Green City, EC 12345</p>
+                <p>United States</p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="card-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="card-content">
+                <h3>Call Us</h3>
+                <p>Main: +1 (555) 123-4567</p>
+                <p>Support: +1 (555) 765-4321</p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="card-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="card-content">
+                <h3>Email Us</h3>
+                <p>General: info@fuelq.ru</p>
+                <p>Support: support@fuelq.ru</p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="card-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="card-content">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 4:00 PM</p>
+                <p>Sunday: Closed</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="social-section">
+            <h3>Follow Us</h3>
+            <p>Stay connected for the latest updates and news</p>
+            <div class="social-links">
+              <a
+                href="https://facebook.com/fuelq"
+                title="Facebook"
+                target="_blank"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://twitter.com/fuelq"
+                title="Twitter"
+                target="_blank"
+                ><i class="fab fa-twitter"></i
+              ></a>
+              <a
+                href="https://linkedin.com/company/fuelq"
+                title="LinkedIn"
+                target="_blank"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a
+                href="https://instagram.com/fuelq"
+                title="Instagram"
+                target="_blank"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://youtube.com/c/fuelq"
+                title="YouTube"
+                target="_blank"
+                ><i class="fab fa-youtube"></i
+              ></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h2>Send Us a Message</h2>
+          <p>
+            Fill out the form below and we'll get back to you as soon as
+            possible.
+          </p>
+
+          <div class="form-container">
+            <form id="contactForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" id="firstName" name="firstName" required />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" id="lastName" name="lastName" required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input type="email" id="email" name="email" required />
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="(Optional)"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject" required>
+                  <option value="">Select a subject</option>
+                  <option value="general">General Inquiry</option>
+                  <option value="technical">Technical Question</option>
+                  <option value="partnership">Partnership Opportunity</option>
+                  <option value="feedback">Feedback</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Your Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  placeholder="Please provide as much detail as possible"
+                ></textarea>
+              </div>
+
+              <div class="form-group checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="newsletter" name="newsletter" />
+                  <span class="checkmark"></span>
+                  I would like to receive updates about FuelQuality
+                </label>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-secondary" id="resetBtn">
+                  Reset Form
+                </button>
+                <button type="submit" class="btn-primary">Send Message</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="form-success" id="formSuccess" style="display: none">
+            <i class="fas fa-check-circle"></i>
+            <h3>Thank You!</h3>
+            <p>
+              Your message has been sent successfully. We'll get back to you as
+              soon as possible.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Component -->
+    <div
+      id="footer-placeholder"
+      data-component="src/components/footer.html"
+    ></div>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const contactForm = document.getElementById("contactForm");
+        const resetBtn = document.getElementById("resetBtn");
+        const formSuccess = document.getElementById("formSuccess");
+
+        // Form submission
+        contactForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Get form values
+          const formData = new FormData(contactForm);
+          const data = Object.fromEntries(formData);
+
+          // Here you would normally send the data to a server
+          // For this example, we'll just show a success message
+          showSuccessMessage();
+
+          // Reset the form
+          contactForm.reset();
+        });
+
+        // Reset button
+        resetBtn.addEventListener("click", function () {
+          contactForm.reset();
+          hideSuccessMessage();
+        });
+
+        // Functions
+        function showSuccessMessage() {
+          formSuccess.style.display = "block";
+          contactForm.style.display = "none";
+
+          // Scroll to success message
+          formSuccess.scrollIntoView({ behavior: "smooth" });
+        }
+
+        function hideSuccessMessage() {
+          formSuccess.style.display = "none";
+          contactForm.style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>

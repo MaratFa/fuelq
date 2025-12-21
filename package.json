@@ -1,0 +1,23 @@
+{
+  "name": "fuelq",
+  "version": "2.0.0",
+  "description": "A website dedicated to providing information about fuel quality and alternative energy sources",
+  "main": "src/index.html",
+  "scripts": {},
+  "keywords": [
+    "fuel",
+    "energy",
+    "alternative-energy",
+    "hydrogen",
+    "biofuels",
+    "solar",
+    "wind"
+  ],
+  "author": "FuelQuality Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maratfa/fuelq.git"
+  },
+  "devDependencies": {}
+}

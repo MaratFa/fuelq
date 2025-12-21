@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forum Thread - FuelsQ</title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Discussion thread in the FuelsQ forum for alternative energy topics."
+    />
+    <meta
+      name="keywords"
+      content="forum, discussion, alternative energy, hydrogen, biofuels, solar, wind"
+    />
+    <meta name="author" content="FuelsQ Community" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Forum Thread - FuelsQ" />
+    <meta
+      property="og:description"
+      content="Discussion thread in the FuelsQ forum for alternative energy topics."
+    />
+    <meta
+      property="og:url"
+      content="https://www.fuelsq.ru/src/pages/forum/thread.html"
+    />
+    <meta property="og:image" content="https://www.fuelsq.ru/hydrogen.png" />
+    <meta property="og:site_name" content="fuelsq.ru" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../../assets/images/favicon.png" />
+
+    <!-- External CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../../assets/css/styles.css" />
+  </head>
+
+  <body>
+    <!-- Header Component -->
+    <div id="header-placeholder" data-component="src/components/header/header.html"></div>
+
+    <main>
+      <section class="forum-header">
+        <div class="container">
+          <h1>Forum Thread</h1>
+          <div class="breadcrumb">
+            <a href="../index.html">Forum</a> / <span class="current">Thread</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="thread-container">
+        <div class="container">
+          <div class="thread-post">
+            <div class="post-header">
+              <div class="post-author">
+                <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                <div class="author-info">
+                  <h3 class="author-name">Energy Expert</h3>
+                  <span class="post-date">Posted on June 15, 2023</span>
+                </div>
+              </div>
+              <div class="post-actions">
+                <button class="btn btn-secondary"><i class="fas fa-reply"></i> Reply</button>
+                <button class="btn btn-secondary"><i class="fas fa-share"></i> Share</button>
+              </div>
+            </div>
+            <div class="post-content">
+              <h2>Comparative Analysis of Hydrogen Storage Methods</h2>
+              <p>
+                I'm conducting research on hydrogen storage methods for a renewable energy project. I'm particularly interested in understanding the practical differences between compressed gas storage and liquid hydrogen storage in terms of efficiency, safety, and cost-effectiveness.
+              </p>
+              <p>
+                Based on my initial research, compressed gas storage seems more straightforward but requires high-pressure vessels, while liquid storage offers higher density but introduces cryogenic challenges. I'd appreciate insights from anyone with practical experience in this area.
+              </p>
+              <div class="post-tags">
+                <span class="tag">hydrogen</span>
+                <span class="tag">storage</span>
+                <span class="tag">research</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="replies-section">
+            <h3>Replies (3)</h3>
+            
+            <div class="reply">
+              <div class="reply-header">
+                <div class="reply-author">
+                  <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                  <div class="author-info">
+                    <h4 class="author-name">Storage Specialist</h4>
+                    <span class="reply-date">June 16, 2023</span>
+                  </div>
+                </div>
+              </div>
+              <div class="reply-content">
+                <p>
+                  Great question! In my experience with hydrogen storage systems, compressed gas is generally more suitable for smaller-scale applications and shorter-term storage. The 350-700 bar pressure range is standard for most applications, but the compression process itself consumes about 10-15% of the energy content.
+                </p>
+                <p>
+                  Liquid hydrogen, while offering better volumetric density, requires maintaining temperatures below -253°C, which introduces significant energy requirements for liquefaction (typically 30-40% of the hydrogen's energy content) and specialized insulated containers.
+                </p>
+              </div>
+            </div>
+            
+            <div class="reply">
+              <div class="reply-header">
+                <div class="reply-author">
+                  <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                  <div class="author-info">
+                    <h4 class="author-name">Safety Engineer</h4>
+                    <span class="reply-date">June 17, 2023</span>
+                  </div>
+                </div>
+              </div>
+              <div class="reply-content">
+                <p>
+                  From a safety perspective, both methods have specific considerations. Compressed gas systems require robust pressure vessels with regular inspections, proper ventilation, and hydrogen-specific leak detection systems. The main risks are related to high pressure and flammability.
+                </p>
+                <p>
+                  Liquid hydrogen introduces cryogenic hazards including cold burns, material embrittlement, and boil-off gas management. Additionally, if liquid hydrogen is exposed to ambient conditions, it rapidly vaporizes and expands, creating pressure buildup risks.
+                </p>
+              </div>
+            </div>
+            
+            <div class="reply">
+              <div class="reply-header">
+                <div class="reply-author">
+                  <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                  <div class="author-info">
+                    <h4 class="author-name">Project Manager</h4>
+                    <span class="reply-date">June 18, 2023</span>
+                  </div>
+                </div>
+              </div>
+              <div class="reply-content">
+                <p>
+                  Cost-wise, compressed gas systems typically have lower initial capital costs but higher operational costs due to compression energy. Liquid systems require significant upfront investment in cryogenic infrastructure but may be more economical at larger scales.
+                </p>
+                <p>
+                  For most commercial applications, I'd recommend starting with compressed gas storage unless you have specific high-density requirements. New developments in solid-state hydrogen storage using metal hydrides or chemical hydrides are also worth exploring as they may offer better safety profiles and potentially lower costs in the future.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="reply-form">
+            <h3>Post a Reply</h3>
+            <form>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="form-group">
+                <label for="message">Your Reply</label>
+                <textarea id="message" name="message" rows="6" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit Reply</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer Component -->
+    <div id="footer-placeholder" data-component="src/components/footer/footer.html"></div>
+
+    <!-- JavaScript -->
+    <script src="../../assets/js/components.js"></script>
+    <script src="../../assets/js/main.js"></script>
+  </body>
+</html>

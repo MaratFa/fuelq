@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Engineering Resources - FuelQuality</title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Comprehensive technical resources for engineers working with alternative energy systems. Detailed specifications, implementation guidelines, and performance metrics for hydrogen, biofuels, solar, and wind energy technologies."
+    />
+    <meta
+      name="keywords"
+      content="alternative energy engineering, hydrogen fuel systems, biofuel technology, solar power systems, wind energy implementation, renewable energy specifications, clean energy engineering"
+    />
+    <meta name="author" content="FuelQuality Engineering Division" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="For Engineers - FuelQuality" />
+    <meta
+      property="og:description"
+      content="Technical information about alternative fuels for engineers."
+    />
+    <meta property="og:url" content="https://www.fuelq.ru/forengineers.html" />
+    <meta property="og:image" content="https://www.fuelq.ru/hydrogen.png" />
+    <meta property="og:site_name" content="fuelq.ru" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png" />
+
+    <!-- External CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="../assets/images/hydrogen.png" as="image" />
+    <link rel="preload" href="../assets/images/biofuels.png" as="image" />
+    <link rel="preload" href="../assets/images/solar-wind.png" as="image" />
+  </head>
+
+  <body>
+    <!-- Header Component -->
+    <div
+      id="header-placeholder"
+      data-component="src/components/header/header.html"
+    ></div>
+
+    <main>
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Engineering Resources & Technical Specifications</h1>
+          <p class="hero-subtitle">
+            Comprehensive data, implementation guidelines, and best practices
+            for alternative energy systems
+          </p>
+          <p class="open-menu" id="open-menu">
+            <i class="fas fa-bars"></i> Open navigation menu
+          </p>
+        </div>
+      </section>
+
+      <!-- Side Navigation -->
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" id="close-btn">&times;</a>
+        <a href="#hydrogen">Hydrogen</a>
+        <a href="#biofuels">Biofuels</a>
+        <a href="#solar">Solar</a>
+        <a href="#wind">Wind</a>
+        <a href="#comparison">Energy Comparison</a>
+        <a href="#implementation">Implementation Guidelines</a>
+      </div>
+
+      <section class="intro-section">
+        <div class="container">
+          <p>
+            Welcome to FuelQuality's comprehensive technical resource center
+            for engineering professionals. This section provides in-depth
+            technical specifications, performance analysis, and implementation
+            guidelines for cutting-edge alternative energy technologies. Our
+            resources are based on latest research findings, field-tested
+            applications, and industry best practices to support your
+            engineering projects from concept through completion.
+          </p>
+        </div>
+      </section>
+
+      <section class="fuel-types">
+        <div class="container">
+          <div class="fuel-grid">
+            <article id="hydrogen" class="fuel-card">
+              <div class="card-header">
+                <h2>Hydrogen Energy</h2>
+                <div class="card-image">
+                  <img
+                    src="../assets/images/hydrogen.png"
+                    alt="Hydrogen Fuel"
+                  />
+                </div>
+              </div>
+              <div class="card-content">
+                <p>
+                  Hydrogen represents the most abundant element in the universe
+                  and serves as a zero-emission energy carrier that produces
+                  only water when used in fuel cells. Modern production methods
+                  leverage renewable electricity through electrolysis, advanced
+                  thermochemical processes, and biological pathways to create
+                  "green hydrogen" with minimal carbon footprint.
+                </p>
+                <p>
+                  Its exceptional energy density by weight (120-142 MJ/kg) and
+                  versatility position hydrogen as a critical component of the
+                  future energy landscape, with applications ranging from
+                  transportation and industrial processes to grid-scale energy
+                  storage and power generation.
+                </p>
+                <div class="specs">
+                  <h3>Technical Specifications</h3>
+                  <div class="spec-grid">
+                    <div class="spec-item">
+                      <h4>Energy Density</h4>
+                      <p>120-142 MJ/kg</p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Storage</h4>
+                      <p>Compressed gas (350-700 bar) or liquid (-253°C)</p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Production Methods</h4>
+                      <p>Steam reforming, electrolysis, biomass gasification</p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Applications</h4>
+                      <p>Fuel cells, combustion engines, power generation</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="implementation">
+                  <h3>Implementation Considerations</h3>
+                  <ul>
+                    <li>
+                      Infrastructure requirements for production and
+                      distribution
+                    </li>
+                    <li>Safety protocols for handling and storage</li>
+                    <li>
+                      Efficiency considerations for different production methods
+                    </li>
+                    <li>Integration with existing energy systems</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <article id="biofuels" class="fuel-card">
+              <div class="card-header">
+                <h2>Biofuels</h2>
+                <div class="card-image">
+                  <img src="../assets/images/biofuels.png" alt="Biofuels" />
+                </div>
+              </div>
+              <div class="card-content">
+                <p>
+                  Biofuels represent a diverse category of renewable energy
+                  carriers derived from biological sources, including
+                  purpose-grown energy crops, agricultural residues, algae, and
+                  various waste streams. Modern biofuel production focuses on
+                  advanced conversion technologies that maximize energy yield
+                  while minimizing environmental impact.
+                </p>
+                <p>
+                  Third-generation biofuels derived from algae and cellulosic
+                  biomass offer significant advantages over conventional
+                  biofuels, including higher energy density, reduced land use
+                  requirements, and compatibility with existing engine
+                  technologies and fuel infrastructure.
+                </p>
+                <div class="specs">
+                  <h3>Technical Specifications</h3>
+                  <div class="spec-grid">
+                    <div class="spec-item">
+                      <h4>Types</h4>
+                      <p>Ethanol, biodiesel, biogas, bio-oil</p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Energy Density</h4>
+                      <p>20-40 MJ/kg (varies by type)</p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Production Methods</h4>
+                      <p>Fermentation, transesterification, gasification</p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Applications</h4>
+                      <p>
+                        Transportation fuel, heating, electricity generation
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="implementation">
+                  <h3>Implementation Considerations</h3>
+                  <ul>
+                    <li>Feedstock availability and sustainability</li>
+                    <li>
+                      Compatibility with existing engines and infrastructure
+                    </li>
+                    <li>Life cycle analysis for true carbon impact</li>
+                    <li>Economic viability at scale</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <article id="solar" class="fuel-card">
+              <div class="card-header">
+                <h2>Solar Energy</h2>
+                <div class="card-image">
+                  <img
+                    src="../assets/images/solar-wind.png"
+                    alt="Solar Energy"
+                  />
+                </div>
+              </div>
+              <div class="card-content">
+                <p>
+                  Solar energy technologies convert photons from sunlight into
+                  usable electricity through photovoltaic effects or thermal
+                  energy through concentrated solar power systems. Modern
+                  photovoltaic technologies achieve conversion efficiencies of
+                  15-22% for commercial applications, with laboratory cells
+                  exceeding 47% using multi-junction designs.
+                </p>
+                <p>
+                  When combined with advanced energy storage solutions and smart
+                  grid integration, solar systems can provide reliable,
+                  dispatchable power that competes favorably with conventional
+                  generation sources while offering zero operational emissions
+                  and rapidly declining capital costs.
+                </p>
+                <div class="specs">
+                  <h3>Technical Specifications</h3>
+                  <div class="spec-grid">
+                    <div class="spec-item">
+                      <h4>Efficiency</h4>
+                      <p>15-22% for commercial PV panels</p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Types</h4>
+                      <p>
+                        Photovoltaic, concentrated solar power, solar thermal
+                      </p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Capacity Factors</h4>
+                      <p>10-25% (varies by location and technology)</p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Applications</h4>
+                      <p>
+                        Electricity generation, water heating, industrial
+                        processes
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="implementation">
+                  <h3>Implementation Considerations</h3>
+                  <ul>
+                    <li>Site assessment and solar resource evaluation</li>
+                    <li>Grid integration and interconnection requirements</li>
+                    <li>Storage solutions for continuous power supply</li>
+                    <li>Maintenance requirements and lifecycle costs</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+
+            <article id="wind" class="fuel-card">
+              <div class="card-header">
+                <h2>Wind Energy</h2>
+                <div class="card-image">
+                  <img
+                    src="../assets/images/solar-wind.png"
+                    alt="Wind Energy"
+                  />
+                </div>
+              </div>
+              <div class="card-content">
+                <p>
+                  Wind energy systems convert the kinetic energy of moving air
+                  masses into electrical power through aerodynamic turbine
+                  systems. Modern utility-scale turbines achieve capacity
+                  factors of 35-50% in optimal locations, with offshore
+                  installations particularly valuable due to higher and more
+                  consistent wind resources.
+                </p>
+                <p>
+                  Advanced turbine designs incorporating larger rotors, taller
+                  towers, and sophisticated control systems continue to push the
+                  boundaries of efficiency and cost-effectiveness. When
+                  integrated with complementary generation sources and storage
+                  technologies, wind power provides reliable, low-cost
+                  electricity with minimal environmental impact.
+                </p>
+                <div class="specs">
+                  <h3>Technical Specifications</h3>
+                  <div class="spec-grid">
+                    <div class="spec-item">
+                      <h4>Turbine Capacity</h4>
+                      <p>2-8 MW for onshore, up to 12 MW for offshore</p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Efficiency</h4>
+                      <p>35-45% (Betz limit is 59.3%)</p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Capacity Factors</h4>
+                      <p>25-50% (varies by location)</p>
+                    </div>
+                    <div class="spec-item">
+                      <h4>Applications</h4>
+                      <p>
+                        Electricity generation, water pumping, hybrid systems
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="implementation">
+                  <h3>Implementation Considerations</h3>
+                  <ul>
+                    <li>Wind resource assessment and site selection</li>
+                    <li>Environmental impact and permitting requirements</li>
+                    <li>Grid connection and transmission infrastructure</li>
+                    <li>Community engagement and land use considerations</li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="comparison" class="comparison-section">
+        <div class="container">
+          <h2>Energy Source Comparison</h2>
+          <div class="comparison-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Hydrogen</th>
+                  <th>Biofuels</th>
+                  <th>Solar</th>
+                  <th>Wind</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Energy Density</td>
+                  <td>120-142 MJ/kg</td>
+                  <td>20-40 MJ/kg</td>
+                  <td>N/A (conversion dependent)</td>
+                  <td>N/A (conversion dependent)</td>
+                </tr>
+                <tr>
+                  <td>Efficiency</td>
+                  <td>40-60% (fuel cell)</td>
+                  <td>20-40% (engine)</td>
+                  <td>15-22% (PV)</td>
+                  <td>35-45% (turbine)</td>
+                </tr>
+                <tr>
+                  <td>Capital Cost</td>
+                  <td>High</td>
+                  <td>Medium</td>
+                  <td>Medium</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td>Operating Cost</td>
+                  <td>Medium-High</td>
+                  <td>Medium</td>
+                  <td>Low</td>
+                  <td>Low-Medium</td>
+                </tr>
+                <tr>
+                  <td>Scalability</td>
+                  <td>High</td>
+                  <td>Medium</td>
+                  <td>High</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td>Land Use</td>
+                  <td>Low</td>
+                  <td>High</td>
+                  <td>Medium</td>
+                  <td>Medium</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="implementation" class="implementation-section">
+        <div class="container">
+          <h2>Implementation Guidelines</h2>
+          <div class="implementation-grid">
+            <div class="implementation-card">
+              <h3>Planning Phase</h3>
+              <ul>
+                <li>Comprehensive site assessment</li>
+                <li>Resource availability analysis</li>
+                <li>Regulatory compliance review</li>
+                <li>Stakeholder engagement</li>
+                <li>Feasibility studies</li>
+              </ul>
+            </div>
+            <div class="implementation-card">
+              <h3>Design Phase</h3>
+              <ul>
+                <li>System sizing and configuration</li>
+                <li>Technology selection</li>
+                <li>Integration planning</li>
+                <li>Safety and redundancy measures</li>
+                <li>Performance modeling</li>
+              </ul>
+            </div>
+            <div class="implementation-card">
+              <h3>Construction Phase</h3>
+              <ul>
+                <li>Quality control protocols</li>
+                <li>Project management</li>
+                <li>Supply chain coordination</li>
+                <li>Commissioning procedures</li>
+                <li>Documentation requirements</li>
+              </ul>
+            </div>
+            <div class="implementation-card">
+              <h3>Operation Phase</h3>
+              <ul>
+                <li>Performance monitoring</li>
+                <li>Preventive maintenance</li>
+                <li>Optimization strategies</li>
+                <li>Staff training</li>
+                <li>Continuous improvement</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="comparison" class="comparison-section">
+        <div class="container">
+          <h2>Energy Source Comparison</h2>
+          <div class="comparison-table-wrapper">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Hydrogen</th>
+                  <th>Biofuels</th>
+                  <th>Solar</th>
+                  <th>Wind</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Energy Density (MJ/kg)</td>
+                  <td>120-142</td>
+                  <td>20-40</td>
+                  <td>N/A</td>
+                  <td>N/A</td>
+                </tr>
+                <tr>
+                  <td>Efficiency</td>
+                  <td>40-60% (fuel cell)</td>
+                  <td>30-40%</td>
+                  <td>15-22% (PV)</td>
+                  <td>35-45%</td>
+                </tr>
+                <tr>
+                  <td>Carbon Emissions</td>
+                  <td>0 (at use)</td>
+                  <td>20-80% less than fossil</td>
+                  <td>0 (operation)</td>
+                  <td>0 (operation)</td>
+                </tr>
+                <tr>
+                  <td>Storage Challenge</td>
+                  <td>High (pressure/cryogenic)</td>
+                  <td>Medium</td>
+                  <td>High (batteries)</td>
+                  <td>Medium</td>
+                </tr>
+                <tr>
+                  <td>Scalability</td>
+                  <td>High</td>
+                  <td>Medium</td>
+                  <td>High</td>
+                  <td>High</td>
+                </tr>
+                <tr>
+                  <td>Current Cost (per kWh)</td>
+                  <td>$4-7</td>
+                  <td>$0.8-1.5</td>
+                  <td>$0.05-0.15</td>
+                  <td>$0.03-0.08</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="table-note">
+            Note: Costs and efficiency values are approximate and vary
+            significantly by region, technology, and scale of implementation.
+          </p>
+        </div>
+      </section>
+
+      <section id="implementation" class="implementation-section">
+        <div class="container">
+          <h2>Implementation Guidelines</h2>
+          <div class="implementation-grid">
+            <div class="implementation-card">
+              <h3>Planning & Assessment</h3>
+              <ul>
+                <li>
+                  Comprehensive energy needs analysis with demand profiling
+                </li>
+                <li>
+                  Site-specific resource evaluation using advanced modeling
+                  tools
+                </li>
+                <li>
+                  Regulatory compliance assessment and permitting strategy
+                </li>
+                <li>
+                  Multi-criteria project timeline with critical path analysis
+                </li>
+                <li>
+                  Funding optimization including incentives and tax benefits
+                </li>
+              </ul>
+            </div>
+            <div class="implementation-card">
+              <h3>Technical Considerations</h3>
+              <ul>
+                <li>
+                  System sizing based on detailed demand patterns and
+                  projections
+                </li>
+                <li>
+                  Seamless integration with existing energy infrastructure
+                </li>
+                <li>
+                  Grid interconnection requirements and protection coordination
+                </li>
+                <li>Redundancy planning with multiple failure mode analysis</li>
+                <li>
+                  Advanced control systems with real-time monitoring
+                  capabilities
+                </li>
+              </ul>
+            </div>
+            <div class="implementation-card">
+              <h3>Economic Analysis</h3>
+              <ul>
+                <li>
+                  Comprehensive life cycle cost assessment with sensitivity
+                  analysis
+                </li>
+                <li>
+                  Return on investment calculations with multiple scenarios
+                </li>
+                <li>Detailed operational and maintenance cost modeling</li>
+                <li>Risk assessment with quantitative mitigation strategies</li>
+                <li>
+                  Total cost of ownership comparison with conventional
+                  alternatives
+                </li>
+              </ul>
+            </div>
+            <div class="implementation-card">
+              <h3>Environmental Impact</h3>
+              <ul>
+                <li>
+                  Comprehensive carbon footprint analysis across entire
+                  lifecycle
+                </li>
+                <li>Multi-criteria ecosystem impact assessment</li>
+                <li>
+                  Resource sustainability evaluation with depletion modeling
+                </li>
+                <li>
+                  End-of-life decommissioning and circular economy strategies
+                </li>
+                <li>
+                  Biodiversity conservation with net-positive impact measures
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="implementation-steps">
+            <h3>Implementation Process</h3>
+            <div class="steps-container">
+              <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <h4>Comprehensive Feasibility Analysis</h4>
+                  <p>
+                    Multi-dimensional assessment of technical, economic,
+                    regulatory, and social viability with risk quantification
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <h4>Advanced System Design</h4>
+                  <p>
+                    Detailed engineering design with performance modeling,
+                    simulation, and optimization
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <h4>Regulatory Compliance</h4>
+                  <p>
+                    Strategic approach to securing permits, approvals, and
+                    certifications
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                  <h4>Strategic Procurement</h4>
+                  <p>
+                    Quality-assured sourcing with supply chain optimization and
+                    vendor management
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                  <h4>Professional Installation</h4>
+                  <p>
+                    Expert implementation with quality control, safety
+                    protocols, and system integration
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                  <h4>System Commissioning</h4>
+                  <p>
+                    Comprehensive testing, verification, calibration, and
+                    performance optimization
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-number">7</div>
+                <div class="step-content">
+                  <h4>Continuous Operations</h4>
+                  <p>
+                    Advanced monitoring, predictive maintenance, and performance
+                    optimization
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer Component -->
+    <div
+      id="footer-placeholder"
+      data-component="src/components/footer/footer.html"
+    ></div>
+
+    <!-- JavaScript -->
+    <script src="../assets/js/components.js"></script>
+    <script src="../assets/js/main.js"></script>
+  </body>
+</html>

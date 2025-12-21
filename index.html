@@ -1,93 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fuels Quality - Home Page</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FuelQuality - Home Page</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="FuelsQ is working to meet the growing global demand for quality fuels.">
-    <meta name="keywords" content="fuels, quality, alternative energy, hydrogen, biofuels, solar, wind">
-    <meta name="author" content="FuelsQ Policy, Government and Public Affairs">
-    <meta name="robots" content="index, follow">
+    <meta
+      name="description"
+      content="FuelQuality is working to meet the growing global demand for quality fuels."
+    />
+    <meta
+      name="keywords"
+      content="fuels, quality, alternative energy, hydrogen, biofuels, solar, wind"
+    />
+    <meta
+      name="author"
+      content="FuelQuality Policy, Government and Public Affairs"
+    />
+    <meta name="robots" content="index, follow" />
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="FuelsQ Corporation">
-    <meta property="og:description" content="FuelsQ is working to meet the growing global demand for quality fuels.">
-    <meta property="og:url" content="https://www.fuelsq.com">
-    <meta property="og:image" content="https://www.fuelsq.com/biofuels.png">
-    <meta property="og:site_name" content="fuelsq.com">
+    <meta property="og:title" content="FuelQuality Corporation" />
+    <meta
+      property="og:description"
+      content="FuelQuality is working to meet the growing global demand for quality fuels."
+    />
+    <meta property="og:url" content="https://www.fuelq.ru" />
+    <meta property="og:image" content="https://www.fuelq.ru/biofuels.png" />
+    <meta property="og:site_name" content="fuels.ru" />
 
     <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Fuels Quality">
-    <meta name="twitter:description" content="FuelsQ is working to meet the growing global demand for quality fuels.">
-    <meta name="twitter:image" content="https://www.fuelsq.com/biofuels.png">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FuelQuality" />
+    <meta
+      name="twitter:description"
+      content="FuelQuality is working to meet the growing global demand for quality fuels."
+    />
+    <meta name="twitter:image" content="https://www.fuelq.ru/biofuels.png" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="canonical" href="https://www.fuelsq.com">
+    <link rel="icon" type="image/png" href="src/assets/images/favicon.png" />
+    <link rel="canonical" href="https://www.fuelq.ru" />
 
     <!-- External CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="src/assets/css/styles.css" />
 
     <!-- Preload critical resources -->
-    <link rel="preload" href="biofuels.png" as="image">
-    <link rel="preload" href="hydrogen.png" as="image">
-    <link rel="preload" href="solar-wind.png" as="image">
-</head>
+    <link rel="preload" href="src/assets/images/biofuels.png" as="image" />
+    <link rel="preload" href="src/assets/images/hydrogen.png" as="image" />
+    <link rel="preload" href="src/assets/images/solar-wind.png" as="image" />
+  </head>
 
-<body>
-    <header>
-        <nav class="topnav">
-            <a class="active" href="#home">Home</a>
-            <a href="forengineers.html">For Engineers</a>
-            <a href="forum/index.html">Forum</a>
-            <a href="contacts.html">Contacts</a>
-        </nav>
-    </header>
+  <body>
+    <!-- Header Component -->
+    <div
+      id="header-placeholder"
+      data-component="src/components/header/header.html"
+    ></div>
 
     <main>
-        <section class="hero">
-            <div class="image-container">
-                <img src="biofuels.png" alt="Biofuels - Alternative Energy Source">
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Pioneering the Future of Clean Energy</h1>
+          <p class="hero-subtitle">
+            Innovating Sustainable Solutions for Global Energy Challenges
+          </p>
+          <p class="hero-description">
+            Welcome to FuelQuality, a global leader in clean energy innovation.
+            We are at the forefront of developing and implementing cutting-edge
+            alternative fuel technologies that address the world's growing
+            energy needs while protecting our planet. Our comprehensive approach
+            combines scientific research, practical engineering solutions, and
+            strategic partnerships to create a sustainable energy future for
+            generations to come.
+          </p>
+          <div class="hero-buttons">
+            <a href="src/pages/forengineers.html" class="btn btn-primary"
+              >Technical Resources</a
+            >
+            <a href="src/pages/forum/index.html" class="btn btn-secondary"
+              >Join Discussion</a
+            >
+          </div>
+        </div>
+        <div class="hero-image">
+          <img
+            src="src/assets/images/biofuels.png"
+            alt="Alternative Energy Sources"
+          />
+        </div>
+      </section>
+
+      <section class="energy-intro">
+        <div class="container">
+          <h2>The Global Energy Transition</h2>
+          <p>
+            We are witnessing one of the most significant shifts in human
+            history: the transition from fossil fuels to sustainable energy
+            sources. This transformation goes beyond simply replacing one energy
+            source with another — it represents a fundamental reimagining of how
+            we produce, distribute, and consume energy worldwide. At FuelQuality, we understand that this transition must balance
+            environmental imperatives with economic realities and energy
+            security needs.
+          </p>
+          <p>
+            Our research focuses on developing alternative fuels that not only
+            reduce environmental impact but also meet or exceed the rigorous
+            quality standards established by international organizations. By
+            maintaining compliance with ISO, EN, ASTM, IP, and DIN standards, we
+            ensure that our sustainable fuel solutions deliver the reliability,
+            safety, and performance that industries and consumers depend on,
+            regardless of the energy source.
+          </p>
+        </div>
+      </section>
+
+      <section class="energy-sources">
+        <div class="container">
+          <h2>Cutting-Edge Energy Solutions</h2>
+          <div class="energy-grid">
+            <div class="energy-card">
+              <div class="card-image">
+                <img src="src/assets/images/hydrogen.png" alt="Hydrogen Fuel" />
+              </div>
+              <div class="card-content">
+                <h3>Hydrogen Energy Systems</h3>
+                <p>
+                  Our hydrogen research focuses on production methods using
+                  renewable electricity, efficient storage technologies, and
+                  fuel cell applications. Hydrogen offers zero-emission
+                  potential for transportation, industrial processes, and power
+                  generation, with an energy density by weight that surpasses
+                  conventional fuels.
+                </p>
+                <a href="src/pages/forengineers.html#hydrogen" class="card-link"
+                  >Explore Technology <i class="fas fa-arrow-right"></i
+                ></a>
+              </div>
             </div>
 
-            <div class="content">
-                <h1>Fuels Quality - Meeting Global Energy Demands</h1>
-
+            <div class="energy-card">
+              <div class="card-image">
+                <img src="src/assets/images/biofuels.png" alt="Biofuels" />
+              </div>
+              <div class="card-content">
+                <h3>Advanced Biofuels</h3>
                 <p>
-                    Dear Friends! We are currently on the path of a global transformation of the energy sector of the world economy to alternative, environmentally friendly fuels and energy.
+                  We develop next-generation biofuels from non-food biomass,
+                  algae, and waste streams. Our advanced biofuels offer
+                  significant carbon reduction compared to fossil fuels while
+                  maintaining compatibility with existing engine technologies
+                  and fuel infrastructure.
                 </p>
-
-                <p>
-                    Currently, typical fuels are petroleum fuels used in land, sea and air vehicles: diesel and motor gasoline, marine fuels, aviation gasoline and kerosene.
-                    The quality of these fuels is the compliance of fuels with the established requirements of regulatory documents for these fuels.
-                    Such regulatory documents include international and national standards: ISO, EN, ASTM, IP, DIN, etc.
-                </p>
-
-                <p>
-                    Promising options may include:
-                </p>
+                <a href="src/pages/forengineers.html#biofuels" class="card-link"
+                  >Explore Technology <i class="fas fa-arrow-right"></i
+                ></a>
+              </div>
             </div>
-        </section>
 
-        <section class="energy-options">
-            <h2>Alternative Energy Sources</h2>
-            <div class="slideshow-container">
-                <img class="mySlides" src="hydrogen.png" alt="Hydrogen Fuel">
-                <img class="mySlides" src="biofuels.png" alt="Biofuels">
-                <img class="mySlides" src="solar-wind.png" alt="Solar and Wind Energy">
+            <div class="energy-card">
+              <div class="card-image">
+                <img
+                  src="src/assets/images/solar-wind.png"
+                  alt="Solar and Wind Energy"
+                />
+              </div>
+              <div class="card-content">
+                <h3>Integrated Renewable Systems</h3>
+                <p>
+                  Our integrated approach combines solar, wind, and energy
+                  storage technologies to create reliable, grid-scale renewable
+                  power systems. These solutions address intermittency
+                  challenges while maximizing clean energy utilization and
+                  system efficiency.
+                </p>
+                <a
+                  href="src/pages/forengineers.html#solar-wind"
+                  class="card-link"
+                  >Explore Technology <i class="fas fa-arrow-right"></i
+                ></a>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="community-section">
+        <div class="container">
+          <div class="community-content">
+            <h2>Join Our Global Energy Community</h2>
+            <p>
+              Connect with engineers, researchers, policymakers, and energy
+              enthusiasts from around the world in our collaborative forum.
+              Share cutting-edge research, discuss implementation challenges,
+              explore innovative solutions, and help shape the future of
+              sustainable energy. Together, we're building the knowledge network
+              that will accelerate the global energy transition.
+            </p>
+            <a href="src/pages/forum/index.html" class="btn btn-primary"
+              >Join the Discussion</a
+            >
+          </div>
+          <div class="community-stats">
+            <div class="stat-item">
+              <span class="stat-number">2,500+</span>
+              <span class="stat-label">Active Members</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">5,000+</span>
+              <span class="stat-label">Discussion Topics</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">200+</span>
+              <span class="stat-label">Expert Contributors</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer>
-        <p>Created by FQ. © 2026</p>
-    </footer>
+    <!-- Footer Component -->
+    <div
+      id="footer-placeholder"
+      data-component="src/components/footer/footer.html"
+    ></div>
 
     <!-- JavaScript -->
-    <script src="js/main.js"></script>
-</body>
+    <script src="src/assets/js/components.js"></script>
+    <script type="module" src="src/assets/js/main.js"></script>
+  </body>
 </html>
