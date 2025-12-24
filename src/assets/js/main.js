@@ -8,6 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize smooth scrolling for anchor links
     initSmoothScrolling();
+
+    // Initialize forum component if present
+    if (typeof initForum === 'function') {
+        initForum();
+    }
+
+    // Initialize header component if present
+    if (typeof initHeader === 'function') {
+        initHeader();
+    }
 });
 
 // Slideshow functionality

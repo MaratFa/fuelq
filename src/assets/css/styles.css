@@ -1,3 +1,8 @@
+/* Component CSS Imports */
+@import url('../../components/header/header.css');
+@import url('../../components/footer/footer.css');
+@import url('../../components/forum/forum.css');
+
 /* Global Styles */
 :root {
     /* Modern color palette */
