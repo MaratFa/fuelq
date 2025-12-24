@@ -36,8 +36,31 @@ header {
   background-color: #e6f2ff;
 }
 
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+}
+
 @media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
   .topnav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .topnav {
+    display: none;
+  }
+
+  .topnav.responsive {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
