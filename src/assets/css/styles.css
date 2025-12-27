@@ -897,6 +897,25 @@ button:hover {
 
 .energy-card:hover::after {
     transform: scaleX(1);
+  }
+
+  /* Responsive layout for energy grid */
+  @media (min-width: 1200px) {
+    .energy-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .energy-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .energy-grid {
+      grid-template-columns: 1fr;
+    }
 }
 
 .card-image {
