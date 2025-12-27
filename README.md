@@ -99,10 +99,6 @@ The project uses a component-based architecture with reusable components:
 4. Push to the branch: `git push origin feature-name`
 5. Submit a pull request
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## Contact
 
 FuelQuality Team
