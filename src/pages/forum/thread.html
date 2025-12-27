@@ -179,7 +179,100 @@
     <!-- JavaScript -->
     <script src="../../assets/js/components.js"></script>
     <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/data/forum-data.js"></script>
     <script src="../../components/forum/forum.js"></script>
     <script src="../../components/header/header.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get thread ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const threadId = urlParams.get("id");
+        
+        if (!threadId) {
+          // If no thread ID, redirect to forum
+          window.location.href = "index.html";
+          return;
+        }
+
+        // Find the thread
+        const thread = threads.find(t => t.id == threadId);
+        
+        if (!thread) {
+          // If thread not found, show error
+          document.getElementById("thread-content").innerHTML = 
+            `<div class="error-message">Thread not found. <a href="index.html">Return to forum</a></div>`;
+          return;
+        }
+
+        // Increment view count
+        thread.views = (thread.views || 0) + 1;
+        
+        // Save updated thread data
+        if (typeof localStorage !== "undefined") {
+          localStorage.setItem("threads", JSON.stringify(threads));
+        }
+
+        // Render thread
+        renderThread(thread);
+
+        // Function to render thread
+        function renderThread(thread) {
+          const threadContent = document.getElementById("thread-content");
+          
+          threadContent.innerHTML = `
+            <div class="thread-post">
+              <div class="post-header">
+                <div class="post-author">
+                  <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                  <div class="author-info">
+                    <h3 class="author-name">${thread.author}</h3>
+                    <span class="post-date">Posted on ${formatDate(thread.date)}</span>
+                  </div>
+                </div>
+                <div class="post-actions">
+                  <span class="thread-category">${thread.category || "general"}</span>
+                  <span class="thread-views">${thread.views || 0} views</span>
+                </div>
+              </div>
+              <div class="post-content">
+                <h2>${thread.title}</h2>
+                <p>${thread.content}</p>
+              </div>
+            </div>
+
+            <div class="replies-section">
+              <h3>${thread.comments.length} ${thread.comments.length === 1 ? "Reply" : "Replies"}</h3>
+              
+              <div class="replies-container">
+                ${thread.comments.map(comment => `
+                  <div class="reply">
+                    <div class="reply-header">
+                      <div class="reply-author">
+                        <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                        <div class="author-info">
+                          <h4 class="author-name">${comment.author}</h4>
+                          <span class="reply-date">${formatDate(comment.date)}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="reply-content">
+                      <p>${comment.content}</p>
+                    </div>
+                  </div>
+                `).join("")}
+                
+                ${thread.comments.length === 0 ? "<p class="no-replies">No replies yet. Be the first to reply!</p>" : ""}
+              </div>
+            </div>
+          `;
+        }
+
+        // Utility function to format dates
+        function formatDate(timestamp) {
+          const date = new Date(timestamp);
+          return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+        }
+      });
+    </script>
   </body>
 </html>

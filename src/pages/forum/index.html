@@ -197,11 +197,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         // DOM elements
         const threadList = document.getElementById("thread-list");
-        const newThreadBtn = document.getElementById("new-thread-btn");
-        const newThreadModal = document.getElementById("new-thread-modal");
-        const closeModal = document.querySelector(".close");
-        const cancelThread = document.getElementById("cancel-thread");
-        const createThread = document.getElementById("create-thread");
+        const threadGrid = document.getElementById("thread-grid");
         const searchInput = document.getElementById("search-input");
         const searchBtn = document.getElementById("search-btn");
         const prevPage = document.getElementById("prev-page");
@@ -219,10 +215,6 @@
         renderThreads();
 
         // Event listeners
-        newThreadBtn.addEventListener("click", openNewThreadModal);
-        closeModal.addEventListener("click", closeNewThreadModal);
-        cancelThread.addEventListener("click", closeNewThreadModal);
-        createThread.addEventListener("click", handleCreateThread);
         searchBtn.addEventListener("click", handleSearch);
         searchInput.addEventListener("keyup", function (e) {
           if (e.key === "Enter") handleSearch();
@@ -241,18 +233,8 @@
           .getElementById("category-filter")
           .addEventListener("change", handleCategoryFilter);
 
-        // Close modal when clicking outside
-        window.addEventListener("click", function (e) {
-          if (e.target === newThreadModal) {
-            closeNewThreadModal();
-          }
-        });
-
         // Functions
         function renderThreads() {
-          const threadList = document.getElementById("thread-list");
-          const threadGrid = document.getElementById("thread-grid");
-
           // Clear current content
           threadList.innerHTML = "";
           threadGrid.innerHTML = "";
@@ -268,16 +250,56 @@
           nextPage.disabled = currentPage === totalPages || totalPages === 0;
           pageInfo.textContent = `Page ${currentPage} of ${totalPages || 1}`;
 
-          // Render threads
-          threadsToShow.forEach((thread) => {
-            if (currentView === "grid") {
-              const threadElement = createThreadCard(thread);
-              threadGrid.appendChild(threadElement);
-            } else {
-              const threadElement = createThreadElement(thread);
-              threadList.appendChild(threadElement);
-            }
-          });
+          // Render threads based on current view
+          if (currentView === "grid") {
+            threadGrid.style.display = "grid";
+            threadList.style.display = "none";
+
+            threadsToShow.forEach((thread) => {
+              const threadCard = document.createElement("div");
+              threadCard.className = "thread-card";
+              threadCard.innerHTML = `
+                <div class="thread-header">
+                  <h3 class="thread-title">
+                    <a href="thread.html?id=${thread.id}">${thread.title}</a>
+                  </h3>
+                  <span class="thread-category">${thread.category || "general"}</span>
+                </div>
+                <div class="thread-meta">
+                  <span class="thread-author">by ${thread.author}</span>
+                  <span class="thread-date">${formatDate(thread.date)}</span>
+                </div>
+                <div class="thread-stats">
+                  <span class="thread-comments">${thread.comments.length} comments</span>
+                  <span class="thread-views">${thread.views || 0} views</span>
+                </div>
+              `;
+              threadGrid.appendChild(threadCard);
+            });
+          } else {
+            threadGrid.style.display = "none";
+            threadList.style.display = "block";
+
+            threadsToShow.forEach((thread) => {
+              const threadItem = document.createElement("li");
+              threadItem.className = "thread-item";
+              threadItem.innerHTML = `
+                <div class="thread-item-header">
+                  <h3 class="thread-title">
+                    <a href="thread.html?id=${thread.id}">${thread.title}</a>
+                  </h3>
+                  <span class="thread-category">${thread.category || "general"}</span>
+                </div>
+                <div class="thread-meta">
+                  <span class="thread-author">by ${thread.author}</span>
+                  <span class="thread-date">${formatDate(thread.date)}</span>
+                  <span class="thread-comments">${thread.comments.length} comments</span>
+                  <span class="thread-views">${thread.views || 0} views</span>
+                </div>
+              `;
+              threadList.appendChild(threadItem);
+            });
+          }
 
           // Show message if no threads
           if (threadsToShow.length === 0) {
@@ -288,121 +310,23 @@
           }
         }
 
-        function createThreadCard(thread) {
-          const div = document.createElement("div");
-          div.className = "thread-card";
-
-          const date = new Date(thread.date).toLocaleDateString();
-          const category = thread.category || "general";
-
-          div.innerHTML = `
-            <a href="thread.html?${thread.id}" class="thread-card-link">
-              <div class="thread-card-header">
-                <h3 class="thread-card-title">${thread.title}</h3>
-              </div>
-              <div class="thread-card-body">
-                <p class="thread-card-excerpt">${thread.content.substring(
-                  0,
-                  150
-                )}...</p>
-                <div class="thread-card-meta">
-                  <span class="thread-card-category">${category}</span>
-                  <span>${thread.comments.length} comments</span>
-                  <span>${date}</span>
-                </div>
-              </div>
-            </a>
-          `;
-
-          return div;
-        }
-
-        function createThreadElement(thread) {
-          const li = document.createElement("li");
-          li.className = "thread-item";
-
-          const date = new Date(thread.date).toLocaleDateString();
-
-          li.innerHTML = `
-                    <a href="thread.html?${thread.id}">
-                        <h4 class="thread-title">${thread.title}</h4>
-                        <div class="thread-meta">
-                            <span class="thread-author">by ${thread.author}</span>
-                            <span class="thread-date">${date}</span>
-                            <span class="thread-comments">${thread.comments.length} comments</span>
-                        </div>
-                    </a>
-                `;
-
-          return li;
-        }
-
-        function openNewThreadModal() {
-          newThreadModal.style.display = "block";
-          document.getElementById("thread-title").focus();
-        }
-
-        function closeNewThreadModal() {
-          newThreadModal.style.display = "none";
-          // Clear form
-          document.getElementById("thread-title").value = "";
-          document.getElementById("thread-content").value = "";
-          document.getElementById("thread-author").value = "";
-        }
-
-        function handleCreateThread() {
-          const title = document.getElementById("thread-title").value.trim();
-          const content = document
-            .getElementById("thread-content")
-            .value.trim();
-          const author =
-            document.getElementById("thread-author").value.trim() ||
-            "Anonymous";
-
-          if (!title || !content) {
-            alert("Please fill in both title and content fields.");
-            return;
-          }
-
-          // Create new thread
-          const newThread = {
-            id: Date.now().toString(),
-            title,
-            author,
-            date: Date.now(),
-            content,
-            comments: [],
-          };
-
-          // Add to threads array
-          threads.unshift(newThread);
-
-          // Save to localStorage
-          localStorage.setItem("threads", JSON.stringify(threads));
-
-          // Update filtered threads and go to first page
-          filteredThreads = [...threads];
-          currentPage = 1;
-
-          // Re-render threads
-          renderThreads();
-
-          // Close modal
-          closeNewThreadModal();
-        }
-
         function handleSearch() {
-          const query = searchInput.value.trim().toLowerCase();
+          const searchTerm = searchInput.value.toLowerCase().trim();
 
-          if (!query) {
-            filteredThreads = [...threads];
+          if (searchTerm === "") {
+            filteredThreads = currentCategory === "all" 
+              ? [...threads] 
+              : threads.filter(thread => thread.category === currentCategory);
           } else {
-            filteredThreads = threads.filter(
-              (thread) =>
-                thread.title.toLowerCase().includes(query) ||
-                thread.content.toLowerCase().includes(query) ||
-                thread.author.toLowerCase().includes(query)
-            );
+            filteredThreads = threads.filter(thread => {
+              const matchesSearch = thread.title.toLowerCase().includes(searchTerm) ||
+                thread.content.toLowerCase().includes(searchTerm) ||
+                thread.author.toLowerCase().includes(searchTerm);
+              
+              const matchesCategory = currentCategory === "all" || thread.category === currentCategory;
+              
+              return matchesSearch && matchesCategory;
+            });
           }
 
           currentPage = 1;
@@ -446,15 +370,19 @@
             filteredThreads = [...threads];
           } else {
             filteredThreads = threads.filter(
-              (thread) =>
-                thread.category &&
-                thread.category.toLowerCase() === currentCategory.toLowerCase()
+              thread => thread.category === currentCategory
             );
           }
 
           // Reset to first page
           currentPage = 1;
           renderThreads();
+        }
+
+        // Utility function to format dates
+        function formatDate(timestamp) {
+          const date = new Date(timestamp);
+          return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
         }
       });
     </script>
