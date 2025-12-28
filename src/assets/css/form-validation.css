@@ -1,0 +1,334 @@
+/* Form validation styles */
+
+/* Form field error state */
+input.error, 
+textarea.error, 
+select.error {
+  border-color: #e53935;
+  box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2);
+}
+
+/* Error message */
+.error-message {
+  color: #e53935;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.error-message::before {
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background-color: #e53935;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-right: 0.3rem;
+}
+
+/* Form field success state */
+input.success, 
+textarea.success, 
+select.success {
+  border-color: #43a047;
+  box-shadow: 0 0 0 2px rgba(67, 160, 71, 0.2);
+}
+
+/* Success message */
+.success-message {
+  color: #43a047;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.success-message::before {
+  content: "✓";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background-color: #43a047;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-right: 0.3rem;
+}
+
+/* Form field warning state */
+input.warning, 
+textarea.warning, 
+select.warning {
+  border-color: #fb8c00;
+  box-shadow: 0 0 0 2px rgba(251, 140, 0, 0.2);
+}
+
+/* Warning message */
+.warning-message {
+  color: #fb8c00;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.warning-message::before {
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background-color: #fb8c00;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-right: 0.3rem;
+}
+
+/* Form field info state */
+input.info, 
+textarea.info, 
+select.info {
+  border-color: #1e88e5;
+  box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.2);
+}
+
+/* Info message */
+.info-message {
+  color: #1e88e5;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.info-message::before {
+  content: "i";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  background-color: #1e88e5;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-right: 0.3rem;
+  font-style: italic;
+}
+
+/* Character count styling */
+.char-count {
+  font-size: 0.8rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin-top: 0.3rem;
+  text-align: right;
+}
+
+.char-count.warning {
+  color: #fb8c00;
+}
+
+.char-count.error {
+  color: #e53935;
+}
+
+/* Form field focus styles */
+input:focus, 
+textarea:focus, 
+select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 150, 136, 0.2);
+}
+
+/* Form field disabled styles */
+input:disabled, 
+textarea:disabled, 
+select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Form field required indicator */
+.required-indicator {
+  color: #e53935;
+  margin-left: 0.2rem;
+}
+
+/* Form validation summary */
+.validation-summary {
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: var(--border-radius);
+  padding: var(--spacing-medium);
+  margin-bottom: var(--spacing-large);
+}
+
+.validation-summary h3 {
+  color: #e53935;
+  margin-top: 0;
+  margin-bottom: var(--spacing-small);
+}
+
+.validation-summary ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.validation-summary li {
+  margin-bottom: 0.3rem;
+}
+
+/* Form field with icon */
+.form-field-with-icon {
+  position: relative;
+}
+
+.form-field-with-icon i {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.form-field-with-icon.error i {
+  color: #e53935;
+}
+
+.form-field-with-icon.success i {
+  color: #43a047;
+}
+
+.form-field-with-icon.warning i {
+  color: #fb8c00;
+}
+
+.form-field-with-icon.info i {
+  color: #1e88e5;
+}
+
+/* Form field with icon input padding */
+.form-field-with-icon input,
+.form-field-with-icon textarea {
+  padding-right: 36px;
+}
+
+/* Form field with icon button */
+.form-field-with-icon button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  border: none;
+  background: none;
+  padding: 0 12px;
+  cursor: pointer;
+  color: var(--text-color);
+  opacity: 0.7;
+}
+
+.form-field-with-icon button:hover {
+  opacity: 1;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + textarea {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + select {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="date"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="time"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="datetime-local"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="month"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="week"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="color"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="range"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="search"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="tel"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="url"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="email"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="password"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="number"] {
+  padding-right: 36px;
+}
+
+/* Form field with icon button input padding */
+.form-field-with-icon button + input[type="text"] {
+  padding-right: 36px;
+}
