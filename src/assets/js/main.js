@@ -1,115 +1,167 @@
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize slideshow
-    initSlideshow();
+// Main JavaScript file for FuelQ website
 
-    // Initialize mobile menu
-    initMobileMenu();
+// Initialize the website when DOM is loaded
+document.addEventListener("DOMContentLoaded", function() {
+  // Initialize all components
+  initializeComponents();
 
-    // Initialize smooth scrolling for anchor links
-    initSmoothScrolling();
+  // Initialize animations
+  initializeAnimations();
 
-    // Initialize forum component if present
-    if (typeof initForum === 'function') {
-        initForum();
-    }
-
-    // Initialize header component if present
-    if (typeof initHeader === 'function') {
-        initHeader();
-    }
+  // Initialize any page-specific functionality
+  initializePageSpecific();
 });
 
-// Slideshow functionality
-function initSlideshow() {
-    const slides = document.getElementsByClassName("mySlides");
-    if (slides.length === 0) return;
+// Function to initialize components
+function initializeComponents() {
+  // Load all components marked with data-component attribute
+  const componentPlaceholders = document.querySelectorAll('[data-component]');
 
-    let slideIndex = 0;
-
-    function showSlides() {
-        // Hide all slides
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-
-        // Increment index and reset if needed
-        slideIndex++;
-        if (slideIndex > slides.length) {
-            slideIndex = 1;
-        }
-
-        // Show current slide
-        slides[slideIndex - 1].style.display = "block";
-
-        // Change slide every 3 seconds
-        setTimeout(showSlides, 3000);
-    }
-
-    // Start the slideshow
-    showSlides();
+  componentPlaceholders.forEach(placeholder => {
+    const componentPath = placeholder.getAttribute('data-component');
+    loadComponent(componentPath, placeholder);
+  });
 }
 
-// Mobile menu functionality
-function initMobileMenu() {
-    const openBtn = document.getElementById('open-menu');
-    const closeBtn = document.getElementById('close-menu');
-    const sidenav = document.getElementById('mySidenav');
+// Function to load a component
+function loadComponent(path, placeholder) {
+  fetch(path)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Failed to load component: ${path}`);
+      }
+      return response.text();
+    })
+    .then(html => {
+      placeholder.innerHTML = html;
 
-    if (!openBtn || !closeBtn || !sidenav) return;
-
-    // Open side navigation
-    openBtn.addEventListener('click', function() {
-        sidenav.style.width = "250px";
-        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+      // Dispatch an event to notify that the component has been loaded
+      const event = new CustomEvent('componentLoaded', {
+        detail: { path, placeholder }
+      });
+      document.dispatchEvent(event);
+    })
+    .catch(error => {
+      console.error('Error loading component:', error);
+      placeholder.innerHTML = `<div class="component-error">Failed to load component: ${path}</div>`;
     });
+}
 
-    // Close side navigation
+// Function to initialize animations
+function initializeAnimations() {
+  // Add scroll animations to elements with animate-on-scroll class
+  const animatedElements = document.querySelectorAll('.animate-on-scroll');
+
+  // Create an Intersection Observer to detect when elements come into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animated');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  // Observe each animated element
+  animatedElements.forEach(element => {
+    observer.observe(element);
+  });
+}
+
+// Function to initialize page-specific functionality
+function initializePageSpecific() {
+  // Get current page path
+  const path = window.location.pathname;
+
+  // Initialize page-specific scripts based on the current path
+  if (path.includes('index.html') || path === '/' || path.endsWith('/')) {
+    initializeHomePage();
+  } else if (path.includes('forengineers.html')) {
+    initializeEngineersPage();
+  } else if (path.includes('forum')) {
+    initializeForumPage();
+  } else if (path.includes('contacts.html')) {
+    initializeContactsPage();
+  }
+}
+
+// Home page specific initialization
+function initializeHomePage() {
+  // Add any home page specific functionality here
+  console.log('Home page initialized');
+}
+
+// Engineers page specific initialization
+function initializeEngineersPage() {
+  // Side navigation
+  const openMenu = document.getElementById('open-menu');
+  const closeBtn = document.getElementById('close-btn');
+  const sideNav = document.getElementById('mySidenav');
+
+  if (openMenu && sideNav) {
+    openMenu.addEventListener('click', function() {
+      sideNav.style.width = '250px';
+    });
+  }
+
+  if (closeBtn && sideNav) {
     closeBtn.addEventListener('click', function() {
-        sidenav.style.width = "0";
-        document.body.style.backgroundColor = "white";
+      sideNav.style.width = '0';
     });
+  }
 
-    // Close side navigation when clicking outside of it
-    window.addEventListener('click', function(event) {
-        if (event.target !== sidenav && !sidenav.contains(event.target) && event.target !== openBtn) {
-            sidenav.style.width = "0";
-            document.body.style.backgroundColor = "white";
-        }
+  // Close side navigation when clicking outside
+  document.addEventListener('click', function(event) {
+    if (sideNav && event.target !== sideNav && !sideNav.contains(event.target) && 
+        event.target !== openMenu && !openMenu.contains(event.target)) {
+      sideNav.style.width = '0';
+    }
+  });
+
+  console.log('Engineers page initialized');
+}
+
+// Forum page specific initialization
+function initializeForumPage() {
+  // Forum functionality is handled by forum.js
+  console.log('Forum page initialized');
+}
+
+// Contacts page specific initialization
+function initializeContactsPage() {
+  // Contact form functionality
+  const contactForm = document.getElementById('contact-form');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Get form values
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+
+      // Simple validation
+      if (!name || !email || !subject || !message) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      // Show success message
+      const formContainer = document.querySelector('.form-container');
+      if (formContainer) {
+        formContainer.innerHTML = `
+          <div class="form-success">
+            <i class="fas fa-check-circle"></i>
+            <h3>Thank you for your message!</h3>
+            <p>We've received your inquiry and will respond as soon as possible.</p>
+            <button class="btn-primary" onclick="location.reload()">Send Another Message</button>
+          </div>
+        `;
+      }
     });
+  }
+
+  console.log('Contacts page initialized');
 }
-
-// Smooth scrolling for anchor links
-function initSmoothScrolling() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-}
-
-// Utility function to format dates
-function formatDate(timestamp) {
-    const date = new Date(timestamp);
-    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-}
-
-// Analytics placeholder
-function logPageView(pageName) {
-    console.log(`Page view: ${pageName}`);
-    // In a real implementation, this would send data to analytics service
-}
-
-// Initialize analytics for each page
-logPageView(window.location.pathname);

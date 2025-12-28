@@ -1,295 +1,314 @@
-// Forum component JavaScript
+// Forum functionality
 
-// Function to initialize forum component
-function initForum() {
-  // Check if we are on the forum index page
-  if (window.location.pathname.includes('forum/index.html')) {
-    initForumIndex();
-  }
-  
-  // Check if we are on a thread detail page
-  if (window.location.pathname.includes('forum/thread.html')) {
-    initThreadDetail();
-  }
-}
-
-// Initialize forum index page
-function initForumIndex() {
-  // Get all thread cards
-  const threadCards = document.querySelectorAll('.thread-card');
-
-  // Add click event to thread cards
-  threadCards.forEach(card => {
-    card.addEventListener('click', (event) => {
-      // Check if clicked on a link
-      if (!event.target.closest('a')) {
-        // Find the thread title link
-        const threadLink = card.querySelector('.thread-title');
-        if (threadLink) {
-          // Navigate to thread
-          window.location.href = threadLink.getAttribute('href');
-        }
-      }
-    });
-  });
-
-  // Handle pagination
-  const paginationButtons = document.querySelectorAll('.pagination-button');
-
-  paginationButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Remove active class from all buttons
-      paginationButtons.forEach(btn => btn.classList.remove('active'));
-
-      // Add active class to clicked button
-      button.classList.add('active');
-
-      // In a real application, this would load the appropriate page
-      const pageNumber = button.textContent;
-      console.log(`Loading page ${pageNumber}`);
-
-      // For demo purposes, just scroll to top
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  });
-
-  // Handle thread creation modal
-  const newThreadBtn = document.getElementById('new-thread-btn');
-  const newThreadModal = document.getElementById('new-thread-modal');
-  const closeModal = document.querySelector('.close');
-  const cancelThread = document.getElementById('cancel-thread');
-  const createThread = document.getElementById('create-thread');
-  
-  if (newThreadBtn && newThreadModal) {
-    newThreadBtn.addEventListener('click', () => {
-      newThreadModal.style.display = 'block';
-    });
-    
-    if (closeModal) {
-      closeModal.addEventListener('click', () => {
-        newThreadModal.style.display = 'none';
-      });
-    }
-    
-    if (cancelThread) {
-      cancelThread.addEventListener('click', () => {
-        newThreadModal.style.display = 'none';
-      });
-    }
-    
-    if (createThread) {
-      createThread.addEventListener('click', () => {
-        // Get form data
-        const title = document.getElementById('thread-title').value;
-        const content = document.getElementById('thread-content').value;
-        const author = document.getElementById('thread-author').value;
-        const category = document.getElementById('thread-category') ? 
-          document.getElementById('thread-category').value : 'general';
-        
-        if (title && content && author) {
-          // Create new thread object
-          const newThread = {
-            id: threads.length > 0 ? Math.max(...threads.map(t => t.id)) + 1 : 1,
-            title,
-            author,
-            content,
-            category,
-            date: Date.now(),
-            views: 0,
-            comments: []
-          };
-          
-          // Add to threads array
-          threads.unshift(newThread);
-          
-          // Save to localStorage
-          if (typeof localStorage !== "undefined") {
-            localStorage.setItem("threads", JSON.stringify(threads));
-          }
-          
-          // Close modal
-          newThreadModal.style.display = 'none';
-          
-          // Reset form
-          document.getElementById('thread-title').value = '';
-          document.getElementById('thread-content').value = '';
-          document.getElementById('thread-author').value = '';
-          
-          // Refresh thread display
-          if (typeof renderThreads === 'function') {
-            renderThreads();
-          }
-          
-          // Show success message
-          const successMessage = document.createElement('div');
-          successMessage.className = 'alert alert-success';
-          successMessage.textContent = 'Thread created successfully!';
-          successMessage.style.position = 'fixed';
-          successMessage.style.top = '20px';
-          successMessage.style.right = '20px';
-          successMessage.style.zIndex = '1000';
-          successMessage.style.padding = '15px';
-          successMessage.style.backgroundColor = '#4CAF50';
-          successMessage.style.color = 'white';
-          successMessage.style.borderRadius = '5px';
-          successMessage.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-          
-          document.body.appendChild(successMessage);
-          
-          // Remove success message after 3 seconds
-          setTimeout(() => {
-            successMessage.remove();
-          }, 3000);
-        } else {
-          // Show error message
-          const errorMessage = document.createElement('div');
-          errorMessage.className = 'alert alert-error';
-          errorMessage.textContent = 'Please fill in all fields';
-          errorMessage.style.position = 'fixed';
-          errorMessage.style.top = '20px';
-          errorMessage.style.right = '20px';
-          errorMessage.style.zIndex = '1000';
-          errorMessage.style.padding = '15px';
-          errorMessage.style.backgroundColor = '#f44336';
-          errorMessage.style.color = 'white';
-          errorMessage.style.borderRadius = '5px';
-          errorMessage.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-          
-          document.body.appendChild(errorMessage);
-          
-          // Remove error message after 3 seconds
-          setTimeout(() => {
-            errorMessage.remove();
-          }, 3000);
-        }
-      });
-    }
-    
-    // Close modal when clicking outside
-    window.addEventListener('click', (event) => {
-      if (event.target === newThreadModal) {
-        newThreadModal.style.display = 'none';
-      }
-    });
-  }
-}
-
-// Initialize thread detail page
-function initThreadDetail() {
-  // Handle thread reply form
-  const replyForm = document.getElementById('reply-form');
-
-  if (replyForm) {
-    replyForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      // Get form data
-      const content = document.getElementById('reply-content').value;
-      const author = document.getElementById('reply-author').value;
-
-      if (content && author) {
-        // Create new reply object
-        const newReply = {
-          author,
-          content,
-          date: Date.now()
-        };
-
-        // Get thread ID from URL or from the page
-        const threadId = new URLSearchParams(window.location.search).get('id');
-        
-        // Find the thread
-        const thread = threads.find(t => t.id == threadId);
-        
-        if (thread) {
-          // Add reply to thread
-          thread.comments.push(newReply);
-          
-          // Save to localStorage
-          if (typeof localStorage !== "undefined") {
-            localStorage.setItem("threads", JSON.stringify(threads));
-          }
-          
-          // Create new reply element
-          const repliesContainer = document.querySelector('.replies-container');
-
-          if (repliesContainer) {
-            const newReplyElement = document.createElement('div');
-            newReplyElement.className = 'reply';
-
-            newReplyElement.innerHTML = `
-              <div class="reply-header">
-                <div class="reply-author">${author}</div>
-                <div class="reply-date">${formatDate(newReply.date)}</div>
-              </div>
-              <div class="reply-content">${content}</div>
-            `;
-
-            // Add new reply to container
-            repliesContainer.appendChild(newReplyElement);
-
-            // Reset form
-            replyForm.reset();
-
-            // Scroll to new reply
-            newReplyElement.scrollIntoView({ behavior: 'smooth' });
-            
-            // Show success message
-            const successMessage = document.createElement('div');
-            successMessage.className = 'alert alert-success';
-            successMessage.textContent = 'Reply posted successfully!';
-            successMessage.style.position = 'fixed';
-            successMessage.style.top = '20px';
-            successMessage.style.right = '20px';
-            successMessage.style.zIndex = '1000';
-            successMessage.style.padding = '15px';
-            successMessage.style.backgroundColor = '#4CAF50';
-            successMessage.style.color = 'white';
-            successMessage.style.borderRadius = '5px';
-            successMessage.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-            
-            document.body.appendChild(successMessage);
-            
-            // Remove success message after 3 seconds
-            setTimeout(() => {
-              successMessage.remove();
-            }, 3000);
-          }
-        }
-      } else {
-        // Show error message
-        const errorMessage = document.createElement('div');
-        errorMessage.className = 'alert alert-error';
-        errorMessage.textContent = 'Please fill in all fields';
-        errorMessage.style.position = 'fixed';
-        errorMessage.style.top = '20px';
-        errorMessage.style.right = '20px';
-        errorMessage.style.zIndex = '1000';
-        errorMessage.style.padding = '15px';
-        errorMessage.style.backgroundColor = '#f44336';
-        errorMessage.style.color = 'white';
-        errorMessage.style.borderRadius = '5px';
-        errorMessage.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
-        
-        document.body.appendChild(errorMessage);
-        
-        // Remove error message after 3 seconds
-        setTimeout(() => {
-          errorMessage.remove();
-        }, 3000);
-      }
-    });
-  }
-}
-
-// Utility function to format dates
-function formatDate(timestamp) {
-  const date = new Date(timestamp);
-  return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-}
+// Global variables
+let currentPage = 1;
+const threadsPerPage = 10;
+let filteredThreads = [];
+let currentView = "grid";
 
 // Initialize forum when DOM is loaded
-document.addEventListener('DOMContentLoaded', initForum);
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize threads array
+  if (typeof threads !== "undefined") {
+    filteredThreads = [...threads];
+  }
+
+  // Initialize forum
+  initializeForum();
+
+  // Event listeners
+  const newThreadBtn = document.getElementById("new-thread-btn");
+  if (newThreadBtn) {
+    newThreadBtn.addEventListener("click", function () {
+      const modal = document.getElementById("new-thread-modal");
+      if (modal) {
+        modal.style.display = "block";
+      }
+    });
+  }
+
+  const closeBtn = document.querySelector(".close");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      const modal = document.getElementById("new-thread-modal");
+      if (modal) {
+        modal.style.display = "none";
+      }
+    });
+  }
+
+  const cancelThreadBtn = document.getElementById("cancel-thread");
+  if (cancelThreadBtn) {
+    cancelThreadBtn.addEventListener("click", function () {
+      const modal = document.getElementById("new-thread-modal");
+      if (modal) {
+        modal.style.display = "none";
+      }
+    });
+  }
+
+  const createThreadBtn = document.getElementById("new-thread-btn");
+  if (createThreadBtn) {
+    createThreadBtn.addEventListener("click", function () {
+      createNewThread();
+    });
+  }
+
+  // Initialize forum
+  function initializeForum() {
+    // Set up view toggles
+    const gridViewBtn = document.getElementById("grid-view");
+    if (gridViewBtn) {
+      gridViewBtn.addEventListener("click", function () {
+        setView("grid");
+      });
+    }
+
+    const listViewBtn = document.getElementById("list-view");
+    if (listViewBtn) {
+      listViewBtn.addEventListener("click", function () {
+        setView("list");
+      });
+    }
+
+    // Set up search
+    const searchBtn = document.getElementById("search-btn");
+  if (searchBtn) {
+    searchBtn.addEventListener("click", handleSearch);
+  }
+  const searchInput = document.getElementById("search-input");
+  if (searchInput) {
+    searchInput.addEventListener("keyup", function (e) {
+      if (e.key === "Enter") handleSearch();
+    });
+  }
+
+    // Set up category filter
+    const categoryFilter = document.getElementById("category-filter");
+    if (categoryFilter) {
+      categoryFilter.addEventListener("change", handleCategoryFilter);
+    }
+
+    // Set up pagination
+    const prevPageBtn = document.getElementById("prev-page");
+    if (prevPageBtn) {
+      prevPageBtn.addEventListener("click", function () {
+        changePage(-1);
+      });
+    }
+
+    const nextPageBtn = document.getElementById("next-page");
+    if (nextPageBtn) {
+      nextPageBtn.addEventListener("click", function () {
+        changePage(1);
+      });
+    }
+  }
+
+  // Create new thread
+  function createNewThread() {
+    const title = document.getElementById("thread-title").value;
+    const content = document.getElementById("thread-content").value;
+    const author = document.getElementById("thread-author").value;
+    const category = document.getElementById("thread-category").value;
+
+    if (!title || !content || !author) {
+      alert("Please fill in all required fields");
+      return;
+    }
+
+    // Create new thread object
+    const newThread = {
+      id: threads.length + 1,
+      title: title,
+      content: content,
+      author: author,
+      category: category,
+      date: Date.now(),
+      views: 0,
+      comments: [],
+    };
+
+    // Add to threads array
+    threads.unshift(newThread);
+
+    // Save to localStorage
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem("threads", JSON.stringify(threads));
+    }
+
+    // Close modal
+    document.getElementById("new-thread-modal").style.display = "none";
+
+    // Clear form
+    document.getElementById("thread-title").value = "";
+    document.getElementById("thread-content").value = "";
+    document.getElementById("thread-author").value = "";
+
+    // Refresh forum
+    renderThreads();
+  }
+
+  // Set view mode
+  function setView(mode) {
+    const gridView = document.getElementById("grid-view");
+    const listView = document.getElementById("list-view");
+    const threadGrid = document.getElementById("thread-grid");
+    const threadList = document.getElementById("thread-list");
+
+    if (mode === "grid") {
+      gridView.classList.add("active");
+      listView.classList.remove("active");
+      threadGrid.style.display = "grid";
+      threadList.style.display = "none";
+    } else {
+      gridView.classList.remove("active");
+      listView.classList.add("active");
+      threadGrid.style.display = "none";
+      threadList.style.display = "block";
+    }
+
+    // Render threads in the new view
+    renderThreads();
+  }
+
+  // Handle search
+  function handleSearch() {
+    const searchTerm = document
+      .getElementById("search-input")
+      .value.toLowerCase();
+
+    if (!searchTerm) {
+      filteredThreads = [...threads];
+    } else {
+      filteredThreads = threads.filter(
+        (thread) =>
+          thread.title.toLowerCase().includes(searchTerm) ||
+          thread.content.toLowerCase().includes(searchTerm) ||
+          thread.author.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    currentPage = 1;
+    renderThreads();
+  }
+
+  // Handle category filter
+  function handleCategoryFilter() {
+    const category = document.getElementById("category-filter").value;
+
+    if (category === "all") {
+      filteredThreads = [...threads];
+    } else {
+      filteredThreads = threads.filter(
+        (thread) => thread.category === category
+      );
+    }
+
+    currentPage = 1;
+    renderThreads();
+  }
+
+  // Change page
+  function changePage(direction) {
+    const totalPages = Math.ceil(filteredThreads.length / threadsPerPage);
+    currentPage += direction;
+
+    if (currentPage < 1) currentPage = 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    renderThreads();
+  }
+
+  // Render threads
+  function renderThreads() {
+    // Clear current content
+    const threadGrid = document.getElementById("thread-grid");
+    const threadList = document.getElementById("thread-list");
+
+    threadGrid.innerHTML = "";
+    threadList.innerHTML = "";
+
+    // Calculate pagination
+    const totalPages = Math.ceil(filteredThreads.length / threadsPerPage);
+    const startIndex = (currentPage - 1) * threadsPerPage;
+    const endIndex = startIndex + threadsPerPage;
+    const threadsToShow = filteredThreads.slice(startIndex, endIndex);
+
+    // Update pagination controls
+    document.getElementById("prev-page").disabled = currentPage === 1;
+    document.getElementById("next-page").disabled =
+      currentPage === totalPages || totalPages === 0;
+    document.getElementById(
+      "page-info"
+    ).textContent = `Page ${currentPage} of ${totalPages || 1}`;
+
+    // Render threads based on current view
+    if (currentView === "grid") {
+      threadGrid.style.display = "grid";
+      threadList.style.display = "none";
+
+      threadsToShow.forEach((thread) => {
+        const threadCard = document.createElement("div");
+        threadCard.className = "thread-card";
+        threadCard.innerHTML = `
+          <div class="thread-header">
+            <h3 class="thread-title">
+              <a href="thread.html?id=${thread.id}">${thread.title}</a>
+            </h3>
+            <span class="thread-category">${thread.category || "general"}</span>
+          </div>
+          <div class="thread-meta">
+            <span class="thread-author">by ${thread.author}</span>
+            <span class="thread-date">${formatDate(thread.date)}</span>
+          </div>
+          <div class="thread-stats">
+            <span class="thread-comments">${
+              thread.comments.length
+            } comments</span>
+            <span class="thread-views">${thread.views || 0} views</span>
+          </div>
+        `;
+        threadGrid.appendChild(threadCard);
+      });
+    } else {
+      threadGrid.style.display = "none";
+      threadList.style.display = "block";
+
+      threadsToShow.forEach((thread) => {
+        const threadItem = document.createElement("li");
+        threadItem.className = "thread-item";
+        threadItem.innerHTML = `
+          <div class="thread-item-header">
+            <h3 class="thread-title">
+              <a href="thread.html?id=${thread.id}">${thread.title}</a>
+            </h3>
+            <span class="thread-category">${thread.category || "general"}</span>
+          </div>
+          <div class="thread-item-meta">
+            <span class="thread-author">by ${thread.author}</span>
+            <span class="thread-date">${formatDate(thread.date)}</span>
+            <span class="thread-stats">
+              <span class="thread-comments">${
+                thread.comments.length
+              } comments</span>
+              <span class="thread-views">${thread.views || 0} views</span>
+            </span>
+          </div>
+          <div class="thread-item-content">
+            <p>${thread.content.substring(0, 200)}${
+          thread.content.length > 200 ? "..." : ""
+        }</p>
+          </div>
+        `;
+        threadList.appendChild(threadItem);
+      });
+    }
+  }
+
+  // Utility function to format dates
+  function formatDate(timestamp) {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+  }
+});

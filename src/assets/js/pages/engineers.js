@@ -1,7 +1,13 @@
-// Engineers page specific JavaScript
+/**
+ * Engineers page controller
+ * Handles functionality specific to the engineers page
+ */
 
-// Function to initialize engineers page
-function initEngineersPage() {
+/**
+ * Initialize the engineers page
+ * @param {Object} modules - The application modules
+ */
+export function initEngineersPage(modules) {
   // Handle tab functionality for technical sections
   const tabButtons = document.querySelectorAll('.tab-button');
   const tabContents = document.querySelectorAll('.tab-content');
@@ -73,7 +79,7 @@ function initEngineersPage() {
       console.log(`Downloading ${resourceType}: ${resourceName}`);
       
       // Show download started message
-      showNotification(`Download started: ${resourceName}`, 'info');
+      modules.notifications.showNotification(`Download started: ${resourceName}`, 'info');
     });
   });
   
@@ -92,9 +98,9 @@ function initEngineersPage() {
       
       // Show appropriate message
       if (link.classList.contains('active')) {
-        showNotification(`Added to favorites: ${resourceName}`, 'success');
+        modules.notifications.showNotification(`Added to favorites: ${resourceName}`, 'success');
       } else {
-        showNotification(`Removed from favorites: ${resourceName}`, 'info');
+        modules.notifications.showNotification(`Removed from favorites: ${resourceName}`, 'info');
       }
     });
   });

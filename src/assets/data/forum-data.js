@@ -11,7 +11,7 @@ var defaultThreads = [
       {
         author: "Prof. James Chen",
         date: new Date('2023-05-15T14:22:00').getTime(),
-        content: "Fascinating results, Dr. Rodriguez! Could you share more details about the graphene support structure? We've been working on similar approaches but haven't achieved comparable efficiency gains.",
+        content: "Fascinating results, Dr. Rodriguez! Could you share more details about graphene support structure? We've been working on similar approaches but haven't achieved comparable efficiency gains.",
       },
       {
         author: "Sarah Kim",
@@ -32,7 +32,7 @@ var defaultThreads = [
       {
         author: "Dr. Amara Okonkwo",
         date: new Date('2023-05-13T08:30:00').getTime(),
-        content: "We've had similar issues. The solution that worked for us was implementing a multi-stage cultivation system with closed photobioreactors for the initial growth phase before transferring to open ponds.",
+        content: "We've had similar issues. The solution that worked for us was implementing a multi-stage cultivation system with closed photobioreactors for initial growth phase before transferring to open ponds.",
       },
     ],
   },
@@ -43,7 +43,7 @@ var defaultThreads = [
     date: new Date('2023-05-10T11:20:00').getTime(),
     category: "solar",
     views: 312,
-    content: "Recent advances in perovskite solar cell stability are making them viable for commercial applications. Our latest prototypes have maintained 95% efficiency after 1000 hours of continuous operation under standard test conditions. The key breakthrough was in the encapsulation technique.",
+    content: "Recent advances in perovskite solar cell stability are making them viable for commercial applications. Our latest prototypes have maintained 95% efficiency after 1000 hours of continuous operation under standard test conditions. The key breakthrough was in encapsulation technique.",
     comments: [
       {
         author: "Robert Zhang",
@@ -81,6 +81,54 @@ var defaultThreads = [
         author: "Emma Wilson",
         date: new Date('2023-05-06T09:45:00').getTime(),
         content: "Our research indicates that a hybrid approach is most effective. Combining short-term battery storage with medium-term hydrogen and long-term pumped hydro offers the best balance of efficiency and cost.",
+      },
+    ],
+  },
+  {
+    id: 6,
+    title: "Advanced Nuclear Systems",
+    author: "Dr. James Foster",
+    date: new Date('2023-05-20T09:00:00').getTime(),
+    category: "nuclear",
+    views: 312,
+    content: "Fourth-generation nuclear reactors represent a paradigm shift in nuclear technology with enhanced safety features, reduced waste production, and improved fuel efficiency. Small modular reactors (SMRs) offer flexible deployment options with significantly lower construction times and costs.",
+    comments: [
+      {
+        author: "Dr. Robert Chen",
+        date: new Date('2023-05-21T14:30:00').getTime(),
+        content: "The passive safety systems in these designs eliminate the need for external power or human intervention in emergency scenarios, addressing one of the primary concerns with nuclear technology.",
+      },
+    ],
+  },
+  {
+    id: 7,
+    title: "Ammonia as Energy Carrier",
+    author: "Dr. Sarah Kim",
+    date: new Date('2023-05-25T11:00:00').getTime(),
+    category: "ammonia",
+    views: 234,
+    content: "Green ammonia (NH₃) is emerging as a versatile zero-carbon energy carrier with significant advantages over direct hydrogen use. With higher energy density and established global production infrastructure, ammonia offers practical solutions for energy storage and transportation.",
+    comments: [
+      {
+        author: "Prof. Michael Liu",
+        date: new Date('2023-05-26T16:45:00').getTime(),
+        content: "Ammonia can be used directly in fuel cells or combustion engines, or easily 'cracked' back to hydrogen where needed. Its relatively high boiling point (-33°C) simplifies storage and transport compared to liquid hydrogen (-253°C).",
+      },
+    ],
+  },
+  {
+    id: 8,
+    title: "Geothermal Energy Solutions",
+    author: "Dr. Alan Martinez",
+    date: new Date('2023-05-30T10:00:00').getTime(),
+    category: "geothermal",
+    views: 198,
+    content: "Geothermal energy provides consistent baseload power with minimal environmental impact. Enhanced geothermal systems (EGS) expand the geographic range of viable resources through engineered reservoirs.",
+    comments: [
+      {
+        author: "Dr. Patricia Williams",
+        date: new Date('2023-05-31T14:30:00').getTime(),
+        content: "Modern binary cycle plants enable electricity generation from lower temperature resources (as low as 100°C), dramatically expanding potential sites. When combined with district heating systems, geothermal can achieve overall energy utilization efficiencies exceeding 80%.",
       },
     ],
   },

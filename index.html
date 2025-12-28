@@ -49,6 +49,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link rel="stylesheet" href="src/assets/css/styles.css" />
+    <link rel="stylesheet" href="src/assets/css/home-interactive.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
     <!-- Preload critical resources -->
     <link rel="preload" href="src/assets/images/biofuels.png" as="image" />
@@ -88,15 +90,9 @@
             >
           </div>
         </div>
-        <div class="hero-image">
-          <img
-            src="src/assets/images/hero-image.png"
-            alt="Alternative Energy Sources"
-          />
-        </div>
       </section>
 
-      <section class="energy-intro">
+      <section class="energy-intro animate-on-scroll">
         <div class="container">
           <h2>The Global Energy Transition</h2>
           <p>
@@ -104,7 +100,8 @@
             history: the transition from fossil fuels to sustainable energy
             sources. This transformation goes beyond simply replacing one energy
             source with another — it represents a fundamental reimagining of how
-            we produce, distribute, and consume energy worldwide. At FuelQuality, we understand that this transition must balance
+            we produce, distribute, and consume energy worldwide. At
+            FuelQuality, we understand that this transition must balance
             environmental imperatives with economic realities and energy
             security needs.
           </p>
@@ -117,14 +114,253 @@
             safety, and performance that industries and consumers depend on,
             regardless of the energy source.
           </p>
+          <div class="intro-stats">
+            <div class="stat-item">
+              <span class="stat-number" data-counter="30">0</span>
+              <span class="stat-label">Years of Research</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-counter="150">0</span>
+              <span class="stat-label">Patents Filed</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number" data-counter="45">0</span>
+              <span class="stat-label">Countries Served</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="energy-sources">
+      <section class="energy-sources animate-on-scroll">
         <div class="container">
           <h2>Cutting-Edge Energy Solutions</h2>
-          <div class="energy-grid">
-            <div class="energy-card">
+          <div class="energy-tabs">
+            <div class="tab-buttons">
+              <button class="tab-btn active" data-tab="hydrogen">Hydrogen</button>
+              <button class="tab-btn" data-tab="biofuels">Biofuels</button>
+              <button class="tab-btn" data-tab="renewables">Renewables</button>
+              <button class="tab-btn" data-tab="geothermal">Geothermal</button>
+              <button class="tab-btn" data-tab="nuclear">Nuclear</button>
+              <button class="tab-btn" data-tab="ammonia">Ammonia</button>
+            </div>
+
+            <div class="tab-content">
+              <div class="tab-panel active" id="hydrogen">
+                <div class="energy-card animate-on-scroll">
+                  <div class="card-image">
+                    <img src="src/assets/images/hydrogen.png" alt="Hydrogen Fuel" />
+                  </div>
+                  <div class="card-content">
+                    <h3>Hydrogen Energy Systems</h3>
+                    <p>
+                      Our hydrogen research focuses on production methods using
+                      renewable electricity, efficient storage technologies, and
+                      fuel cell applications. Hydrogen offers zero-emission
+                      potential for transportation, industrial processes, and power
+                      generation, with an energy density by weight that surpasses
+                      conventional fuels.
+                    </p>
+                    <div class="key-features">
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Zero Emissions</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>High Energy Density</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Scalable Production</span>
+                      </div>
+                    </div>
+                    <a href="src/pages/forengineers.html#hydrogen" class="card-link"
+                      >Explore Technology <i class="fas fa-arrow-right"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-panel" id="biofuels">
+                <div class="energy-card animate-on-scroll">
+                  <div class="card-image">
+                    <img src="src/assets/images/biofuels.png" alt="Biofuels" />
+                  </div>
+                  <div class="card-content">
+                    <h3>Advanced Biofuels</h3>
+                    <p>
+                      We develop next-generation biofuels from non-food biomass,
+                      algae, and waste streams. Our advanced biofuels offer
+                      significant carbon reduction compared to fossil fuels while
+                      maintaining compatibility with existing engine technologies
+                      and fuel infrastructure.
+                    </p>
+                    <div class="key-features">
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Carbon Neutral</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Infrastructure Compatible</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Sustainable Feedstock</span>
+                      </div>
+                    </div>
+                    <a href="src/pages/forengineers.html#biofuels" class="card-link"
+                      >Explore Technology <i class="fas fa-arrow-right"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-panel" id="renewables">
+                <div class="energy-card animate-on-scroll">
+                  <div class="card-image">
+                    <img src="src/assets/images/solar-wind.png" alt="Solar and Wind Energy" />
+                  </div>
+                  <div class="card-content">
+                    <h3>Integrated Renewable Systems</h3>
+                    <p>
+                      Our integrated approach combines solar, wind, and energy
+                      storage technologies to create reliable, grid-scale renewable
+                      power systems. These solutions address intermittency
+                      challenges while maximizing clean energy utilization and
+                      system efficiency.
+                    </p>
+                    <div class="key-features">
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Grid Integration</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Energy Storage Solutions</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Cost-Effective</span>
+                      </div>
+                    </div>
+                    <a href="src/pages/forengineers.html#solar-wind" class="card-link"
+                      >Explore Technology <i class="fas fa-arrow-right"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-panel" id="geothermal">
+                <div class="energy-card animate-on-scroll">
+                  <div class="card-image">
+                    <img src="src/assets/images/geothermal.png" alt="Geothermal Energy" />
+                  </div>
+                  <div class="card-content">
+                    <h3>Geothermal Energy Solutions</h3>
+                    <p>
+                      Geothermal energy provides consistent baseload power with
+                      minimal environmental impact. Our advanced drilling
+                      technologies and heat extraction systems make geothermal
+                      viable in more geographic locations, offering reliable
+                      renewable energy independent of weather conditions.
+                    </p>
+                    <div class="key-features">
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>24/7 Power Generation</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Small Land Footprint</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Advanced Drilling Tech</span>
+                      </div>
+                    </div>
+                    <a href="src/pages/forengineers.html#geothermal" class="card-link"
+                      >Explore Technology <i class="fas fa-arrow-right"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-panel" id="nuclear">
+                <div class="energy-card animate-on-scroll">
+                  <div class="card-image">
+                    <img src="src/assets/images/nuclear.jpg" alt="Advanced Nuclear Systems" />
+                  </div>
+                  <div class="card-content">
+                    <h3>Advanced Nuclear Systems</h3>
+                    <p>
+                      Fourth-generation nuclear reactors offer enhanced safety
+                      features, reduced waste production, and improved fuel
+                      efficiency. Small modular reactors (SMRs) provide flexible
+                      deployment options with significantly lower construction times
+                      and costs compared to traditional nuclear facilities.
+                    </p>
+                    <div class="key-features">
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Enhanced Safety Features</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Reduced Waste Production</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Modular Construction</span>
+                      </div>
+                    </div>
+                    <a href="src/pages/forengineers.html#nuclear" class="card-link"
+                      >Explore Technology <i class="fas fa-arrow-right"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-panel" id="ammonia">
+                <div class="energy-card animate-on-scroll">
+                  <div class="card-image">
+                    <img src="src/assets/images/ammonia.jpg" alt="Ammonia as Energy Carrier" />
+                  </div>
+                  <div class="card-content">
+                    <h3>Ammonia as Energy Carrier</h3>
+                    <p>
+                      Green ammonia is emerging as a versatile zero-carbon energy
+                      carrier and fuel. With established production infrastructure
+                      and high energy density, ammonia can be used directly in fuel
+                      cells or combustion engines, or easily converted back to
+                      hydrogen.
+                    </p>
+                    <div class="key-features">
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Zero-Carbon Fuel</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Existing Infrastructure</span>
+                      </div>
+                      <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Hydrogen Carrier</span>
+                      </div>
+                    </div>
+                    <a href="src/pages/forengineers.html#ammonia" class="card-link"
+                      >Explore Technology <i class="fas fa-arrow-right"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legacy Grid View (Hidden by default) -->
+          <div class="energy-grid" style="display: none;">
+            <div class="energy-card animate-on-scroll">
               <div class="card-image">
                 <img src="src/assets/images/hydrogen.png" alt="Hydrogen Fuel" />
               </div>
@@ -144,7 +380,7 @@
               </div>
             </div>
 
-            <div class="energy-card">
+            <div class="energy-card animate-on-scroll">
               <div class="card-image">
                 <img src="src/assets/images/biofuels.png" alt="Biofuels" />
               </div>
@@ -163,7 +399,7 @@
               </div>
             </div>
 
-            <div class="energy-card">
+            <div class="energy-card animate-on-scroll">
               <div class="card-image">
                 <img
                   src="src/assets/images/solar-wind.png"
@@ -187,7 +423,7 @@
               </div>
             </div>
 
-            <div class="energy-card">
+            <div class="energy-card animate-on-scroll">
               <div class="card-image">
                 <img
                   src="src/assets/images/geothermal.png"
@@ -197,11 +433,11 @@
               <div class="card-content">
                 <h3>Geothermal Energy Solutions</h3>
                 <p>
-                  Geothermal energy provides consistent baseload power with minimal
-                  environmental impact. Our advanced drilling technologies and
-                  heat extraction systems make geothermal viable in more geographic
-                  locations, offering reliable renewable energy independent of weather
-                  conditions.
+                  Geothermal energy provides consistent baseload power with
+                  minimal environmental impact. Our advanced drilling
+                  technologies and heat extraction systems make geothermal
+                  viable in more geographic locations, offering reliable
+                  renewable energy independent of weather conditions.
                 </p>
                 <a
                   href="src/pages/forengineers.html#geothermal"
@@ -211,7 +447,7 @@
               </div>
             </div>
 
-            <div class="energy-card">
+            <div class="energy-card animate-on-scroll">
               <div class="card-image">
                 <img
                   src="src/assets/images/nuclear.jpg"
@@ -221,21 +457,19 @@
               <div class="card-content">
                 <h3>Advanced Nuclear Systems</h3>
                 <p>
-                  Fourth-generation nuclear reactors offer enhanced safety features,
-                  reduced waste production, and improved fuel efficiency. Small
-                  modular reactors (SMRs) provide flexible deployment options with
-                  significantly lower construction times and costs compared to
-                  traditional nuclear facilities.
+                  Fourth-generation nuclear reactors offer enhanced safety
+                  features, reduced waste production, and improved fuel
+                  efficiency. Small modular reactors (SMRs) provide flexible
+                  deployment options with significantly lower construction times
+                  and costs compared to traditional nuclear facilities.
                 </p>
-                <a
-                  href="src/pages/forengineers.html#nuclear"
-                  class="card-link"
+                <a href="src/pages/forengineers.html#nuclear" class="card-link"
                   >Explore Technology <i class="fas fa-arrow-right"></i
                 ></a>
               </div>
             </div>
 
-            <div class="energy-card">
+            <div class="energy-card animate-on-scroll">
               <div class="card-image">
                 <img
                   src="src/assets/images/ammonia.jpg"
@@ -246,22 +480,123 @@
                 <h3>Ammonia as Energy Carrier</h3>
                 <p>
                   Green ammonia is emerging as a versatile zero-carbon energy
-                  carrier and fuel. With established production infrastructure and
-                  high energy density, ammonia can be used directly in fuel
-                  cells or combustion engines, or easily converted back to hydrogen.
+                  carrier and fuel. With established production infrastructure
+                  and high energy density, ammonia can be used directly in fuel
+                  cells or combustion engines, or easily converted back to
+                  hydrogen.
                 </p>
-                <a
-                  href="src/pages/forengineers.html#ammonia"
-                  class="card-link"
+                <a href="src/pages/forengineers.html#ammonia" class="card-link"
                   >Explore Technology <i class="fas fa-arrow-right"></i
                 ></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="view-toggle">
+            <button class="toggle-btn active" data-view="tabs">
+              <i class="fas fa-th-large"></i> Tab View
+            </button>
+            <button class="toggle-btn" data-view="grid">
+              <i class="fas fa-th"></i> Grid View
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="news-section animate-on-scroll">
+        <div class="container">
+          <h2>Latest Energy News & Insights</h2>
+          <div class="news-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="news-card">
+                  <div class="news-image">
+                    <img src="src/assets/images/hydrogen.png" alt="Hydrogen Breakthrough">
+                  </div>
+                  <div class="news-content">
+                    <span class="news-category">Hydrogen</span>
+                    <h3>Breakthrough in Green Hydrogen Production</h3>
+                    <p>Scientists develop new catalyst that reduces energy requirements by 40%.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="news-card">
+                  <div class="news-image">
+                    <img src="src/assets/images/biofuels.png" alt="Biofuel Advancements">
+                  </div>
+                  <div class="news-content">
+                    <span class="news-category">Biofuels</span>
+                    <h3>New Algae Strain Triples Biofuel Yield</h3>
+                    <p>Research team genetically modifies algae to produce three times more oil content.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="news-card">
+                  <div class="news-image">
+                    <img src="src/assets/images/solar-wind.png" alt="Solar Innovation">
+                  </div>
+                  <div class="news-content">
+                    <span class="news-category">Solar</span>
+                    <h3>Perovskite Solar Cells Hit New Efficiency Record</h3>
+                    <p>New tandem cell design achieves 33% efficiency, bringing solar closer to theoretical limits.</p>
+                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="news-section animate-on-scroll">
+        <div class="container">
+          <h2>Latest Energy News</h2>
+          <div class="news-container">
+            <div class="news-card">
+              <div class="news-card-image">
+                <img src="https://picsum.photos/seed/energy1/600/400.jpg" alt="Energy News 1" />
+              </div>
+              <div class="news-card-content">
+                <div class="news-card-date">June 15, 2023</div>
+                <h3 class="news-card-title">Breakthrough in Hydrogen Storage Technology</h3>
+                <p class="news-card-excerpt">Scientists have developed a new method for storing hydrogen at lower pressures, potentially revolutionizing the hydrogen economy and making fuel cell vehicles more practical.</p>
+                <a href="#" class="news-card-link">Read More <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+
+            <div class="news-card">
+              <div class="news-card-image">
+                <img src="https://picsum.photos/seed/energy2/600/400.jpg" alt="Energy News 2" />
+              </div>
+              <div class="news-card-content">
+                <div class="news-card-date">June 10, 2023</div>
+                <h3 class="news-card-title">New Solar Panel Efficiency Record Set</h3>
+                <p class="news-card-excerpt">Researchers have achieved a new world record for solar panel efficiency, reaching 47.1% with a multi-junction concentrator solar cell design.</p>
+                <a href="#" class="news-card-link">Read More <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+
+            <div class="news-card">
+              <div class="news-card-image">
+                <img src="https://picsum.photos/seed/energy3/600/400.jpg" alt="Energy News 3" />
+              </div>
+              <div class="news-card-content">
+                <div class="news-card-date">June 5, 2023</div>
+                <h3 class="news-card-title">European Union Announces Green Hydrogen Initiative</h3>
+                <p class="news-card-excerpt">The EU has unveiled a comprehensive plan to scale up green hydrogen production, aiming to produce 10 million tons annually by 2030.</p>
+                <a href="#" class="news-card-link">Read More <i class="fas fa-arrow-right"></i></a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="community-section">
+      <section class="community-section animate-on-scroll">
         <div class="container">
           <div class="community-content">
             <h2>Join Our Global Energy Community</h2>
@@ -279,15 +614,15 @@
           </div>
           <div class="community-stats">
             <div class="stat-item">
-              <span class="stat-number">2,500+</span>
+              <span class="stat-number" data-counter="2500">0</span>
               <span class="stat-label">Active Members</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">5,000+</span>
+              <span class="stat-number" data-counter="5000">0</span>
               <span class="stat-label">Discussion Topics</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">200+</span>
+              <span class="stat-number" data-counter="200">0</span>
               <span class="stat-label">Expert Contributors</span>
             </div>
           </div>
@@ -305,5 +640,231 @@
     <script src="src/assets/js/components.js"></script>
     <script type="module" src="src/assets/js/main.js"></script>
     <script src="src/components/header/header.js"></script>
+    <script src="src/assets/js/scroll-animations.js"></script>
+    <!-- Swiper library removed -->
+    <script>
+      // Initialize home page specific features
+      document.addEventListener('DOMContentLoaded', function() {
+        // Add any home page specific animations here
+
+        // Tab functionality with enhanced animation
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+
+        tabButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const tabId = button.getAttribute('data-tab');
+
+            // Remove active class from all buttons and panels
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabPanels.forEach(panel => {
+              panel.classList.remove('active');
+              panel.style.opacity = '0';
+              panel.style.transform = 'translateY(20px)';
+            });
+
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            // Animate in the corresponding panel
+            const activePanel = document.getElementById(tabId);
+            setTimeout(() => {
+              activePanel.classList.add('active');
+              activePanel.style.opacity = '1';
+              activePanel.style.transform = 'translateY(0)';
+            }, 100);
+          });
+        });
+
+        // View toggle functionality with animation
+        const viewToggleButtons = document.querySelectorAll('.toggle-btn');
+        const energyTabs = document.querySelector('.energy-tabs');
+        const energyGrid = document.querySelector('.energy-grid');
+
+        viewToggleButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const viewType = button.getAttribute('data-view');
+
+            // Remove active class from all buttons
+            viewToggleButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            // Toggle views with animation
+            if (viewType === 'tabs') {
+              energyGrid.style.opacity = '0';
+              energyGrid.style.transform = 'translateY(20px)';
+              
+              setTimeout(() => {
+                energyGrid.style.display = 'none';
+                energyTabs.style.display = 'block';
+                
+                setTimeout(() => {
+                  energyTabs.style.opacity = '1';
+                  energyTabs.style.transform = 'translateY(0)';
+                }, 50);
+              }, 300);
+            } else {
+              energyTabs.style.opacity = '0';
+              energyTabs.style.transform = 'translateY(20px)';
+              
+              setTimeout(() => {
+                energyTabs.style.display = 'none';
+                energyGrid.style.display = 'grid';
+                
+                setTimeout(() => {
+                  energyGrid.style.opacity = '1';
+                  energyGrid.style.transform = 'translateY(0)';
+                }, 50);
+              }, 300);
+            }
+          });
+        });
+
+        // Enhanced scroll animations
+        const observerOptions = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate');
+              
+              // Add staggered animation to child elements
+              const children = entry.target.querySelectorAll('.feature, .stat-item');
+              children.forEach((child, index) => {
+                setTimeout(() => {
+                  child.classList.add('animate');
+                }, index * 100);
+              });
+            }
+          });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+          observer.observe(el);
+        });
+
+        // Counter animation for stats with easing
+        const easeOutQuart = (t) => {
+          return 1 - Math.pow(1 - t, 4);
+        };
+
+        const animateCounter = (element) => {
+          const target = parseInt(element.getAttribute('data-counter'));
+          const duration = 2000;
+          const startTime = performance.now();
+
+          const updateCounter = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeOutQuart(progress);
+            const current = Math.floor(target * easedProgress);
+
+            element.textContent = current;
+
+            if (progress < 1) {
+              requestAnimationFrame(updateCounter);
+            } else {
+              element.textContent = target;
+            }
+          };
+
+          requestAnimationFrame(updateCounter);
+        };
+
+        // Initialize counters when they come into view
+        const counters = document.querySelectorAll('.stat-number[data-counter]');
+        const counterObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+              animateCounter(entry.target);
+              entry.target.classList.add('counted');
+            }
+          });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => {
+          counterObserver.observe(counter);
+        });
+
+        // Parallax effect for hero section (disabled to prevent content moving out of view)
+        /*
+        window.addEventListener('scroll', () => {
+          const scrolled = window.pageYOffset;
+          const hero = document.querySelector('.hero');
+          
+          if (hero) {
+            hero.style.transform = `translateY(${scrolled * 0.1}px)`;
+            
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
+              heroContent.style.transform = `translateY(${scrolled * 0.05}px)`;
+              heroContent.style.opacity = Math.max(1 - (scrolled * 0.001), 0.7);
+            }
+            
+            const heroImage = document.querySelector('.hero-image');
+            if (heroImage) {
+              heroImage.style.transform = `translateY(${scrolled * 0.15}px) scale(${1 + (scrolled * 0.0001)})`;
+            }
+          }
+        });
+        */
+
+        // Add mouse move effect to hero section
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+          heroSection.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { offsetWidth, offsetHeight } = heroSection;
+            
+            const xPos = (clientX / offsetWidth) - 0.5;
+            const yPos = (clientY / offsetHeight) - 0.5;
+            
+            const heroImage = document.querySelector('.hero-image');
+            if (heroImage) {
+              heroImage.style.transform = `perspective(1000px) rotateY(${xPos * 10}deg) rotateX(${-yPos * 10}deg) scale(1.05)`;
+            }
+          });
+          
+          heroSection.addEventListener('mouseleave', () => {
+            const heroImage = document.querySelector('.hero-image');
+            if (heroImage) {
+              heroImage.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale(1)';
+            }
+          });
+        }
+
+        // Add smooth reveal animation to energy cards
+        const energyCards = document.querySelectorAll('.energy-card');
+        energyCards.forEach((card, index) => {
+          // Don't hide cards initially
+          // card.style.opacity = '0';
+          // card.style.transform = 'translateY(30px)';
+          
+          setTimeout(() => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 100 * (index + 1));
+        });
+
+        // Add interactive hover effect to news cards
+        const newsCards = document.querySelectorAll('.news-card');
+        newsCards.forEach(card => {
+          card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-10px) scale(1.02)';
+          });
+          
+          card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0) scale(1)';
+          });
+        });
+      });
+    </script>
   </body>
 </html>

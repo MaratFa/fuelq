@@ -36,6 +36,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="stylesheet" href="../assets/css/forengineers.css" />
 
     <!-- Preload critical resources -->
     <link rel="preload" href="../assets/images/hydrogen.png" as="image" />
@@ -47,11 +48,11 @@
     <!-- Header Component -->
     <div
       id="header-placeholder"
-      data-component="src/components/header/header.html"
+      data-component="../components/header/header.html"
     ></div>
 
     <main>
-      <section class="hero">
+      <section class="hero animate-on-scroll">
         <div class="hero-content">
           <h1>Engineering Resources & Technical Specifications</h1>
           <p class="hero-subtitle">
@@ -75,24 +76,24 @@
         <a href="#implementation">Implementation Guidelines</a>
       </div>
 
-      <section class="intro-section">
+      <section class="intro-section animate-on-scroll">
         <div class="container">
           <p>
-            Welcome to FuelQuality's comprehensive technical resource center
-            for engineering professionals. This section provides in-depth
-            technical specifications, performance analysis, and implementation
-            guidelines for cutting-edge alternative energy technologies. Our
-            resources are based on latest research findings, field-tested
-            applications, and industry best practices to support your
-            engineering projects from concept through completion.
+            Welcome to FuelQuality's comprehensive technical resource center for
+            engineering professionals. This section provides in-depth technical
+            specifications, performance analysis, and implementation guidelines
+            for cutting-edge alternative energy technologies. Our resources are
+            based on latest research findings, field-tested applications, and
+            industry best practices to support your engineering projects from
+            concept through completion.
           </p>
         </div>
       </section>
 
-      <section class="fuel-types">
+      <section class="fuel-types animate-on-scroll">
         <div class="container">
           <div class="fuel-grid">
-            <article id="hydrogen" class="fuel-card">
+            <article id="hydrogen" class="fuel-card animate-on-scroll">
               <div class="card-header">
                 <h2>Hydrogen Energy</h2>
                 <div class="card-image">
@@ -156,7 +157,7 @@
               </div>
             </article>
 
-            <article id="biofuels" class="fuel-card">
+            <article id="biofuels" class="fuel-card animate-on-scroll">
               <div class="card-header">
                 <h2>Biofuels</h2>
                 <div class="card-image">
@@ -216,7 +217,7 @@
               </div>
             </article>
 
-            <article id="solar" class="fuel-card">
+            <article id="solar" class="fuel-card animate-on-scroll">
               <div class="card-header">
                 <h2>Solar Energy</h2>
                 <div class="card-image">
@@ -280,7 +281,7 @@
               </div>
             </article>
 
-            <article id="wind" class="fuel-card">
+            <article id="wind" class="fuel-card animate-on-scroll">
               <div class="card-header">
                 <h2>Wind Energy</h2>
                 <div class="card-image">
@@ -342,7 +343,7 @@
               </div>
             </article>
 
-            <article id="geothermal" class="fuel-card">
+            <article id="geothermal" class="fuel-card animate-on-scroll">
               <div class="card-header">
                 <h2>Geothermal Energy</h2>
                 <div class="card-image">
@@ -354,24 +355,29 @@
               </div>
               <div class="card-content">
                 <p>
-                  Geothermal energy harnesses heat from the Earth's interior to generate
-                  electricity or provide direct heating. Unlike solar and wind, geothermal
-                  provides consistent baseload power independent of weather conditions.
-                  Enhanced geothermal systems (EGS) expand the geographic range of viable
-                  resources through engineered reservoirs.
+                  Geothermal energy harnesses heat from the Earth's interior to
+                  generate electricity or provide direct heating. Unlike solar
+                  and wind, geothermal provides consistent baseload power
+                  independent of weather conditions. Enhanced geothermal systems
+                  (EGS) expand the geographic range of viable resources through
+                  engineered reservoirs.
                 </p>
                 <p>
-                  Modern binary cycle plants enable electricity generation from lower temperature
-                  resources (as low as 100°C), dramatically expanding potential sites.
-                  When combined with district heating systems, geothermal can achieve overall
-                  energy utilization efficiencies exceeding 80%.
+                  Modern binary cycle plants enable electricity generation from
+                  lower temperature resources (as low as 100°C), dramatically
+                  expanding potential sites. When combined with district heating
+                  systems, geothermal can achieve overall energy utilization
+                  efficiencies exceeding 80%.
                 </p>
                 <div class="specs">
                   <h3>Technical Specifications</h3>
                   <div class="spec-grid">
                     <div class="spec-item">
                       <h4>Resource Temperature</h4>
-                      <p>100-370°C for electricity generation, lower for direct heating</p>
+                      <p>
+                        100-370°C for electricity generation, lower for direct
+                        heating
+                      </p>
                     </div>
                     <div class="spec-item">
                       <h4>Plant Efficiency</h4>
@@ -383,7 +389,10 @@
                     </div>
                     <div class="spec-item">
                       <h4>Applications</h4>
-                      <p>Electricity generation, district heating, industrial processes</p>
+                      <p>
+                        Electricity generation, district heating, industrial
+                        processes
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -411,16 +420,18 @@
               </div>
               <div class="card-content">
                 <p>
-                  Fourth-generation nuclear reactors represent a paradigm shift in nuclear
-                  technology with enhanced safety features, reduced waste production, and
-                  improved fuel efficiency. Small modular reactors (SMRs) offer flexible
-                  deployment options with significantly lower construction times and costs.
+                  Fourth-generation nuclear reactors represent a paradigm shift
+                  in nuclear technology with enhanced safety features, reduced
+                  waste production, and improved fuel efficiency. Small modular
+                  reactors (SMRs) offer flexible deployment options with
+                  significantly lower construction times and costs.
                 </p>
                 <p>
-                  Advanced fuel cycles utilizing thorium or closed-fuel recycling can
-                  dramatically reduce long-lived waste while extracting more energy from the
-                  same amount of fuel. Passive safety systems eliminate the need for
-                  external power or human intervention in emergency scenarios.
+                  Advanced fuel cycles utilizing thorium or closed-fuel
+                  recycling can dramatically reduce long-lived waste while
+                  extracting more energy from the same amount of fuel. Passive
+                  safety systems eliminate the need for external power or human
+                  intervention in emergency scenarios.
                 </p>
                 <div class="specs">
                   <h3>Technical Specifications</h3>
@@ -431,7 +442,10 @@
                     </div>
                     <div class="spec-item">
                       <h4>Efficiency</h4>
-                      <p>35-45% thermal efficiency (up to 50% for advanced designs)</p>
+                      <p>
+                        35-45% thermal efficiency (up to 50% for advanced
+                        designs)
+                      </p>
                     </div>
                     <div class="spec-item">
                       <h4>Capacity Factor</h4>
@@ -439,7 +453,9 @@
                     </div>
                     <div class="spec-item">
                       <h4>Applications</h4>
-                      <p>Grid electricity, industrial heat, hydrogen production</p>
+                      <p>
+                        Grid electricity, industrial heat, hydrogen production
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -467,17 +483,19 @@
               </div>
               <div class="card-content">
                 <p>
-                  Green ammonia (NH₃) is emerging as a versatile zero-carbon energy
-                  carrier with significant advantages over direct hydrogen use. With higher
-                  energy density and established global production infrastructure, ammonia
-                  offers practical solutions for energy storage and transportation.
+                  Green ammonia (NH₃) is emerging as a versatile zero-carbon
+                  energy carrier with significant advantages over direct
+                  hydrogen use. With higher energy density and established
+                  global production infrastructure, ammonia offers practical
+                  solutions for energy storage and transportation.
                 </p>
                 <p>
-                  Ammonia can be used directly in fuel cells or combustion engines,
-                  or easily "cracked" back to hydrogen where needed. Its relatively
-                  high boiling point (-33°C) simplifies storage and transport compared
-                  to liquid hydrogen (-253°C), while maintaining zero-carbon
-                  characteristics when produced from renewable sources.
+                  Ammonia can be used directly in fuel cells or combustion
+                  engines, or easily "cracked" back to hydrogen where needed.
+                  Its relatively high boiling point (-33°C) simplifies storage
+                  and transport compared to liquid hydrogen (-253°C), while
+                  maintaining zero-carbon characteristics when produced from
+                  renewable sources.
                 </p>
                 <div class="specs">
                   <h3>Technical Specifications</h3>
@@ -488,7 +506,9 @@
                     </div>
                     <div class="spec-item">
                       <h4>Production Methods</h4>
-                      <p>Electrochemical (Haber-Bosch), solid-state synthesis</p>
+                      <p>
+                        Electrochemical (Haber-Bosch), solid-state synthesis
+                      </p>
                     </div>
                     <div class="spec-item">
                       <h4>Storage Conditions</h4>
@@ -496,14 +516,18 @@
                     </div>
                     <div class="spec-item">
                       <h4>Applications</h4>
-                      <p>Energy storage, transportation fuel, hydrogen carrier</p>
+                      <p>
+                        Energy storage, transportation fuel, hydrogen carrier
+                      </p>
                     </div>
                   </div>
                 </div>
                 <div class="implementation">
                   <h3>Implementation Considerations</h3>
                   <ul>
-                    <li>Production scaling and renewable energy requirements</li>
+                    <li>
+                      Production scaling and renewable energy requirements
+                    </li>
                     <li>Safety protocols for handling and storage</li>
                     <li>Infrastructure adaptation for distribution</li>
                     <li>End-use technology compatibility</li>
@@ -515,7 +539,7 @@
         </div>
       </section>
 
-      <section id="comparison" class="comparison-section">
+      <section id="comparison" class="comparison-section animate-on-scroll">
         <div class="container">
           <h2>Energy Source Comparison</h2>
           <div class="comparison-table">
@@ -578,7 +602,10 @@
         </div>
       </section>
 
-      <section id="implementation" class="implementation-section">
+      <section
+        id="implementation"
+        class="implementation-section animate-on-scroll"
+      >
         <div class="container">
           <h2>Implementation Guidelines</h2>
           <div class="implementation-grid">
@@ -625,245 +652,18 @@
           </div>
         </div>
       </section>
-
-      <section id="comparison" class="comparison-section">
-        <div class="container">
-          <h2>Energy Source Comparison</h2>
-          <div class="comparison-table-wrapper">
-            <table class="comparison-table">
-              <thead>
-                <tr>
-                  <th>Parameter</th>
-                  <th>Hydrogen</th>
-                  <th>Biofuels</th>
-                  <th>Solar</th>
-                  <th>Wind</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Energy Density (MJ/kg)</td>
-                  <td>120-142</td>
-                  <td>20-40</td>
-                  <td>N/A</td>
-                  <td>N/A</td>
-                </tr>
-                <tr>
-                  <td>Efficiency</td>
-                  <td>40-60% (fuel cell)</td>
-                  <td>30-40%</td>
-                  <td>15-22% (PV)</td>
-                  <td>35-45%</td>
-                </tr>
-                <tr>
-                  <td>Carbon Emissions</td>
-                  <td>0 (at use)</td>
-                  <td>20-80% less than fossil</td>
-                  <td>0 (operation)</td>
-                  <td>0 (operation)</td>
-                </tr>
-                <tr>
-                  <td>Storage Challenge</td>
-                  <td>High (pressure/cryogenic)</td>
-                  <td>Medium</td>
-                  <td>High (batteries)</td>
-                  <td>Medium</td>
-                </tr>
-                <tr>
-                  <td>Scalability</td>
-                  <td>High</td>
-                  <td>Medium</td>
-                  <td>High</td>
-                  <td>High</td>
-                </tr>
-                <tr>
-                  <td>Current Cost (per kWh)</td>
-                  <td>$4-7</td>
-                  <td>$0.8-1.5</td>
-                  <td>$0.05-0.15</td>
-                  <td>$0.03-0.08</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="table-note">
-            Note: Costs and efficiency values are approximate and vary
-            significantly by region, technology, and scale of implementation.
-          </p>
-        </div>
-      </section>
-
-      <section id="implementation" class="implementation-section">
-        <div class="container">
-          <h2>Implementation Guidelines</h2>
-          <div class="implementation-grid">
-            <div class="implementation-card">
-              <h3>Planning & Assessment</h3>
-              <ul>
-                <li>
-                  Comprehensive energy needs analysis with demand profiling
-                </li>
-                <li>
-                  Site-specific resource evaluation using advanced modeling
-                  tools
-                </li>
-                <li>
-                  Regulatory compliance assessment and permitting strategy
-                </li>
-                <li>
-                  Multi-criteria project timeline with critical path analysis
-                </li>
-                <li>
-                  Funding optimization including incentives and tax benefits
-                </li>
-              </ul>
-            </div>
-            <div class="implementation-card">
-              <h3>Technical Considerations</h3>
-              <ul>
-                <li>
-                  System sizing based on detailed demand patterns and
-                  projections
-                </li>
-                <li>
-                  Seamless integration with existing energy infrastructure
-                </li>
-                <li>
-                  Grid interconnection requirements and protection coordination
-                </li>
-                <li>Redundancy planning with multiple failure mode analysis</li>
-                <li>
-                  Advanced control systems with real-time monitoring
-                  capabilities
-                </li>
-              </ul>
-            </div>
-            <div class="implementation-card">
-              <h3>Economic Analysis</h3>
-              <ul>
-                <li>
-                  Comprehensive life cycle cost assessment with sensitivity
-                  analysis
-                </li>
-                <li>
-                  Return on investment calculations with multiple scenarios
-                </li>
-                <li>Detailed operational and maintenance cost modeling</li>
-                <li>Risk assessment with quantitative mitigation strategies</li>
-                <li>
-                  Total cost of ownership comparison with conventional
-                  alternatives
-                </li>
-              </ul>
-            </div>
-            <div class="implementation-card">
-              <h3>Environmental Impact</h3>
-              <ul>
-                <li>
-                  Comprehensive carbon footprint analysis across entire
-                  lifecycle
-                </li>
-                <li>Multi-criteria ecosystem impact assessment</li>
-                <li>
-                  Resource sustainability evaluation with depletion modeling
-                </li>
-                <li>
-                  End-of-life decommissioning and circular economy strategies
-                </li>
-                <li>
-                  Biodiversity conservation with net-positive impact measures
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="implementation-steps">
-            <h3>Implementation Process</h3>
-            <div class="steps-container">
-              <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                  <h4>Comprehensive Feasibility Analysis</h4>
-                  <p>
-                    Multi-dimensional assessment of technical, economic,
-                    regulatory, and social viability with risk quantification
-                  </p>
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                  <h4>Advanced System Design</h4>
-                  <p>
-                    Detailed engineering design with performance modeling,
-                    simulation, and optimization
-                  </p>
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                  <h4>Regulatory Compliance</h4>
-                  <p>
-                    Strategic approach to securing permits, approvals, and
-                    certifications
-                  </p>
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-number">4</div>
-                <div class="step-content">
-                  <h4>Strategic Procurement</h4>
-                  <p>
-                    Quality-assured sourcing with supply chain optimization and
-                    vendor management
-                  </p>
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-number">5</div>
-                <div class="step-content">
-                  <h4>Professional Installation</h4>
-                  <p>
-                    Expert implementation with quality control, safety
-                    protocols, and system integration
-                  </p>
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-number">6</div>
-                <div class="step-content">
-                  <h4>System Commissioning</h4>
-                  <p>
-                    Comprehensive testing, verification, calibration, and
-                    performance optimization
-                  </p>
-                </div>
-              </div>
-              <div class="step">
-                <div class="step-number">7</div>
-                <div class="step-content">
-                  <h4>Continuous Operations</h4>
-                  <p>
-                    Advanced monitoring, predictive maintenance, and performance
-                    optimization
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
 
     <!-- Footer Component -->
     <div
       id="footer-placeholder"
-      data-component="src/components/footer/footer.html"
+      data-component="../components/footer/footer.html"
     ></div>
 
     <!-- JavaScript -->
     <script src="../assets/js/components.js"></script>
     <script src="../assets/js/main.js"></script>
     <script src="../components/header/header.js"></script>
+    <script src="../assets/js/forengineers-animations.js"></script>
   </body>
 </html>
