@@ -24,6 +24,15 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }, observerOptions);
+  
+  // Ensure all elements are visible immediately
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    el.classList.add('animate');
+  });
+  
+  document.querySelectorAll('.spec-item, .implementation-card').forEach(el => {
+    el.classList.add('animate');
+  });
 
   document.querySelectorAll('.animate-on-scroll').forEach(el => {
     observer.observe(el);
