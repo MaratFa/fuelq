@@ -14,37 +14,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Function to initialize components
 function initializeComponents() {
-  // Load all components marked with data-component attribute
-  const componentPlaceholders = document.querySelectorAll('[data-component]');
-
-  componentPlaceholders.forEach(placeholder => {
-    const componentPath = placeholder.getAttribute('data-component');
-    loadComponent(componentPath, placeholder);
-  });
-}
-
-// Function to load a component
-function loadComponent(path, placeholder) {
-  fetch(path)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Failed to load component: ${path}`);
-      }
-      return response.text();
-    })
-    .then(html => {
-      placeholder.innerHTML = html;
-
-      // Dispatch an event to notify that the component has been loaded
-      const event = new CustomEvent('componentLoaded', {
-        detail: { path, placeholder }
-      });
-      document.dispatchEvent(event);
-    })
-    .catch(error => {
-      console.error('Error loading component:', error);
-      placeholder.innerHTML = `<div class="component-error">Failed to load component: ${path}</div>`;
-    });
+  // Components are already loaded by components.js
+  // No need to duplicate the loading logic here
+  console.log('Components initialized');
 }
 
 // Function to initialize animations

@@ -367,21 +367,28 @@
 }
 
 /* Implementation Guidelines */
-.guidelines-section {
+.implementation-section {
     padding: var(--spacing-large) 0;
 }
 
-.guideline-card {
+.implementation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-large);
+    margin-top: var(--spacing-large);
+}
+
+.implementation-card {
     background-color: var(--content-bg);
     border-radius: var(--border-radius-large);
     padding: var(--spacing-large);
-    margin-bottom: var(--spacing-large);
+    margin-bottom: 0;
     box-shadow: var(--card-shadow);
     position: relative;
     overflow: hidden;
 }
 
-.guideline-card::before {
+.implementation-card::before {
     content: '';
     position: absolute;
     top: 0;
@@ -391,25 +398,25 @@
     background-color: var(--primary-color);
 }
 
-.guideline-card h3 {
+.implementation-card h3 {
     font-size: 1.5rem;
     color: var(--secondary-color);
     margin-bottom: var(--spacing-medium);
 }
 
-.guideline-card p {
+.implementation-card p {
     font-size: 1rem;
     line-height: 1.6;
     color: var(--text-color);
     margin-bottom: var(--spacing-medium);
 }
 
-.guideline-card ul {
+.implementation-card ul {
     list-style-type: none;
     padding-left: 0;
 }
 
-.guideline-card li {
+.implementation-card li {
     position: relative;
     padding-left: 25px;
     margin-bottom: var(--spacing-small);
@@ -418,12 +425,37 @@
     line-height: 1.6;
 }
 
-.guideline-card li::before {
+.implementation-card li::before {
     content: '→';
     position: absolute;
     left: 0;
     color: var(--primary-color);
     font-weight: bold;
+}
+
+/* Animation Classes */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.spec-item,
+.implementation-card {
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.spec-item.animate,
+.implementation-card.animate {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Responsive Design */
@@ -441,6 +473,10 @@
     }
 
     .spec-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .implementation-grid {
         grid-template-columns: 1fr;
     }
 
