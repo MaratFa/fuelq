@@ -16,10 +16,22 @@ function getComponent(name) {
 
 // Function to load a component
 function loadComponent(path, placeholder) {
+  // Fix path to ensure it starts with /src/ if it doesn't already
+  if (!path.startsWith('/') && !path.startsWith('http')) {
+    // If path is relative, convert to absolute with /src/ prefix
+    if (path.startsWith('../../components/')) {
+      path = path.replace('../../components/', '/src/components/');
+    } else if (path.startsWith('../src/components/')) {
+      path = path.replace('../src/components/', '/src/components/');
+    } else if (path.startsWith('../components/')) {
+      path = path.replace('../components/', '/src/components/');
+    }
+  }
+  
   fetch(path)
     .then(response => {
       if (!response.ok) {
-        throw new Error(`Failed to load component: ${path}`);
+        throw new Error(`Failed to load component: ${response.status}`);
       }
       return response.text();
     })
@@ -39,7 +51,7 @@ function loadComponent(path, placeholder) {
       document.dispatchEvent(event);
     })
     .catch(error => {
-      console.error('Error loading component:', error);
+      console.error(`Error loading component from ${path}:`, error);
       placeholder.innerHTML = `<div class="component-error">Failed to load component: ${path}</div>`;
     });
 }
