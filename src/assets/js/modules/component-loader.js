@@ -13,14 +13,44 @@ export class ComponentLoader {
    * Initialize the component loader
    */
   init() {
-    // Find all elements with data-component attribute
-    const componentElements = document.querySelectorAll('[data-component]');
+    console.log('Component loader initializing...');
+    
+    // Use a longer timeout to ensure DOM is fully loaded
+    setTimeout(() => {
+      // Find all elements with data-component attribute
+      const componentElements = document.querySelectorAll('[data-component]');
+      console.log(`Found ${componentElements.length} component elements to load`);
+      console.log('Component elements:', componentElements);
+      console.log('Document ready state:', document.readyState);
+      console.log('Document HTML:', document.documentElement.outerHTML.substring(0, 1000));
+      
+      // Check if elements are actually in the DOM
+      if (componentElements.length === 0) {
+        console.warn('No component elements found in DOM');
+        console.log('Looking for elements with ID header-placeholder');
+        const headerElement = document.getElementById('header-placeholder');
+        if (headerElement) {
+          console.log('Header placeholder found, but no data-component attribute');
+          console.log('Header placeholder element:', headerElement);
+        } else {
+          console.warn('Header placeholder element not found');
+        }
+      }
 
-    // Load each component
-    componentElements.forEach(element => {
-      const componentPath = element.getAttribute('data-component');
-      this.loadComponent(element.id, componentPath);
-    });
+      // Load each component
+      componentElements.forEach(element => {
+        const componentPath = element.getAttribute('data-component');
+        console.log(`Loading component: ${element.id} from ${componentPath}`);
+        console.log(`Element details:`, {
+          id: element.id,
+          tagName: element.tagName,
+          className: element.className,
+          hasDataComponent: element.hasAttribute('data-component'),
+          dataComponent: element.getAttribute('data-component')
+        });
+        this.loadComponent(element.id, componentPath);
+      });
+    }, 500); // Increased timeout
   }
 
   /**
@@ -45,8 +75,15 @@ export class ComponentLoader {
     // Create a promise for the loading process
     const loadingPromise = this._fetchComponent(componentPath)
       .then(html => {
+        // Debug logging
+        console.log(`Inserting component HTML into placeholder #${elementId}`);
+        console.log(`HTML content: ${html.substring(0, 100)}...`);
+        
         // Insert the component HTML
         placeholder.innerHTML = html;
+        
+        // Debug logging
+        console.log(`Component inserted. Placeholder now contains: ${placeholder.innerHTML.substring(0, 100)}...`);
 
         // Fix navigation links
         this._fixNavigationLinks(placeholder);
@@ -80,19 +117,35 @@ export class ComponentLoader {
    * @private
    */
   _fetchComponent(componentPath) {
-    // Handle component paths based on the new src structure
-    const cleanPath = componentPath.startsWith("src/")
-      ? componentPath
-      : "src/" + componentPath;
+    // Fix path to ensure it starts with /src/ if it doesn't already
+    if (!componentPath.startsWith('/') && !componentPath.startsWith('http')) {
+      // If path is relative, convert to absolute with /src/ prefix
+      if (componentPath.startsWith('../../components/')) {
+        componentPath = componentPath.replace('../../components/', '/src/components/');
+      } else if (componentPath.startsWith('../src/components/')) {
+        componentPath = componentPath.replace('../src/components/', '/src/components/');
+      } else if (componentPath.startsWith('../components/')) {
+        componentPath = componentPath.replace('../components/', '/src/components/');
+      } else if (componentPath.startsWith('src/components/')) {
+        componentPath = componentPath.replace('src/components/', '/src/components/');
+      } else if (!componentPath.startsWith('/src/components/')) {
+        componentPath = '/src/' + componentPath;
+      }
+    }
 
     // Construct the full URL using absolute path from root
-    const fullUrl = window.location.origin + "/" + cleanPath;
+    const fullUrl = window.location.origin + componentPath;
+    
+    // Debug logging
+    console.log(`Loading component from: ${fullUrl}`);
 
     return fetch(fullUrl)
       .then(response => {
         if (!response.ok) {
+          console.error(`Failed to load component: ${response.status} from ${fullUrl}`);
           throw new Error(`Failed to load component: ${response.status}`);
         }
+        console.log(`Successfully loaded component from: ${fullUrl}`);
         return response.text();
       });
   }
@@ -145,3 +198,18 @@ export class ComponentLoader {
     document.dispatchEvent(event);
   }
 }
+
+// Register the module
+import { registerModule } from '../core/module-registry.js';
+
+// Create and register the component loader
+const componentLoader = new ComponentLoader();
+registerModule('componentLoader', componentLoader);
+
+// Test that the module is loaded
+console.log('ComponentLoader module registered successfully');
+console.log('Component loader methods:', Object.getOwnPropertyNames(Object.getPrototypeOf(componentLoader)));
+
+// Make it globally accessible for debugging
+window.componentLoader = componentLoader;
+window.componentLoader = componentLoader;

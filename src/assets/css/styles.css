@@ -1,7 +1,7 @@
 /* Component CSS Imports */
-@import url("../../components/header/header.css");
-@import url("../../components/footer/footer.css");
-@import url("../../components/forum/forum.css");
+@import url("/src/components/header/header.css");
+@import url("/src/components/footer/footer.css");
+@import url("/src/components/forum/forum.css");
 
 /* Global Styles */
 :root {

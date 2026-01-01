@@ -47,10 +47,17 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="src/assets/css/styles.css" />
     <link rel="stylesheet" href="src/assets/css/home-interactive.css" />
-    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <link 
+      rel="stylesheet" 
+      href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
     <!-- Preload critical resources -->
     <link rel="preload" href="src/assets/images/biofuels.png" as="image" />
@@ -62,7 +69,7 @@
     <!-- Header Component -->
     <div
       id="header-placeholder"
-      data-component="src/components/header/header.html"
+      data-component="/src/components/header/header.html"
     ></div>
 
     <main>
@@ -633,15 +640,22 @@
     <!-- Footer Component -->
     <div
       id="footer-placeholder"
-      data-component="src/components/footer/footer.html"
+      data-component="/src/components/footer/footer.html"
     ></div>
 
     <!-- JavaScript -->
-    <script src="src/assets/js/components.js"></script>
-    <script type="module" src="src/assets/js/main.js"></script>
-    <script src="src/components/header/header.js"></script>
-    <script src="src/assets/js/scroll-animations.js"></script>
-    <!-- Swiper library removed -->
+    <script 
+      src="https://unpkg.com/swiper@8/swiper-bundle.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="module" src="src/assets/js/core/app.js"></script>
+    <script type="module" src="init-components.js"></script>
+    <script type="module" src="manual-component-init.js"></script>
+    <script type="module" src="init-components.js"></script>
+    <script type="module" src="init-components.js"></script>
+    <script type="module" src="manual-component-init.js"></script>
+    <script type="module" src="init-components.js"></script>
     <script>
       // Initialize home page specific features
       document.addEventListener('DOMContentLoaded', function() {

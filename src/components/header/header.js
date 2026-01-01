@@ -45,25 +45,35 @@ function initHeader() {
 
   // Initialize mobile menu state
   if (window.innerWidth <= 768 && menuToggle && topnav) {
-    topnav.style.display = 'none';
     menuToggle.textContent = '☰';
-    console.log('Mobile menu initialized - hidden');
+    console.log('Mobile menu initialized');
   } else if (menuToggle && topnav) {
     menuToggle.textContent = '✕';
-    console.log('Desktop menu initialized - visible');
+    console.log('Desktop menu initialized');
   }
 
   if (menuToggle) {
     menuToggle.addEventListener('click', () => {
       console.log('Menu toggle clicked');
-      if (topnav.style.display === 'none') {
-        topnav.style.display = 'flex';
+      topnav.classList.toggle('responsive');
+      
+      // Update menu icon based on state
+      if (topnav.classList.contains('responsive')) {
         menuToggle.textContent = '✕';
         console.log('Menu opened');
       } else {
-        topnav.style.display = 'none';
         menuToggle.textContent = '☰';
         console.log('Menu closed');
+      }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+      const isClickInside = topnav.contains(event.target) || menuToggle.contains(event.target);
+      
+      if (!isClickInside && topnav.classList.contains('responsive')) {
+        topnav.classList.remove('responsive');
+        menuToggle.textContent = '☰';
       }
     });
   }
@@ -77,13 +87,9 @@ let menuToggle, topnav;
 
 // Handle window resize for responsive menu
 window.addEventListener('resize', () => {
-  if (window.innerWidth <= 768 && menuToggle && topnav) {
-    topnav.style.display = 'none';
+  if (window.innerWidth > 768 && menuToggle && topnav && topnav.classList.contains('responsive')) {
+    topnav.classList.remove('responsive');
     menuToggle.textContent = '☰';
-    console.log('Window resized to mobile - menu hidden');
-  } else if (menuToggle && topnav) {
-    topnav.style.display = 'flex';
-    menuToggle.textContent = '✕';
-    console.log('Window resized to desktop - menu visible');
+    console.log('Window resized to desktop - menu closed');
   }
 });
