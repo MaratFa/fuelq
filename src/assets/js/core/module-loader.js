@@ -25,6 +25,7 @@ const pageModules = {
 
 // Core modules that should be loaded on all pages
 const coreModules = [
+  { path: '../components.js', name: 'components' },
   { path: '../modules/component-loader.js', name: 'componentLoader' },
   { path: '../modules/navigation-controller.js', name: 'navigation' },
   { path: '../modules/analytics.js', name: 'analytics' },

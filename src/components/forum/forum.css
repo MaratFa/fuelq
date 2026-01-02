@@ -1,5 +1,14 @@
 /* Forum component styles */
 
+/* Thread page specific styles */
+.thread-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--spacing-large);
+}
+
+/* Breadcrumb Navigation */
+
 .forum-container {
   max-width: 1200px;
   margin: 0 auto;

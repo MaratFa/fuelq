@@ -28,6 +28,11 @@ const appConfig = {
     basePath: '/src/components/',
     errorTemplate: '<div class="component-error">Failed to load component</div>'
   },
+  
+  // Components configuration
+  components: {
+    autoLoad: true
+  },
 
   // Analytics configuration
   analytics: {

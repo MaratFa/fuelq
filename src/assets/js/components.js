@@ -1,82 +1,105 @@
-// Component system for FuelQ website
+/**
+ * Component Loader
+ * Handles loading and initialization of all UI components
+ */
 
-// Component registry to store loaded components
-const componentRegistry = {};
+import { getModule } from './core/module-registry.js';
 
-// Function to register a component
-function registerComponent(name, element) {
-  componentRegistry[name] = element;
+// Component registry
+const componentRegistry = new Map();
+
+/**
+ * Register a component
+ * @param {string} name - Component name
+ * @param {Object} component - Component object with init method
+ */
+export function registerComponent(name, component) {
+  componentRegistry.set(name, component);
   console.log(`Component registered: ${name}`);
 }
 
-// Function to get a component by name
-function getComponent(name) {
-  return componentRegistry[name];
+/**
+ * Get a registered component
+ * @param {string} name - Component name
+ * @returns {Object|null} The component or null if not found
+ */
+export function getComponent(name) {
+  return componentRegistry.get(name);
 }
 
-// Function to load a component
-function loadComponent(path, placeholder) {
-  // Fix path to ensure it starts with /src/ if it doesn't already
-  if (!path.startsWith('/') && !path.startsWith('http')) {
-    // If path is relative, convert to absolute with /src/ prefix
-    if (path.startsWith('../../components/')) {
-      path = path.replace('../../components/', '/src/components/');
-    } else if (path.startsWith('../src/components/')) {
-      path = path.replace('../src/components/', '/src/components/');
-    } else if (path.startsWith('../components/')) {
-      path = path.replace('../components/', '/src/components/');
+/**
+ * Initialize all components on the page
+ */
+export function initComponents() {
+  console.log('Initializing components...');
+
+  // Find all elements with data-component attribute
+  const componentElements = document.querySelectorAll('[data-component]');
+
+  componentElements.forEach(element => {
+    const componentName = element.getAttribute('data-component');
+    const componentPath = element.getAttribute('data-component');
+
+    // Load component if not already loaded
+    if (!componentRegistry.has(componentName)) {
+      loadComponent(componentName, componentPath);
     }
-  }
-  
-  fetch(path)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Failed to load component: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then(html => {
-      placeholder.innerHTML = html;
 
-      // Extract component name from path
-      const componentName = path.split('/').pop().split('.')[0];
-
-      // Register the component
-      registerComponent(componentName, placeholder);
-
-      // Dispatch an event to notify that the component has been loaded
-      const event = new CustomEvent('componentLoaded', {
-        detail: { path, placeholder, componentName }
-      });
-      document.dispatchEvent(event);
-    })
-    .catch(error => {
-      console.error(`Error loading component from ${path}:`, error);
-      placeholder.innerHTML = `<div class="component-error">Failed to load component: ${path}</div>`;
-    });
-}
-
-// Function to initialize all components on the page
-function initializeComponents() {
-  // Find all component placeholders
-  const componentPlaceholders = document.querySelectorAll('[data-component]');
-
-  // Load each component
-  componentPlaceholders.forEach(placeholder => {
-    const componentPath = placeholder.getAttribute('data-component');
-    loadComponent(componentPath, placeholder);
+    // Initialize component
+    const component = componentRegistry.get(componentName);
+    if (component && typeof component.init === 'function') {
+      component.init(element);
+    }
   });
+
+  console.log('All components initialized');
 }
 
-// Auto-initialize components when DOM is ready
-document.addEventListener('DOMContentLoaded', initializeComponents);
+/**
+ * Load a component dynamically
+ * @param {string} name - Component name
+ * @param {string} path - Path to component files
+ */
+async function loadComponent(name, path) {
+  try {
+    // Load component HTML
+    const response = await fetch(path + '/' + name + '.html');
+    const html = await response.text();
 
-// Export functions for use in other scripts
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    registerComponent,
-    getComponent,
-    loadComponent,
-    initializeComponents
-  };
+    // Find all elements with this component name
+    const elements = document.querySelectorAll(`[data-component="${path}/${name}"]`);
+
+    // Replace elements with component HTML
+    elements.forEach(element => {
+      element.innerHTML = html;
+
+      // Load component CSS if exists
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = path + '/' + name + '.css';
+      document.head.appendChild(link);
+
+      // Load component JS if exists
+      import(path + '/' + name + '.js')
+        .then(module => {
+          // Register component
+          if (module.default) {
+            registerComponent(name, module.default);
+          }
+        })
+        .catch(error => {
+          console.warn(`Failed to load component JS for ${name}:`, error);
+        });
+    });
+  } catch (error) {
+    console.error(`Failed to load component ${name}:`, error);
+  }
+}
+
+// Initialize components when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initComponents);
+} else {
+  // DOM is already ready
+  initComponents();
 }
