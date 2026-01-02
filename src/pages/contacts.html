@@ -43,6 +43,207 @@
 
     <!-- Additional Styles for Contact Page -->
     <style>
+      /* Form Validation Styles */
+      .field-error {
+        color: #e53935;
+        font-size: 0.8rem;
+        margin-top: 0.3rem;
+      }
+      
+      .field-invalid {
+        border-color: #e53935 !important;
+        box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.2);
+      }
+      
+      /* Map Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .modal-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      
+      .modal-content {
+        position: relative;
+        background-color: var(--content-bg);
+        border-radius: var(--border-radius-large);
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        animation: modalFadeIn 0.3s ease-out;
+      }
+      
+      @keyframes modalFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      
+      .modal-header h3 {
+        margin: 0;
+        color: var(--secondary-color);
+      }
+      
+      .close {
+        font-size: 2rem;
+        color: var(--text-color);
+        opacity: 0.5;
+        cursor: pointer;
+        transition: opacity 0.3s;
+        background: none;
+        border: none;
+      }
+      
+      .close:hover {
+        opacity: 1;
+      }
+      
+      .modal-body {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      
+      #contact-map {
+        height: 400px;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        background-color: #f0f0f0;
+        position: relative;
+      }
+      
+      .map-placeholder {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url('https://picsum.photos/seed/fuelq-office/800/400.jpg');
+        background-size: cover;
+        background-position: center;
+      }
+      
+      .map-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        background-color: white;
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      
+      .map-center i {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+      }
+      
+      .map-overlay {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background-color: white;
+        padding: 0.5rem 1rem;
+        border-radius: var(--border-radius);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .map-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .map-info h4 {
+        margin: 0;
+        color: var(--secondary-color);
+      }
+      
+      .map-actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      
+      .btn-small {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+      
+      /* File Upload Styles */
+      .file-upload {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        width: 100%;
+      }
+      
+      .file-upload input[type="file"] {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
+      
+      .file-upload-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem 1rem;
+        background-color: var(--light-accent);
+        border: 1px dashed rgba(0, 0, 0, 0.2);
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+      
+      .file-upload-label:hover {
+        background-color: rgba(0, 150, 136, 0.1);
+        border-color: var(--primary-color);
+      }
+      
+      .char-count {
+        text-align: right;
+        font-size: 0.8rem;
+        color: var(--text-color);
+        opacity: 0.7;
+        margin-top: 0.3rem;
+      }
       .contact-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -444,6 +645,9 @@
                 <h3>Office Location</h3>
                 <p>123 Energy Avenue, Green City, EC 12345</p>
                 <p>United States</p>
+                <button class="btn-secondary btn-small" id="view-map-btn">
+                  <i class="fas fa-map"></i> View Map
+                </button>
               </div>
             </div>
 
@@ -576,6 +780,21 @@
                   required
                   placeholder="Please provide as much detail as possible"
                 ></textarea>
+                <div class="char-count">
+                  <span id="message-char-count">0</span> / 500
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="attachment">Attachment (Optional)</label>
+                <div class="file-upload">
+                  <input type="file" id="attachment" name="attachment" accept=".pdf,.doc,.doc,.docx,.jpg,.png" />
+                  <label for="attachment" class="file-upload-label">
+                    <i class="fas fa-paperclip"></i>
+                    <span id="file-name">Choose a file</span>
+                  </label>
+                </div>
+                <div class="form-hint">Accepted formats: PDF, DOC, DOCX, JPG, PNG (Max 5MB)</div>
               </div>
 
               <div class="form-group checkbox-group">
@@ -607,6 +826,33 @@
       </div>
     </main>
 
+    <!-- Map Modal -->
+    <div id="map-modal" class="modal">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Office Location</h3>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div id="contact-map"></div>
+          <div class="map-info">
+            <h4>FuelQuality Headquarters</h4>
+            <p>123 Energy Avenue, Green City, EC 12345</p>
+            <p>United States</p>
+            <div class="map-actions">
+              <button id="get-directions" class="btn-primary">
+                <i class="fas fa-directions"></i> Get Directions
+              </button>
+              <a href="tel:+15551234567" class="btn-secondary">
+                <i class="fas fa-phone"></i> Call Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Footer Component -->
     <div
       id="footer-placeholder"
@@ -622,10 +868,108 @@
         const contactForm = document.getElementById("contactForm");
         const resetBtn = document.getElementById("resetBtn");
         const formSuccess = document.getElementById("formSuccess");
-
+        const viewMapBtn = document.getElementById("view-map-btn");
+        const mapModal = document.getElementById("map-modal");
+        const closeModal = document.querySelector(".close");
+        const modalBackdrop = document.querySelector(".modal-backdrop");
+        const getDirectionsBtn = document.getElementById("get-directions");
+        
+        // Form validation
+        const firstName = document.getElementById("firstName");
+        const lastName = document.getElementById("lastName");
+        const email = document.getElementById("email");
+        const phone = document.getElementById("phone");
+        const subject = document.getElementById("subject");
+        const message = document.getElementById("message");
+        const attachment = document.getElementById("attachment");
+        const fileName = document.getElementById("file-name");
+        const messageCharCount = document.getElementById("message-char-count");
+        
+        // Error elements
+        const errorElements = {};
+        
+        // Create error elements for each field
+        function createErrorElement(fieldId) {
+          const errorElement = document.createElement("div");
+          errorElement.className = "field-error";
+          errorElement.id = fieldId + "-error";
+          
+          // Insert after the field
+          const field = document.getElementById(fieldId);
+          field.parentNode.insertBefore(errorElement, field.nextSibling);
+          
+          return errorElement;
+        }
+        
+        // Initialize error elements
+        ["firstName", "lastName", "email", "subject", "message"].forEach(fieldId => {
+          errorElements[fieldId] = createErrorElement(fieldId);
+        });
+        
+        // Validation functions
+        function validateField(field, errorElement, validationFn, errorMessage) {
+          const isValid = validationFn(field.value);
+          
+          if (!isValid) {
+            errorElement.textContent = errorMessage;
+            field.classList.add("field-invalid");
+            return false;
+          } else {
+            errorElement.textContent = "";
+            field.classList.remove("field-invalid");
+            return true;
+          }
+        }
+        
+        function validateName(name) {
+          return name.trim().length >= 2;
+        }
+        
+        function validateEmail(email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(email);
+        }
+        
+        function validatePhone(phone) {
+          // If phone is provided, validate it
+          if (!phone.trim()) return true;
+          
+          const phoneRegex = /^[\d\s\-\(\)]+$/;
+          return phoneRegex.test(phone) && phone.replace(/\D/g, "").length >= 10;
+        }
+        
+        function validateMessage(message) {
+          return message.trim().length >= 10;
+        }
+        
+        function validateForm() {
+          let isValid = true;
+          
+          // Validate each field
+          isValid = validateField(firstName, errorElements.firstName, validateName, "Please enter at least 2 characters") && isValid;
+          isValid = validateField(lastName, errorElements.lastName, validateName, "Please enter at least 2 characters") && isValid;
+          isValid = validateField(email, errorElements.email, validateEmail, "Please enter a valid email address") && isValid;
+          isValid = validateField(phone, errorElements.phone, validatePhone, "Please enter a valid phone number") && isValid;
+          isValid = validateField(subject, errorElements.subject, value => value !== "", "Please select a subject") && isValid;
+          isValid = validateField(message, errorElements.message, validateMessage, "Please enter at least 10 characters") && isValid;
+          
+          return isValid;
+        }
+        
         // Form submission
         contactForm.addEventListener("submit", function (e) {
           e.preventDefault();
+          
+          // Validate form
+          if (!validateForm()) {
+            // Scroll to first error
+            const firstInvalidField = document.querySelector(".field-invalid");
+            if (firstInvalidField) {
+              firstInvalidField.focus();
+              firstInvalidField.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+            return;
+          }
 
           // Get form values
           const formData = new FormData(contactForm);
@@ -638,11 +982,107 @@
           // Reset the form
           contactForm.reset();
         });
+        
+        // Real-time validation
+        [firstName, lastName].forEach(field => {
+          field.addEventListener("blur", () => {
+            validateField(field, errorElements[field.id], validateName, "Please enter at least 2 characters");
+          });
+        });
+        
+        email.addEventListener("blur", () => {
+          validateField(email, errorElements.email, validateEmail, "Please enter a valid email address");
+        });
+        
+        phone.addEventListener("blur", () => {
+          validateField(phone, errorElements.phone, validatePhone, "Please enter a valid phone number");
+        });
+        
+        subject.addEventListener("change", () => {
+          validateField(subject, errorElements.subject, value => value !== "", "Please select a subject");
+        });
+        
+        message.addEventListener("blur", () => {
+          validateField(message, errorElements.message, validateMessage, "Please enter at least 10 characters");
+        });
+        
+        // Character count for message
+        message.addEventListener("input", () => {
+          const length = message.value.length;
+          messageCharCount.textContent = length;
+          
+          // Change color if approaching limit
+          if (length > 450) {
+            messageCharCount.style.color = "#e53935"; // Red
+          } else if (length > 400) {
+            messageCharCount.style.color = "#fb8c00"; // Orange
+          } else {
+            messageCharCount.style.color = ""; // Default
+          }
+        });
+        
+        // File upload handling
+        attachment.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          
+          if (file) {
+            // Check file size (5MB limit)
+            if (file.size > 5 * 1024 * 1024) {
+              fileName.textContent = "File too large (max 5MB)";
+              fileName.style.color = "#e53935";
+              attachment.value = ""; // Clear the input
+            } else {
+              fileName.textContent = file.name;
+              fileName.style.color = "";
+            }
+          } else {
+            fileName.textContent = "Choose a file";
+          }
+        });
 
         // Reset button
         resetBtn.addEventListener("click", function () {
           contactForm.reset();
+          
+          // Clear all error messages
+          Object.values(errorElements).forEach(errorElement => {
+            errorElement.textContent = "";
+          });
+          
+          // Remove invalid classes
+          document.querySelectorAll(".field-invalid").forEach(field => {
+            field.classList.remove("field-invalid");
+          });
+          
           hideSuccessMessage();
+        });
+        
+        // Map modal functionality
+        viewMapBtn.addEventListener("click", () => {
+          mapModal.style.display = "flex";
+          document.body.style.overflow = "hidden";
+          
+          // Initialize map if not already initialized
+          if (!window.contactMapInitialized) {
+            initMap();
+            window.contactMapInitialized = true;
+          }
+        });
+        
+        // Close modal events
+        closeModal.addEventListener("click", closeMapModal);
+        modalBackdrop.addEventListener("click", closeMapModal);
+        
+        function closeMapModal() {
+          mapModal.style.display = "none";
+          document.body.style.overflow = "";
+        }
+        
+        // Get directions
+        getDirectionsBtn.addEventListener("click", () => {
+          // Open in Google Maps with directions
+          const destination = "123 Energy Avenue, Green City, EC 12345";
+          window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`, "_blank");
         });
 
         // Functions
@@ -657,6 +1097,24 @@
         function hideSuccessMessage() {
           formSuccess.style.display = "none";
           contactForm.style.display = "block";
+        }
+        
+        // Initialize map
+        function initMap() {
+          // This would normally initialize a map library like Google Maps or Leaflet
+          // For this example, we'll create a placeholder
+          const mapElement = document.getElementById("contact-map");
+          mapElement.innerHTML = `
+            <div class="map-placeholder">
+              <div class="map-center">
+                <i class="fas fa-map-marker-alt"></i>
+                <p>123 Energy Avenue, Green City, EC 12345</p>
+              </div>
+              <div class="map-overlay">
+                <p>Interactive Map</p>
+              </div>
+            </div>
+          `;
         }
       });
     </script>

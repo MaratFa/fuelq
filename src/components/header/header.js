@@ -39,7 +39,7 @@ function initHeader() {
     }
   });
 
-  // Mobile menu toggle
+  // Mobile menu toggle - using global variables
   menuToggle = document.getElementById('menu-toggle');
   topnav = document.querySelector('.topnav');
 
@@ -78,6 +78,9 @@ function initHeader() {
     });
   }
 }
+
+// Declare variables in global scope to make them accessible
+let menuToggle, topnav;
 
 // Initialize header when DOM is loaded
 document.addEventListener('DOMContentLoaded', initHeader);

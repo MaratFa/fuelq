@@ -1,0 +1,155 @@
+/* Forum Enhancements CSS */
+
+/* Advanced Filters */
+.advanced-filters {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.filter-toggle {
+    margin-bottom: 0.5rem;
+}
+
+.filters-panel {
+    background-color: var(--light-accent);
+    border-radius: var(--border-radius-large);
+    padding: 1.5rem;
+    margin-top: 0.5rem;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.filters-panel .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 200px;
+}
+
+.filters-panel .filter-group label {
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.filters-panel .filter-group input,
+.filters-panel .filter-group select {
+    padding: 0.7rem;
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    align-items: flex-end;
+}
+
+/* Notification System */
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 400px;
+}
+
+.notification {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+    overflow: hidden;
+}
+
+.notification-visible {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.notification-hiding {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.notification-content i {
+    font-size: 1.2rem;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.3rem;
+    margin-left: 0.5rem;
+    color: var(--text-color);
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.notification-close:hover {
+    opacity: 1;
+}
+
+.notification-info {
+    border-left: 4px solid #2196F3;
+}
+
+.notification-success {
+    border-left: 4px solid #4CAF50;
+}
+
+.notification-warning {
+    border-left: 4px solid #FF9800;
+}
+
+.notification-error {
+    border-left: 4px solid #F44336;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .filters-panel {
+        flex-direction: column;
+    }
+
+    .filters-panel .filter-group {
+        width: 100%;
+    }
+
+    .notification-container {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+
+    .notification {
+        transform: translateY(-100%);
+    }
+
+    .notification-visible {
+        transform: translateY(0);
+    }
+
+    .notification-hiding {
+        transform: translateY(-100%);
+    }
+}
