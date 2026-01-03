@@ -1,67 +1,7 @@
 
 /* Interactive Home Page Styles */
 
-/* CSS Variables */
-:root {
-  /* Modern color palette */
-  --primary-color: #00695c;
-  --secondary-color: #263238;
-  --background-color: #f5f7fa;
-  --content-bg: #ffffff;
-  --text-color: #333333;
-  --link-color: #ffffff;
-  --hover-color: #e0e0e0;
-  --accent-color: #4fc3f7;
-  --light-accent: #e1f5fe;
-  --dark-accent: #0277bd;
-  --gradient-1: #00695c;
-  --gradient-2: #00838f;
-  --gradient-3: #0277bd;
-
-  /* Modern font stack */
-  --font-family: "Inter", "Roboto", "Helvetica Neue", Arial, sans-serif;
-
-  /* Shadow effects */
-  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --card-hover-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  --hero-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-
-  /* Animation timing */
-  --transition-fast: 0.2s ease;
-  --transition-normal: 0.3s ease;
-  --transition-slow: 0.5s ease;
-
-  /* Common values */
-  --border-radius: 8px;
-  --border-radius-small: 4px;
-  --border-radius-large: 12px;
-  --spacing-small: 0.5rem;
-  --spacing-medium: 1rem;
-  --spacing-large: 2rem;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-family: var(--font-family);
-  scroll-behavior: smooth;
-}
-
-body {
-  background: var(--background-color);
-  color: var(--text-color);
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-  font-size: 1rem;
-  font-family: var(--font-family);
-  font-weight: 400;
-  width: 100%;
-}
+/* Note: CSS variables are defined in styles.css */
 
 /* Container and Layout */
 .container {
