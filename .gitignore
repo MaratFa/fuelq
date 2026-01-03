@@ -1,2 +1,6 @@
 # Server-specific files
 htaccess
+
+# Local
+node_modules
+server.js

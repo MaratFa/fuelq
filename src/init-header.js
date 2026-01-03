@@ -4,14 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
     // Get the component loader from the global scope
     const componentLoader = window.componentLoader;
-    
+
     if (componentLoader) {
       console.log('Manually initializing component loader...');
       componentLoader.init();
-      
-      // Manually initialize the component loader
-      console.log('Manually initializing component loader...');
-      componentLoader.init();
+
+      // Manually load the header component
+      console.log('Manually loading header component...');
+      componentLoader.loadComponent('header-placeholder', 'components/header/header.html');
     } else {
       console.error('Component loader not found in global scope');
     }

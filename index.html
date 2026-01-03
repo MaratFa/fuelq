@@ -40,7 +40,7 @@
     <meta name="twitter:image" content="https://www.fuelq.ru/biofuels.png" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="src/assets/images/favicon.png" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
     <link rel="canonical" href="https://www.fuelq.ru" />
 
     <!-- External CSS -->
@@ -50,29 +50,26 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="src/assets/css/styles.css" />
-    <link rel="stylesheet" href="src/components/header/header.css" />
-    <link rel="stylesheet" href="src/components/footer/footer.css" />
-    <link rel="stylesheet" href="src/assets/css/home-interactive.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="components/header/header.css" />
+    <link rel="stylesheet" href="components/footer/footer.css" />
+    <link rel="stylesheet" href="assets/css/home-interactive.css" />
     <link 
       rel="stylesheet" 
-      href="https://unpkg.com/swiper@8/swiper-bundle.min.css"
+      href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
 
     <!-- Preload critical resources -->
-    <link rel="preload" href="src/assets/images/biofuels.png" as="image" />
-    <link rel="preload" href="src/assets/images/hydrogen.png" as="image" />
-    <link rel="preload" href="src/assets/images/solar-wind.png" as="image" />
+    <link rel="preload" href="assets/images/biofuels.png" as="image" />
+    <link rel="preload" href="assets/images/hydrogen.png" as="image" />
+    <link rel="preload" href="assets/images/solar-wind.png" as="image" />
   </head>
 
   <body>
     <!-- Header Component -->
-    <div
-      id="header-placeholder"
-      data-component="/src/components/header/header.html"
-    ></div>
+    <div id="header-placeholder" data-component="/src/components/header/header.html"></div>
 
     <main>
       <section class="hero">
@@ -154,7 +151,7 @@
               <div class="tab-panel active" id="hydrogen">
                 <div class="energy-card animate-on-scroll">
                   <div class="card-image">
-                    <img src="src/assets/images/hydrogen.png" alt="Hydrogen Fuel" />
+                    <img src="assets/images/hydrogen.png" alt="Hydrogen Fuel" />
                   </div>
                   <div class="card-content">
                     <h3>Hydrogen Energy Systems</h3>
@@ -190,7 +187,7 @@
               <div class="tab-panel" id="biofuels">
                 <div class="energy-card animate-on-scroll">
                   <div class="card-image">
-                    <img src="src/assets/images/biofuels.png" alt="Biofuels" />
+                    <img src="assets/images/biofuels.png" alt="Biofuels" />
                   </div>
                   <div class="card-content">
                     <h3>Advanced Biofuels</h3>
@@ -225,7 +222,7 @@
               <div class="tab-panel" id="renewables">
                 <div class="energy-card animate-on-scroll">
                   <div class="card-image">
-                    <img src="src/assets/images/solar-wind.png" alt="Solar and Wind Energy" />
+                    <img src="assets/images/solar-wind.png" alt="Solar and Wind Energy" />
                   </div>
                   <div class="card-content">
                     <h3>Integrated Renewable Systems</h3>
@@ -260,7 +257,7 @@
               <div class="tab-panel" id="geothermal">
                 <div class="energy-card animate-on-scroll">
                   <div class="card-image">
-                    <img src="src/assets/images/geothermal.png" alt="Geothermal Energy" />
+                    <img src="assets/images/geothermal.png" alt="Geothermal Energy" />
                   </div>
                   <div class="card-content">
                     <h3>Geothermal Energy Solutions</h3>
@@ -295,7 +292,7 @@
               <div class="tab-panel" id="nuclear">
                 <div class="energy-card animate-on-scroll">
                   <div class="card-image">
-                    <img src="src/assets/images/nuclear.jpg" alt="Advanced Nuclear Systems" />
+                    <img src="assets/images/nuclear.jpg" alt="Advanced Nuclear Systems" />
                   </div>
                   <div class="card-content">
                     <h3>Advanced Nuclear Systems</h3>
@@ -330,7 +327,7 @@
               <div class="tab-panel" id="ammonia">
                 <div class="energy-card animate-on-scroll">
                   <div class="card-image">
-                    <img src="src/assets/images/ammonia.jpg" alt="Ammonia as Energy Carrier" />
+                    <img src="assets/images/ammonia.jpg" alt="Ammonia as Energy Carrier" />
                   </div>
                   <div class="card-content">
                     <h3>Ammonia as Energy Carrier</h3>
@@ -368,7 +365,7 @@
           <div class="energy-grid" style="display: none;">
             <div class="energy-card animate-on-scroll">
               <div class="card-image">
-                <img src="src/assets/images/hydrogen.png" alt="Hydrogen Fuel" />
+                <img src="assets/images/hydrogen.png" alt="Hydrogen Fuel" />
               </div>
               <div class="card-content">
                 <h3>Hydrogen Energy Systems</h3>
@@ -388,7 +385,7 @@
 
             <div class="energy-card animate-on-scroll">
               <div class="card-image">
-                <img src="src/assets/images/biofuels.png" alt="Biofuels" />
+                <img src="assets/images/biofuels.png" alt="Biofuels" />
               </div>
               <div class="card-content">
                 <h3>Advanced Biofuels</h3>
@@ -565,7 +562,7 @@
           <div class="news-container">
             <div class="news-card">
               <div class="news-card-image">
-                <img src="https://picsum.photos/seed/energy1/600/400.jpg" alt="Energy News 1" />
+                <img src="assets/images/hydrogen.png" alt="Energy News 1" />
               </div>
               <div class="news-card-content">
                 <div class="news-card-date">June 15, 2023</div>
@@ -577,7 +574,7 @@
 
             <div class="news-card">
               <div class="news-card-image">
-                <img src="https://picsum.photos/seed/energy2/600/400.jpg" alt="Energy News 2" />
+                <img src="assets/images/biofuels.png" alt="Energy News 2" />
               </div>
               <div class="news-card-content">
                 <div class="news-card-date">June 10, 2023</div>
@@ -589,7 +586,7 @@
 
             <div class="news-card">
               <div class="news-card-image">
-                <img src="https://picsum.photos/seed/energy3/600/400.jpg" alt="Energy News 3" />
+                <img src="assets/images/solar-wind.png" alt="Energy News 3" />
               </div>
               <div class="news-card-content">
                 <div class="news-card-date">June 5, 2023</div>
@@ -637,19 +634,18 @@
     </main>
 
     <!-- Footer Component -->
-    <div
-      id="footer-placeholder"
-      data-component="/src/components/footer/footer.html"
-    ></div>
+    <footer>
+      <p>Created by FQ. © 2026</p>
+    </footer>
 
     <!-- JavaScript -->
     <script 
-      src="https://unpkg.com/swiper@8/swiper-bundle.min.js"
+      src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script type="module" src="src/assets/js/core/app.js"></script>
-    <script type="module" src="init-header.js"></script>
+    <script type="module" src="/src/assets/js/core/app.js"></script>
+    <script type="module" src="/init-header.js"></script>
     <script>
       // Initialize home page specific features
       document.addEventListener('DOMContentLoaded', function() {

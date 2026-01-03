@@ -210,8 +210,21 @@ export class ContactFormHandler {
     // Show loading state
     this.showLoadingState();
 
-    // Simulate API call
-    setTimeout(() => {
+    // Send data to API
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
       // Hide loading state
       this.hideLoadingState();
 
@@ -220,7 +233,14 @@ export class ContactFormHandler {
 
       // Reset form
       this.resetForm();
-    }, 1500);
+    })
+    .catch(error => {
+      console.error('Error submitting form:', error);
+      // Hide loading state
+      this.hideLoadingState();
+      // Show error message
+      this.showErrorMessage('Failed to submit form. Please try again later.');
+    });
   }
 
   /**

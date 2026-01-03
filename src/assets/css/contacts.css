@@ -106,7 +106,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url('https://picsum.photos/seed/fuelq-office/800/400.jpg');
+  background-image: url('../images/hydrogen.png');
   background-size: cover;
   background-position: center;
 }

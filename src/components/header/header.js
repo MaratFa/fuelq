@@ -85,9 +85,6 @@ let menuToggle, topnav;
 // Initialize header when DOM is loaded
 document.addEventListener('DOMContentLoaded', initHeader);
 
-// Declare variables in global scope to make them accessible
-let menuToggle, topnav;
-
 // Handle window resize for responsive menu
 window.addEventListener('resize', () => {
   if (window.innerWidth > 768 && menuToggle && topnav && topnav.classList.contains('responsive')) {

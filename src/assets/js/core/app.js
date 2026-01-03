@@ -25,7 +25,7 @@ const appConfig = {
   },
   // Component loader configuration
   componentLoader: {
-    basePath: '/src/components/',
+    basePath: 'components/',
     errorTemplate: '<div class="component-error">Failed to load component</div>'
   },
   
