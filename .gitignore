@@ -1,6 +1,9 @@
 # Server-specific files
 htaccess
+.htaccess
 
-# Local
+# 
 node_modules
-server.js
+server-prod.js
+.env.example
+.env

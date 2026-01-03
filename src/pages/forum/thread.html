@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="stylesheet" href="components/header/header.css" />
     <link rel="stylesheet" href="components/forum/forum.css" />
+    <link rel="stylesheet" href="assets/css/forum-api.css" />
   </head>
 
   <body>
@@ -103,7 +104,7 @@
     <script src="../../components/forum/forum.js"></script>
     <script src="../../components/header/header.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
+      document.addEventListener("DOMContentLoaded", async function () {
         // Get thread ID from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const threadId = urlParams.get("id");
@@ -114,23 +115,38 @@
           return;
         }
 
-        // Find thread
-        const thread = threads.find(t => t.id == threadId);
+        // Show loading state
+        const threadContent = document.getElementById("thread-content");
+        threadContent.innerHTML = `
+          <div class="loading-indicator">
+            <div class="spinner"></div>
+            <p>Loading thread...</p>
+          </div>
+        `;
 
-        if (!thread) {
-          // If thread not found, show error
-          document.getElementById("thread-content").innerHTML = 
-            `<div class="error-message">Thread not found. <a href="index.html">Return to forum</a></div>`;
+        let thread;
+        try {
+          // Fetch thread from API
+          thread = await fetchThread(threadId);
+          
+          if (!thread) {
+            // If thread not found, show error
+            threadContent.innerHTML =
+              `<div class="error-message">Thread not found. <a href="index.html">Return to forum</a></div>`;
+            return;
+          }
+
+          // Render thread
+          renderThread(thread);
+        } catch (error) {
+          console.error("Error fetching thread:", error);
+          threadContent.innerHTML =
+            `<div class="error-message">Failed to load thread. Please try again later. <a href="index.html">Return to forum</a></div>`;
           return;
         }
 
         // Increment view count
         thread.views = (thread.views || 0) + 1;
-
-        // Save updated thread data
-        if (typeof localStorage !== "undefined") {
-          localStorage.setItem("threads", JSON.stringify(threads));
-        }
 
         // Render thread
         renderThread(thread);
@@ -187,10 +203,113 @@
           `;
         }
 
+        // Add event listener for reply form
+        const replyForm = document.getElementById("reply-form");
+        if (replyForm) {
+          replyForm.addEventListener("submit", async function(e) {
+            e.preventDefault();
+            
+            const author = document.getElementById("reply-author").value;
+            const content = document.getElementById("reply-content").value;
+            
+            if (!author || !content) {
+              showNotification("Please fill in all fields", "error");
+              return;
+            }
+            
+            // Show loading state
+            const submitBtn = replyForm.querySelector("button[type=submit]");
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Posting...`;
+            submitBtn.disabled = true;
+            
+            try {
+              // Post comment via API
+              const newComment = await addComment(threadId, {
+                author,
+                content
+              });
+              
+              // Add comment to thread
+              thread.comments.push(newComment);
+              
+              // Re-render thread
+              renderThread(thread);
+              
+              // Clear form
+              document.getElementById("reply-author").value = "";
+              document.getElementById("reply-content").value = "";
+              
+              // Show success message
+              showNotification("Reply posted successfully!", "success");
+              
+              // Scroll to the new comment
+              setTimeout(() => {
+                const newCommentElement = document.querySelector(`.reply:last-child`);
+                if (newCommentElement) {
+                  newCommentElement.scrollIntoView({ behavior: "smooth" });
+                }
+              }, 100);
+            } catch (error) {
+              console.error("Error posting comment:", error);
+              showNotification("Failed to post reply. Please try again.", "error");
+            } finally {
+              // Reset button
+              submitBtn.innerHTML = originalText;
+              submitBtn.disabled = false;
+            }
+          });
+        }
+        
         // Utility function to format dates
         function formatDate(timestamp) {
           const date = new Date(timestamp);
           return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+        }
+        
+        // Function to show notifications
+        function showNotification(message, type = "info") {
+          // Create notification element
+          const notification = document.createElement("div");
+          notification.className = `notification notification-${type}`;
+          notification.innerHTML = `
+            <div class="notification-content">
+              <i class="fas fa-${type === "success" ? "check-circle" : type === "error" ? "exclamation-circle" : "info-circle"}"></i>
+              <span>${message}</span>
+            </div>
+            <button class="notification-close"><i class="fas fa-times"></i></button>
+          `;
+
+          // Add to page
+          document.body.appendChild(notification);
+
+          // Add close functionality
+          const closeBtn = notification.querySelector(".notification-close");
+          closeBtn.addEventListener("click", () => {
+            notification.classList.add("notification-hiding");
+            setTimeout(() => {
+              if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+              }
+            }, 300);
+          });
+
+          // Auto-hide after 5 seconds
+          setTimeout(() => {
+            if (notification.parentNode) {
+              notification.classList.add("notification-hiding");
+              setTimeout(() => {
+                if (notification.parentNode) {
+                  notification.parentNode.removeChild(notification);
+                }
+              }, 300);
+            }
+          }, 5000);
+
+          // Show with animation
+          setTimeout(() => {
+            notification.classList.add("notification-visible");
+          }, 10);
         }
       });
     </script>

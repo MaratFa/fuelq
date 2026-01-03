@@ -7,10 +7,34 @@ let filteredThreads = [];
 let currentView = "grid";
 
 // Initialize forum when DOM is loaded
-document.addEventListener("DOMContentLoaded", function () {
-  // Initialize threads array
-  if (typeof threads !== "undefined") {
+document.addEventListener("DOMContentLoaded", async function () {
+  // Show loading state
+  const loadingIndicator = document.createElement("div");
+  loadingIndicator.className = "loading-indicator";
+  loadingIndicator.innerHTML = `<div class="spinner"></div><p>Loading forum threads...</p>`;
+  const forumContainer = document.querySelector(".forum-container");
+  if (forumContainer) {
+    forumContainer.appendChild(loadingIndicator);
+  }
+
+  try {
+    // Fetch threads from API
+    await fetchThreads();
     filteredThreads = [...threads];
+  } catch (error) {
+    console.error("Failed to load forum threads:", error);
+    // Show error message
+    const errorMessage = document.createElement("div");
+    errorMessage.className = "error-message";
+    errorMessage.innerHTML = `<p>Failed to load forum threads. Please try again later.</p>`;
+    if (forumContainer) {
+      forumContainer.appendChild(errorMessage);
+    }
+  } finally {
+    // Remove loading indicator
+    if (loadingIndicator && loadingIndicator.parentNode) {
+      loadingIndicator.parentNode.removeChild(loadingIndicator);
+    }
   }
 
   // Initialize forum
@@ -106,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Create new thread
-  function createNewThread() {
+  async function createNewThread() {
     const title = document.getElementById("thread-title").value;
     const content = document.getElementById("thread-content").value;
     const author = document.getElementById("thread-author").value;
@@ -117,36 +141,47 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    // Create new thread object
-    const newThread = {
-      id: threads.length + 1,
-      title: title,
-      content: content,
-      author: author,
-      category: category,
-      date: Date.now(),
-      views: 0,
-      comments: [],
-    };
+    // Show loading state
+    const submitButton = document.getElementById("create-thread");
+    const originalText = submitButton.innerHTML;
+    submitButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Creating...`;
+    submitButton.disabled = true;
 
-    // Add to threads array
-    threads.unshift(newThread);
+    try {
+      // Create new thread via API
+      const newThread = await createThread({
+        title,
+        content,
+        author,
+        category
+      });
 
-    // Save to localStorage
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem("threads", JSON.stringify(threads));
+      // Close modal
+      document.getElementById("new-thread-modal").style.display = "none";
+
+      // Clear form
+      document.getElementById("thread-title").value = "";
+      document.getElementById("thread-content").value = "";
+      document.getElementById("thread-author").value = "";
+      document.getElementById("thread-category").value = "general";
+
+      // Update filtered threads
+      filteredThreads = [...threads];
+      
+      // Reset to first page and render
+      currentPage = 1;
+      renderThreads();
+      
+      // Show success message
+      showNotification("Thread created successfully!", "success");
+    } catch (error) {
+      console.error("Error creating thread:", error);
+      showNotification("Failed to create thread. Please try again.", "error");
+    } finally {
+      // Reset button
+      submitButton.innerHTML = originalText;
+      submitButton.disabled = false;
     }
-
-    // Close modal
-    document.getElementById("new-thread-modal").style.display = "none";
-
-    // Clear form
-    document.getElementById("thread-title").value = "";
-    document.getElementById("thread-content").value = "";
-    document.getElementById("thread-author").value = "";
-
-    // Refresh forum
-    renderThreads();
   }
 
   // Set view mode
@@ -310,5 +345,50 @@ document.addEventListener("DOMContentLoaded", function () {
   function formatDate(timestamp) {
     const date = new Date(timestamp);
     return date.toLocaleDateString() + " " + date.toLocaleTimeString();
+  }
+
+  // Function to show notifications
+  function showNotification(message, type = "info") {
+    // Create notification element
+    const notification = document.createElement("div");
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+      <div class="notification-content">
+        <i class="fas fa-${type === "success" ? "check-circle" : type === "error" ? "exclamation-circle" : "info-circle"}"></i>
+        <span>${message}</span>
+      </div>
+      <button class="notification-close"><i class="fas fa-times"></i></button>
+    `;
+
+    // Add to page
+    document.body.appendChild(notification);
+
+    // Add close functionality
+    const closeBtn = notification.querySelector(".notification-close");
+    closeBtn.addEventListener("click", () => {
+      notification.classList.add("notification-hiding");
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.parentNode.removeChild(notification);
+        }
+      }, 300);
+    });
+
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.classList.add("notification-hiding");
+        setTimeout(() => {
+          if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+          }
+        }, 300);
+      }
+    }, 5000);
+
+    // Show with animation
+    setTimeout(() => {
+      notification.classList.add("notification-visible");
+    }, 10);
   }
 });
