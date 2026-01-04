@@ -4,8 +4,5 @@ htaccess
 
 # 
 node_modules
-server-prod.js
 .env.example
 .env
-server-with-restart.js
-server.js

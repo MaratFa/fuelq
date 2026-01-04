@@ -20,7 +20,9 @@ class ServiceWorkerManager {
     // Register service worker if supported
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        this.registerServiceWorker(config.swPath || '/sw.js');
+        // Always try /sw.js first, regardless of environment
+        const swPath = config.swPath || '/sw.js';
+        this.registerServiceWorker(swPath);
       });
     }
 
@@ -44,6 +46,28 @@ class ServiceWorkerManager {
       this.setupMessageListener();
     } catch (error) {
       console.error('Service Worker registration failed:', error);
+
+      // Try fallback paths if the initial registration fails
+      let fallbackPath;
+      if (swPath === '/sw.js') {
+        fallbackPath = '/src/sw.js';
+      } else {
+        fallbackPath = '/sw.js';
+      }
+
+      console.log(`Trying fallback path: ${fallbackPath}`);
+      try {
+        this.swRegistration = await navigator.serviceWorker.register(fallbackPath);
+        console.log('Service Worker registered with fallback path, scope:', this.swRegistration.scope);
+
+        // Check for updates
+        this.checkForUpdates();
+
+        // Setup message listener
+        this.setupMessageListener();
+      } catch (fallbackError) {
+        console.error('Fallback service worker registration also failed:', fallbackError);
+      }
     }
   }
 
