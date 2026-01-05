@@ -22,3 +22,4 @@ else
     # Start the server with auto-restart capability
     node start-server.js
 fi
+
