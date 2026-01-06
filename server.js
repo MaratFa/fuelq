@@ -4,6 +4,10 @@ const cors = require('cors');
 const mysql = require('mysql2');
 const path = require('path');
 const fs = require('fs');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { authenticateToken } = require('./middleware/auth');
+const { apiLimiter, loginLimiter, forumLimiter } = require('./middleware/rateLimiter');
 require('dotenv').config();
 
 // Create logs directory if it doesn't exist
@@ -20,6 +24,9 @@ function startServer() {
     // Middleware
     app.use(cors());
     app.use(bodyParser.json());
+    
+    // Apply rate limiting to all API routes
+    app.use('/api/', apiLimiter);
 
     // Serve static files from multiple directories
     // Handle paths with /src prefix
@@ -67,6 +74,131 @@ function startServer() {
     app.get('/api/health', (req, res) => {
         res.json({ status: 'OK', timestamp: new Date().toISOString() });
     });
+    
+    // Authentication endpoints
+    app.post('/api/auth/register', loginLimiter, async (req, res) => {
+        try {
+            const { username, email, password, firstName, lastName } = req.body;
+            
+            // Validate input
+            if (!username || !email || !password) {
+                return res.status(400).json({ error: 'Username, email, and password are required' });
+            }
+            
+            // Check if user already exists
+            const checkUserQuery = 'SELECT id FROM users WHERE username = ? OR email = ?';
+            connection.query(checkUserQuery, [username, email], async (error, results) => {
+                if (error) {
+                    console.error('Error checking user:', error);
+                    return res.status(500).json({ error: 'Failed to register user' });
+                }
+                
+                if (results.length > 0) {
+                    return res.status(409).json({ error: 'Username or email already exists' });
+                }
+                
+                // Hash password
+                const saltRounds = 10;
+                const hashedPassword = await bcrypt.hash(password, saltRounds);
+                
+                // Create user
+                const createUserQuery = 'INSERT INTO users (username, email, password, firstName, lastName, dateJoined) VALUES (?, ?, ?, ?, ?, ?)';
+                const dateJoined = Date.now();
+                connection.query(createUserQuery, [username, email, hashedPassword, firstName, lastName, dateJoined], (error, results) => {
+                    if (error) {
+                        console.error('Error creating user:', error);
+                        return res.status(500).json({ error: 'Failed to register user' });
+                    }
+                    
+                    // Generate JWT token
+                    const token = jwt.sign(
+                        { id: results.insertId, username, email },
+                        process.env.JWT_SECRET || 'default_secret',
+                        { expiresIn: '24h' }
+                    );
+                    
+                    return res.status(201).json({
+                        message: 'User registered successfully',
+                        token,
+                        user: {
+                            id: results.insertId,
+                            username,
+                            email,
+                            firstName,
+                            lastName
+                        }
+                    });
+                });
+            });
+        } catch (error) {
+            console.error('Registration error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
+    
+    app.post('/api/auth/login', loginLimiter, async (req, res) => {
+        try {
+            const { username, password } = req.body;
+            
+            // Validate input
+            if (!username || !password) {
+                return res.status(400).json({ error: 'Username and password are required' });
+            }
+            
+            // Find user
+            const findUserQuery = 'SELECT * FROM users WHERE username = ? OR email = ?';
+            connection.query(findUserQuery, [username, username], async (error, results) => {
+                if (error) {
+                    console.error('Error finding user:', error);
+                    return res.status(500).json({ error: 'Failed to login' });
+                }
+                
+                if (results.length === 0) {
+                    return res.status(401).json({ error: 'Invalid credentials' });
+                }
+                
+                const user = results[0];
+                
+                // Compare password
+                const passwordMatch = await bcrypt.compare(password, user.password);
+                
+                if (!passwordMatch) {
+                    return res.status(401).json({ error: 'Invalid credentials' });
+                }
+                
+                // Update last login
+                const updateLoginQuery = 'UPDATE users SET lastLogin = ? WHERE id = ?';
+                connection.query(updateLoginQuery, [Date.now(), user.id], (error) => {
+                    if (error) {
+                        console.error('Error updating last login:', error);
+                    }
+                });
+                
+                // Generate JWT token
+                const token = jwt.sign(
+                    { id: user.id, username: user.username, email: user.email },
+                    process.env.JWT_SECRET || 'default_secret',
+                    { expiresIn: '24h' }
+                );
+                
+                return res.json({
+                    message: 'Login successful',
+                    token,
+                    user: {
+                        id: user.id,
+                        username: user.username,
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        role: user.role
+                    }
+                });
+            });
+        } catch (error) {
+            console.error('Login error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    });
 
     // Forum API routes
     app.get('/api/forum/threads', (req, res) => {
@@ -111,10 +243,12 @@ function startServer() {
         });
     });
 
-    app.post('/api/forum/threads', (req, res) => {
-        const { title, content, author } = req.body;
-        if (!title || !content || !author) {
-            res.status(400).json({ error: 'Missing required fields' });
+    app.post('/api/forum/threads', authenticateToken, forumLimiter, (req, res) => {
+        const { title, content } = req.body;
+        const author = req.user.username; // Use authenticated user's username
+        
+        if (!title || !content) {
+            res.status(400).json({ error: 'Title and content are required' });
             return;
         }
 
@@ -129,11 +263,13 @@ function startServer() {
         });
     });
 
-    app.post('/api/forum/threads/:id/posts', (req, res) => {
+    app.post('/api/forum/threads/:id/posts', authenticateToken, forumLimiter, (req, res) => {
         const threadId = req.params.id;
-        const { content, author } = req.body;
-        if (!content || !author) {
-            res.status(400).json({ error: 'Missing required fields' });
+        const { content } = req.body;
+        const author = req.user.username; // Use authenticated user's username
+        
+        if (!content) {
+            res.status(400).json({ error: 'Content is required' });
             return;
         }
 

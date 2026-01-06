@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - FuelQuality</title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Create a FuelQuality account to participate in forum discussions and access exclusive content."
+    />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/src/assets/images/favicon.png" />
+
+    <!-- External CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/src/assets/css/styles.css" />
+    <link rel="stylesheet" href="/src/components/header/header.css" />
+    <link rel="stylesheet" href="/src/components/footer/footer.css" />
+    <link rel="stylesheet" href="/src/assets/css/login.css" />
+  </head>
+  <body>
+    <!-- Header Component -->
+    <div id="header-container"></div>
+
+    <!-- Main Content -->
+    <main class="login-container">
+      <div class="login-card">
+        <h1 class="login-title">Create Your FuelQuality Account</h1>
+
+        <div id="register-message" class="message"></div>
+
+        <form id="register-form">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Choose a username"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email address"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              placeholder="Enter your first name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              placeholder="Enter your last name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a password"
+              required
+              minlength="8"
+            />
+            <small>Must be at least 8 characters long</small>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              required
+              minlength="8"
+            />
+          </div>
+
+          <button type="submit" class="login-btn">Create Account</button>
+        </form>
+
+        <div class="login-footer">
+          <p>Already have an account? <a href="/src/pages/login.html">Login here</a></p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Component -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="/src/init-header.js"></script>
+    <script type="module" src="/src/assets/js/auth.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        // Load header and footer components
+        try {
+          const headerResponse = await fetch('/src/components/header/header.html');
+          const headerHtml = await headerResponse.text();
+          document.getElementById('header-container').innerHTML = headerHtml;
+
+          const footerResponse = await fetch('/src/components/footer/footer.html');
+          const footerHtml = await footerResponse.text();
+          document.getElementById('footer-container').innerHTML = footerHtml;
+        } catch (error) {
+          console.error('Error loading components:', error);
+        }
+
+        // Check if already logged in
+        const { isAuthenticated, getCurrentUser } = await import('/src/assets/js/auth.js');
+
+        if (isAuthenticated()) {
+          const user = getCurrentUser();
+          document.getElementById('register-message').innerHTML = 
+            `<div class="success-message">You are already logged in as ${user.username}. <a href="/src/pages/forum/index.html">Go to Forum</a></div>`;
+          document.getElementById('register-form').style.display = 'none';
+          return;
+        }
+
+        // Handle registration form submission
+        const registerForm = document.getElementById('register-form');
+        const messageDiv = document.getElementById('register-message');
+
+        registerForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          // Get form values
+          const username = document.getElementById('username').value;
+          const email = document.getElementById('email').value;
+          const firstName = document.getElementById('firstName').value;
+          const lastName = document.getElementById('lastName').value;
+          const password = document.getElementById('password').value;
+          const confirmPassword = document.getElementById('confirmPassword').value;
+
+          // Validate passwords match
+          if (password !== confirmPassword) {
+            messageDiv.innerHTML = '<div class="error-message">Passwords do not match</div>';
+            return;
+          }
+
+          // Show loading state
+          const registerBtn = registerForm.querySelector('.login-btn');
+          const originalBtnText = registerBtn.textContent;
+          registerBtn.textContent = 'Creating Account...';
+          registerBtn.disabled = true;
+
+          // Import auth functions
+          const { register } = await import('/src/assets/js/auth.js');
+
+          // Attempt to register
+          const result = await register({ username, email, firstName, lastName, password });
+
+          // Reset button state
+          registerBtn.textContent = originalBtnText;
+          registerBtn.disabled = false;
+
+          // Handle response
+          if (result.success) {
+            messageDiv.innerHTML = '<div class="success-message">Account created successfully! Redirecting...</div>';
+            setTimeout(() => {
+              window.location.href = '/src/pages/forum/index.html';
+            }, 1500);
+          } else {
+            messageDiv.innerHTML = `<div class="error-message">${result.error}</div>`;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
