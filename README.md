@@ -108,16 +108,42 @@ To view the website locally:
    cd fuelq
    ```
 
-3. Open `index.html` in your web browser or use a local server:
+3. Install dependencies:
    ```bash
-   # Using Python 3
-   python -m http.server 8000
-
-   # Or using Node.js with http-server
-   npx http-server
+   npm install
    ```
 
-4. Visit `http://localhost:8000` in your browser.
+4. Start the server using PM2:
+   ```bash
+   npm start
+   ```
+
+5. For development, you can use:
+   ```bash
+   npm run dev
+   ```
+
+6. Visit `http://localhost:3000` in your browser.
+
+### Server Management with PM2
+
+The project uses PM2 for process management. Here are the available commands:
+
+- `npm start` - Start the server in production mode
+- `npm run stop` - Stop the server
+- `npm run restart` - Restart the server
+- `npm run delete` - Remove the server from PM2
+- `npm run logs` - View server logs
+- `npm run monit` - Open PM2 monitoring dashboard
+
+## Project Changes
+
+The project has been updated to use PM2 for server management, replacing the previous custom scripts:
+
+- Removed: `start-server.js` - Custom server startup script
+- Removed: `watchdog.sh` - Bash script for server monitoring
+- Added: PM2 configuration in `ecosystem.config.js`
+- Added: PM2 as a dev dependency
 
 ## Project Pages
 
