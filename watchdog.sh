@@ -7,7 +7,7 @@
 cd "$(dirname "$0")"
 
 # Configuration
-SERVER_SCRIPT="server-with-restart.js"
+SERVER_SCRIPT="server.js"
 PID_FILE="server.pid"
 CHECK_INTERVAL=30  # Check every 30 seconds
 MAX_RESTART_ATTEMPTS=5
