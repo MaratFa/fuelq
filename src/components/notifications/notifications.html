@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - FuelQ</title>
+    <link rel="stylesheet" href="/src/assets/css/styles.css">
+    <link rel="stylesheet" href="/src/components/notifications/notifications.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-placeholder" data-component="/src/components/header/header.html"></div>
+
+    <main class="notifications-container">
+        <div class="notifications-header">
+            <h1>Notifications</h1>
+            <div class="notification-actions">
+                <button id="mark-all-read" class="btn-secondary">
+                    <i class="fas fa-check-double"></i> Mark All Read
+                </button>
+                <button id="notification-settings" class="btn-secondary">
+                    <i class="fas fa-cog"></i> Settings
+                </button>
+            </div>
+        </div>
+
+        <div class="notification-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="unread">Unread</button>
+            <button class="filter-btn" data-filter="mentions">Mentions</button>
+            <button class="filter-btn" data-filter="replies">Replies</button>
+            <button class="filter-btn" data-filter="likes">Likes</button>
+            <button class="filter-btn" data-filter="badges">Badges</button>
+        </div>
+
+        <div class="notifications-list">
+            <div class="notification-item unread">
+                <div class="notification-icon notification-mention">
+                    <i class="fas fa-at"></i>
+                </div>
+                <div class="notification-content">
+                    <p><strong>Sarah Johnson</strong> mentioned you in <a href="#">"Future of Hydrogen Energy"</a></p>
+                    <span class="notification-time">2 hours ago</span>
+                </div>
+                <div class="notification-actions-item">
+                    <button class="action-btn mark-read"><i class="fas fa-check"></i></button>
+                </div>
+            </div>
+
+            <div class="notification-item unread">
+                <div class="notification-icon notification-reply">
+                    <i class="fas fa-reply"></i>
+                </div>
+                <div class="notification-content">
+                    <p><strong>Michael Chen</strong> replied to your thread <a href="#">"Solar Panel Efficiency Improvements"</a></p>
+                    <span class="notification-time">5 hours ago</span>
+                </div>
+                <div class="notification-actions-item">
+                    <button class="action-btn mark-read"><i class="fas fa-check"></i></button>
+                </div>
+            </div>
+
+            <div class="notification-item unread">
+                <div class="notification-icon notification-like">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="notification-content">
+                    <p><strong>Emma Wilson</strong> and <strong>12 others</strong> liked your comment in <a href="#">"Biofuels Discussion"</a></p>
+                    <span class="notification-time">Yesterday</span>
+                </div>
+                <div class="notification-actions-item">
+                    <button class="action-btn mark-read"><i class="fas fa-check"></i></button>
+                </div>
+            </div>
+
+            <div class="notification-item">
+                <div class="notification-icon notification-badge">
+                    <i class="fas fa-award"></i>
+                </div>
+                <div class="notification-content">
+                    <p>You've earned the <strong>"Hot Streak"</strong> badge for 10 posts in a week!</p>
+                    <span class="notification-time">2 days ago</span>
+                </div>
+                <div class="notification-actions-item">
+                    <button class="action-btn mark-read" style="display: none;"><i class="fas fa-check"></i></button>
+                </div>
+            </div>
+
+            <div class="notification-item">
+                <div class="notification-icon notification-system">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="notification-content">
+                    <p>New forum feature: You can now add images to your posts!</p>
+                    <span class="notification-time">3 days ago</span>
+                </div>
+                <div class="notification-actions-item">
+                    <button class="action-btn mark-read" style="display: none;"><i class="fas fa-check"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="load-more-container">
+            <button id="load-more" class="btn-secondary">Load More</button>
+        </div>
+    </main>
+
+    <div id="footer-placeholder" data-component="/src/components/footer/footer.html"></div>
+
+    <!-- Notification Settings Modal -->
+    <div id="notification-settings-modal" class="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Notification Settings</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="settings-group">
+                    <h4>Notification Types</h4>
+                    <div class="setting-item">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <div class="setting-info">
+                            <div class="setting-title">Mentions</div>
+                            <div class="setting-desc">When someone mentions you in a post</div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <div class="setting-info">
+                            <div class="setting-title">Replies</div>
+                            <div class="setting-desc">When someone replies to your posts</div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <div class="setting-info">
+                            <div class="setting-title">Likes</div>
+                            <div class="setting-desc">When someone likes your posts or comments</div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <div class="setting-info">
+                            <div class="setting-title">Badges</div>
+                            <div class="setting-desc">When you earn a new badge</div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                        <div class="setting-info">
+                            <div class="setting-title">System Updates</div>
+                            <div class="setting-desc">Important updates about the forum</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Delivery Methods</h4>
+                    <div class="setting-item">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <div class="setting-info">
+                            <div class="setting-title">Browser Notifications</div>
+                            <div class="setting-desc">Show notifications in your browser</div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                        <div class="setting-info">
+                            <div class="setting-title">Email Notifications</div>
+                            <div class="setting-desc">Receive notifications via email</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary cancel-btn">Cancel</button>
+                <button class="btn-primary save-btn">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/components/notifications/notifications.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+{
+  "name": "FuelQ - Clean Energy Community",
+  "short_name": "FuelQ",
+  "description": "Connect with energy experts and discuss the future of clean energy",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#009688",
+  "theme_color": "#009688",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/src/assets/images/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/src/assets/images/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/src/assets/images/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/src/assets/images/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/src/assets/images/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/src/assets/images/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/src/assets/images/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/src/assets/images/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "splash_pages": [
+    {
+      "src": "/src/assets/images/splashscreens/splash-640x1136.png",
+      "sizes": "640x1136",
+      "type": "image/png"
+    },
+    {
+      "src": "/src/assets/images/splashscreens/splash-750x1334.png",
+      "sizes": "750x1334",
+      "type": "image/png"
+    },
+    {
+      "src": "/src/assets/images/splashscreens/splash-1242x2208.png",
+      "sizes": "1242x2208",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "New Discussion",
+      "short_name": "New Post",
+      "description": "Create a new discussion thread",
+      "url": "/src/pages/forum/new.html",
+      "icons": [{ "src": "/src/assets/images/shortcuts/new-discussion.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Chat",
+      "short_name": "Chat",
+      "description": "Open community chat",
+      "url": "/src/components/chat/chat.html",
+      "icons": [{ "src": "/src/assets/images/shortcuts/chat.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Discover",
+      "short_name": "Discover",
+      "description": "Discover new content and experts",
+      "url": "/src/components/discovery/discovery.html",
+      "icons": [{ "src": "/src/assets/images/shortcuts/discover.png", "sizes": "96x96" }]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "scope": "/",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["education", "utilities", "social"],
+  "screenshots": [
+    {
+      "src": "/src/assets/images/screenshots/desktop-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/src/assets/images/screenshots/mobile-home.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}

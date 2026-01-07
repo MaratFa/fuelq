@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FuelQ - Mobile</title>
+    <link rel="stylesheet" href="/src/assets/css/styles.css">
+    <link rel="stylesheet" href="/src/components/mobile/mobile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="theme-color" content="#009688">
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+    <div class="mobile-app">
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav">
+            <div class="nav-header">
+                <div class="nav-logo">
+                    <i class="fas fa-bolt"></i>
+                    <span>FuelQ</span>
+                </div>
+                <button class="nav-menu-btn" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="nav-menu" id="nav-menu">
+                <div class="menu-search">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search..." id="mobile-search">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+
+                <div class="menu-items">
+                    <a href="/" class="menu-item">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/src/pages/forum/index.html" class="menu-item">
+                        <i class="fas fa-comments"></i>
+                        <span>Forum</span>
+                        <span class="menu-badge" id="forum-badge">3</span>
+                    </a>
+                    <a href="/src/components/discovery/discovery.html" class="menu-item">
+                        <i class="fas fa-compass"></i>
+                        <span>Discover</span>
+                    </a>
+                    <a href="/src/components/chat/chat.html" class="menu-item">
+                        <i class="fas fa-comment-dots"></i>
+                        <span>Chat</span>
+                        <span class="menu-badge" id="chat-badge">5</span>
+                    </a>
+                    <a href="/src/components/notifications/notifications.html" class="menu-item">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                        <span class="menu-badge" id="notification-badge">2</span>
+                    </a>
+                    <a href="/src/components/user-profile/user-profile.html" class="menu-item">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </div>
+
+                <div class="menu-footer">
+                    <div class="user-info">
+                        <img src="/src/assets/images/user-avatar.jpg" alt="User" class="user-avatar">
+                        <div class="user-details">
+                            <div class="user-name">John Doe</div>
+                            <div class="user-status">Online</div>
+                        </div>
+                    </div>
+                    <div class="menu-actions">
+                        <button class="menu-action-btn" id="settings-btn">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <button class="menu-action-btn" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="mobile-content">
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <div class="quick-action">
+                    <div class="action-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <span>New Thread</span>
+                </div>
+                <div class="quick-action">
+                    <div class="action-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <span>Share Photo</span>
+                </div>
+                <div class="quick-action">
+                    <div class="action-icon">
+                        <i class="fas fa-poll"></i>
+                    </div>
+                    <span>Create Poll</span>
+                </div>
+                <div class="quick-action">
+                    <div class="action-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <span>Ask Question</span>
+                </div>
+            </div>
+
+            <!-- Content Feed -->
+            <div class="content-feed">
+                <div class="feed-item">
+                    <div class="feed-header">
+                        <img src="/src/assets/images/user-1.jpg" alt="User" class="feed-avatar">
+                        <div class="feed-user">
+                            <div class="feed-username">Sarah Johnson</div>
+                            <div class="feed-time">2 hours ago</div>
+                        </div>
+                        <button class="feed-menu-btn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="feed-content">
+                        <p>Just published my research on hydrogen fuel cell efficiency improvements. The new membrane technology could reduce costs by up to 30%! Check it out and let me know your thoughts.</p>
+                        <div class="feed-image">
+                            <img src="/src/assets/images/hydrogen-research.jpg" alt="Research">
+                        </div>
+                    </div>
+                    <div class="feed-actions">
+                        <button class="action-btn">
+                            <i class="fas fa-heart"></i>
+                            <span>42</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-comment"></i>
+                            <span>12</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-share"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="feed-item">
+                    <div class="feed-header">
+                        <img src="/src/assets/images/user-2.jpg" alt="User" class="feed-avatar">
+                        <div class="feed-user">
+                            <div class="feed-username">Michael Chen</div>
+                            <div class="feed-time">5 hours ago</div>
+                        </div>
+                        <button class="feed-menu-btn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="feed-content">
+                        <p>Exciting news from the solar industry! New perovskite cells have achieved 30% efficiency with improved stability. This could be a game-changer for renewable energy.</p>
+                    </div>
+                    <div class="feed-actions">
+                        <button class="action-btn">
+                            <i class="fas fa-heart"></i>
+                            <span>67</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-comment"></i>
+                            <span>23</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-share"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="feed-item">
+                    <div class="feed-header">
+                        <img src="/src/assets/images/user-3.jpg" alt="User" class="feed-avatar">
+                        <div class="feed-user">
+                            <div class="feed-username">Emma Wilson</div>
+                            <div class="feed-time">Yesterday</div>
+                        </div>
+                        <button class="feed-menu-btn">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="feed-content">
+                        <p>Looking for feedback on my biofuels research project. I'm exploring new methods for extracting energy from algae biomass. Any thoughts or suggestions?</p>
+                    </div>
+                    <div class="feed-actions">
+                        <button class="action-btn">
+                            <i class="fas fa-heart"></i>
+                            <span>31</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-comment"></i>
+                            <span>18</span>
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-share"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Action Button -->
+            <button class="fab" id="fab-main">
+                <i class="fas fa-plus"></i>
+            </button>
+
+            <!-- FAB Menu -->
+            <div class="fab-menu" id="fab-menu">
+                <button class="fab-option" data-action="thread">
+                    <i class="fas fa-comment-medical"></i>
+                    <span>New Thread</span>
+                </button>
+                <button class="fab-option" data-action="photo">
+                    <i class="fas fa-camera"></i>
+                    <span>Share Photo</span>
+                </button>
+                <button class="fab-option" data-action="poll">
+                    <i class="fas fa-poll"></i>
+                    <span>Create Poll</span>
+                </button>
+                <button class="fab-option" data-action="question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Ask Question</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bottom Tab Bar -->
+        <div class="tab-bar">
+            <a href="/" class="tab-item active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="/src/pages/forum/index.html" class="tab-item">
+                <i class="fas fa-comments"></i>
+                <span>Forum</span>
+                <span class="tab-badge" id="forum-tab-badge">3</span>
+            </a>
+            <a href="/src/components/discovery/discovery.html" class="tab-item">
+                <i class="fas fa-compass"></i>
+                <span>Discover</span>
+            </a>
+            <a href="/src/components/chat/chat.html" class="tab-item">
+                <i class="fas fa-comment-dots"></i>
+                <span>Chat</span>
+                <span class="tab-badge" id="chat-tab-badge">5</span>
+            </a>
+            <a href="/src/components/user-profile/user-profile.html" class="tab-item">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+
+    <script type="module" src="/src/components/mobile/mobile.js"></script>
+</body>
+</html>

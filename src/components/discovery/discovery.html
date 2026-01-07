@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover - FuelQ</title>
+    <link rel="stylesheet" href="/src/assets/css/styles.css">
+    <link rel="stylesheet" href="/src/components/discovery/discovery.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-placeholder" data-component="/src/components/header/header.html"></div>
+
+    <main class="discovery-container">
+        <div class="discovery-header">
+            <h1>Discover Content</h1>
+            <p>Find interesting discussions, experts, and resources on fuel technology</p>
+        </div>
+
+        <div class="discovery-filters">
+            <div class="filter-group">
+                <h3>Content Type</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-discussions" checked>
+                        <span class="filter-label">Discussions</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-articles" checked>
+                        <span class="filter-label">Articles</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-resources" checked>
+                        <span class="filter-label">Resources</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-experts" checked>
+                        <span class="filter-label">Experts</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3>Energy Type</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-hydrogen" checked>
+                        <span class="filter-label">Hydrogen</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-biofuels" checked>
+                        <span class="filter-label">Biofuels</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-solar" checked>
+                        <span class="filter-label">Solar</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-wind" checked>
+                        <span class="filter-label">Wind</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-nuclear" checked>
+                        <span class="filter-label">Nuclear</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3>Sort By</h3>
+                <div class="filter-options">
+                    <label class="radio-option">
+                        <input type="radio" name="sort" id="sort-trending" checked>
+                        <span class="filter-label">Trending</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sort" id="sort-recent">
+                        <span class="filter-label">Most Recent</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sort" id="sort-popular">
+                        <span class="filter-label">Most Popular</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sort" id="sort-relevant">
+                        <span class="filter-label">Most Relevant</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="discovery-content">
+            <div class="trending-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-fire"></i> Trending Topics</h2>
+                    <button class="view-all-btn">View All</button>
+                </div>
+
+                <div class="trending-topics">
+                    <div class="trending-topic">
+                        <div class="topic-icon" style="background-color: #4CAF50;">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="topic-content">
+                            <h3>Hydrogen Fuel Cell Breakthrough</h3>
+                            <p>New membrane technology increases efficiency by 40%</p>
+                            <div class="topic-stats">
+                                <span><i class="fas fa-comments"></i> 234 discussions</span>
+                                <span><i class="fas fa-eye"></i> 5.2k views</span>
+                            </div>
+                        </div>
+                        <div class="topic-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>42%</span>
+                        </div>
+                    </div>
+
+                    <div class="trending-topic">
+                        <div class="topic-icon" style="background-color: #2196F3;">
+                            <i class="fas fa-solar-panel"></i>
+                        </div>
+                        <div class="topic-content">
+                            <h3>Perovskite Solar Cells</h3>
+                            <p>Latest research shows 30% efficiency with improved stability</p>
+                            <div class="topic-stats">
+                                <span><i class="fas fa-comments"></i> 156 discussions</span>
+                                <span><i class="fas fa-eye"></i> 3.8k views</span>
+                            </div>
+                        </div>
+                        <div class="topic-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>28%</span>
+                        </div>
+                    </div>
+
+                    <div class="trending-topic">
+                        <div class="topic-icon" style="background-color: #FF9800;">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="topic-content">
+                            <h3>Offshore Wind Projects</h3>
+                            <p>Europe announces new 10GW offshore wind initiative</p>
+                            <div class="topic-stats">
+                                <span><i class="fas fa-comments"></i> 89 discussions</span>
+                                <span><i class="fas fa-eye"></i> 2.1k views</span>
+                            </div>
+                        </div>
+                        <div class="topic-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>15%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="featured-experts">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-graduate"></i> Featured Experts</h2>
+                    <button class="view-all-btn">View All</button>
+                </div>
+
+                <div class="experts-grid">
+                    <div class="expert-card">
+                        <img src="/src/assets/images/expert-1.jpg" alt="Expert" class="expert-avatar">
+                        <div class="expert-info">
+                            <h3>Dr. Sarah Johnson</h3>
+                            <p class="expert-title">Hydrogen Energy Researcher</p>
+                            <div class="expert-bio">Leading researcher in membrane technology for hydrogen fuel cells with 15+ years of experience.</div>
+                            <div class="expert-stats">
+                                <span><i class="fas fa-comments"></i> 342 posts</span>
+                                <span><i class="fas fa-award"></i> 8 badges</span>
+                                <span><i class="fas fa-users"></i> 1.2k followers</span>
+                            </div>
+                            <button class="follow-btn">Follow</button>
+                        </div>
+                    </div>
+
+                    <div class="expert-card">
+                        <img src="/src/assets/images/expert-2.jpg" alt="Expert" class="expert-avatar">
+                        <div class="expert-info">
+                            <h3>Prof. Michael Chen</h3>
+                            <p class="expert-title">Solar Technology Specialist</p>
+                            <div class="expert-bio">Pioneer in perovskite solar cell development with multiple patents in the field.</div>
+                            <div class="expert-stats">
+                                <span><i class="fas fa-comments"></i> 521 posts</span>
+                                <span><i class="fas fa-award"></i> 12 badges</span>
+                                <span><i class="fas fa-users"></i> 2.8k followers</span>
+                            </div>
+                            <button class="follow-btn">Follow</button>
+                        </div>
+                    </div>
+
+                    <div class="expert-card">
+                        <img src="/src/assets/images/expert-3.jpg" alt="Expert" class="expert-avatar">
+                        <div class="expert-info">
+                            <h3>Dr. Emma Wilson</h3>
+                            <p class="expert-title">Biofuels Policy Advisor</p>
+                            <div class="expert-bio">Advisor to multiple governments on sustainable biofuel policies and implementation.</div>
+                            <div class="expert-stats">
+                                <span><i class="fas fa-comments"></i> 276 posts</span>
+                                <span><i class="fas fa-award"></i> 6 badges</span>
+                                <span><i class="fas fa-users"></i> 950 followers</span>
+                            </div>
+                            <button class="follow-btn">Follow</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recommended-content">
+                <div class="section-header">
+                    <h2><i class="fas fa-star"></i> Recommended For You</h2>
+                    <button class="refresh-btn"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-card discussion">
+                        <div class="content-type-badge">Discussion</div>
+                        <div class="content-image">
+                            <img src="/src/assets/images/discussion-1.jpg" alt="Discussion">
+                        </div>
+                        <div class="content-info">
+                            <h3>Future of Hydrogen in Transportation</h3>
+                            <p>Exploring the potential of hydrogen fuel cells in cars, trucks, and ships</p>
+                            <div class="content-meta">
+                                <span class="content-category">Hydrogen</span>
+                                <span class="content-date">2 days ago</span>
+                                <span class="content-engagement"><i class="fas fa-comments"></i> 45</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card article">
+                        <div class="content-type-badge">Article</div>
+                        <div class="content-image">
+                            <img src="/src/assets/images/article-1.jpg" alt="Article">
+                        </div>
+                        <div class="content-info">
+                            <h3>Advances in Biofuel Production</h3>
+                            <p>New enzymatic process could cut biofuel production costs by 25%</p>
+                            <div class="content-meta">
+                                <span class="content-category">Biofuels</span>
+                                <span class="content-date">1 week ago</span>
+                                <span class="content-engagement"><i class="fas fa-eye"></i> 324</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card resource">
+                        <div class="content-type-badge">Resource</div>
+                        <div class="content-image">
+                            <img src="/src/assets/images/resource-1.jpg" alt="Resource">
+                        </div>
+                        <div class="content-info">
+                            <h3>Solar Panel Installation Guide</h3>
+                            <p>Comprehensive guide for residential solar panel installation</p>
+                            <div class="content-meta">
+                                <span class="content-category">Solar</span>
+                                <span class="content-date">2 weeks ago</span>
+                                <span class="content-engagement"><i class="fas fa-download"></i> 567</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card discussion">
+                        <div class="content-type-badge">Discussion</div>
+                        <div class="content-image">
+                            <img src="/src/assets/images/discussion-2.jpg" alt="Discussion">
+                        </div>
+                        <div class="content-info">
+                            <h3>Wind Energy Storage Solutions</h3>
+                            <p>Comparing battery technologies for wind energy storage</p>
+                            <div class="content-meta">
+                                <span class="content-category">Wind</span>
+                                <span class="content-date">3 weeks ago</span>
+                                <span class="content-engagement"><i class="fas fa-comments"></i> 78</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card article">
+                        <div class="content-type-badge">Article</div>
+                        <div class="content-image">
+                            <img src="/src/assets/images/article-2.jpg" alt="Article">
+                        </div>
+                        <div class="content-info">
+                            <h3>Small Modular Reactors: The Future?</h3>
+                            <p>Analyzing the potential of SMRs in the energy transition</p>
+                            <div class="content-meta">
+                                <span class="content-category">Nuclear</span>
+                                <span class="content-date">1 month ago</span>
+                                <span class="content-engagement"><i class="fas fa-eye"></i> 892</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-card resource">
+                        <div class="content-type-badge">Resource</div>
+                        <div class="content-image">
+                            <img src="/src/assets/images/resource-2.jpg" alt="Resource">
+                        </div>
+                        <div class="content-info">
+                            <h3>Hydrogen Safety Guidelines</h3>
+                            <p>Safety protocols for hydrogen handling and storage</p>
+                            <div class="content-meta">
+                                <span class="content-category">Hydrogen</span>
+                                <span class="content-date">1 month ago</span>
+                                <span class="content-engagement"><i class="fas fa-download"></i> 423</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="load-more-container">
+            <button id="load-more" class="btn-primary">Load More</button>
+        </div>
+    </main>
+
+    <div id="footer-placeholder" data-component="/src/components/footer/footer.html"></div>
+
+    <script type="module" src="/src/components/discovery/discovery.js"></script>
+</body>
+</html>

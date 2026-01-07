@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Chat - FuelQ</title>
+    <link rel="stylesheet" href="/src/assets/css/styles.css">
+    <link rel="stylesheet" href="/src/components/chat/chat.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-placeholder" data-component="/src/components/header/header.html"></div>
+
+    <main class="chat-container">
+        <div class="chat-sidebar">
+            <div class="chat-header">
+                <h2>Community Chat</h2>
+                <div class="chat-status">
+                    <span class="status-indicator online"></span>
+                    <span class="status-text">Online</span>
+                </div>
+            </div>
+
+            <div class="chat-search">
+                <div class="search-box">
+                    <input type="text" placeholder="Search conversations..." id="chat-search">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+
+            <div class="chat-tabs">
+                <button class="chat-tab active" data-tab="rooms">Rooms</button>
+                <button class="chat-tab" data-tab="direct">Direct</button>
+                <button class="chat-tab" data-tab="requests">Requests</button>
+            </div>
+
+            <div class="chat-list-container">
+                <div class="chat-list active" id="rooms-list">
+                    <div class="chat-room-item active">
+                        <div class="room-avatar">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="room-info">
+                            <div class="room-name">General Discussion</div>
+                            <div class="room-message">John: What are your thoughts on hydrogen fuel?</div>
+                        </div>
+                        <div class="room-meta">
+                            <span class="message-time">2:45 PM</span>
+                            <span class="unread-count">3</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-room-item">
+                        <div class="room-avatar" style="background-color: #4CAF50;">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="room-info">
+                            <div class="room-name">Biofuels</div>
+                            <div class="room-message">Sarah: Check out this new research paper...</div>
+                        </div>
+                        <div class="room-meta">
+                            <span class="message-time">1:30 PM</span>
+                            <span class="unread-count">7</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-room-item">
+                        <div class="room-avatar" style="background-color: #2196F3;">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="room-info">
+                            <div class="room-name">Solar Energy</div>
+                            <div class="room-message">Mike: New panel efficiency record achieved!</div>
+                        </div>
+                        <div class="room-meta">
+                            <span class="message-time">11:20 AM</span>
+                            <span class="unread-count">12</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-room-item">
+                        <div class="room-avatar" style="background-color: #FF9800;">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="room-info">
+                            <div class="room-name">Wind Power</div>
+                            <div class="room-message">Emma: Offshore wind projects update</div>
+                        </div>
+                        <div class="room-meta">
+                            <span class="message-time">Yesterday</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-room-item">
+                        <div class="room-avatar" style="background-color: #9C27B0;">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <div class="room-info">
+                            <div class="room-name">Nuclear Energy</div>
+                            <div class="room-message">David: SMR developments in Europe</div>
+                        </div>
+                        <div class="room-meta">
+                            <span class="message-time">Yesterday</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-list" id="direct-list">
+                    <div class="chat-user-item">
+                        <img src="/src/assets/images/user-1.jpg" alt="User" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Sarah Johnson</div>
+                            <div class="user-message">Thanks for the help with my project!</div>
+                        </div>
+                        <div class="user-meta">
+                            <span class="message-time">3:45 PM</span>
+                            <span class="user-status online"></span>
+                        </div>
+                    </div>
+
+                    <div class="chat-user-item">
+                        <img src="/src/assets/images/user-2.jpg" alt="User" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Michael Chen</div>
+                            <div class="user-message">Are you available for a call tomorrow?</div>
+                        </div>
+                        <div class="user-meta">
+                            <span class="message-time">2:15 PM</span>
+                            <span class="user-status online"></span>
+                        </div>
+                    </div>
+
+                    <div class="chat-user-item">
+                        <img src="/src/assets/images/user-3.jpg" alt="User" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Emma Wilson</div>
+                            <div class="user-message">Check out this article on biofuels</div>
+                        </div>
+                        <div class="user-meta">
+                            <span class="message-time">Yesterday</span>
+                            <span class="user-status offline"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-list" id="requests-list">
+                    <div class="chat-request-item">
+                        <img src="/src/assets/images/user-4.jpg" alt="User" class="user-avatar">
+                        <div class="request-info">
+                            <div class="request-name">David Lee</div>
+                            <div class="request-message">Wants to connect with you</div>
+                        </div>
+                        <div class="request-actions">
+                            <button class="accept-btn"><i class="fas fa-check"></i></button>
+                            <button class="decline-btn"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="chat-request-item">
+                        <img src="/src/assets/images/user-5.jpg" alt="User" class="user-avatar">
+                        <div class="request-info">
+                            <div class="request-name">Lisa Anderson</div>
+                            <div class="request-message">Wants to connect with you</div>
+                        </div>
+                        <div class="request-actions">
+                            <button class="accept-btn"><i class="fas fa-check"></i></button>
+                            <button class="decline-btn"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="create-room-btn">
+                <button id="create-room"><i class="fas fa-plus"></i> Create Room</button>
+            </div>
+        </div>
+
+        <div class="chat-main">
+            <div class="chat-room-header">
+                <div class="room-info">
+                    <div class="room-avatar">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="room-details">
+                        <h3>General Discussion</h3>
+                        <div class="room-participants">
+                            <span class="participant-count">24 members</span>
+                            <button class="view-participants"><i class="fas fa-user-friends"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="room-actions">
+                    <button class="action-btn" title="Search in conversation">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="action-btn" title="Room settings">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <button class="action-btn" title="Leave room">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chat-messages-container">
+                <div class="chat-date-divider">
+                    <span>Today</span>
+                </div>
+
+                <div class="chat-message">
+                    <img src="/src/assets/images/user-1.jpg" alt="User" class="message-avatar">
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">Sarah Johnson</span>
+                            <span class="message-time">10:30 AM</span>
+                        </div>
+                        <div class="message-text">
+                            Has anyone seen the latest research on hydrogen fuel cells? The efficiency improvements are remarkable!
+                        </div>
+                        <div class="message-actions">
+                            <button class="message-action"><i class="fas fa-reply"></i> Reply</button>
+                            <button class="message-action"><i class="fas fa-heart"></i> 5</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-message own">
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">You</span>
+                            <span class="message-time">10:45 AM</span>
+                        </div>
+                        <div class="message-text">
+                            I read that paper! The new membrane technology is game-changing. It could reduce costs by up to 30%.
+                        </div>
+                        <div class="message-status">
+                            <i class="fas fa-check-double read"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-message">
+                    <img src="/src/assets/images/user-2.jpg" alt="User" class="message-avatar">
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">Michael Chen</span>
+                            <span class="message-time">11:20 AM</span>
+                        </div>
+                        <div class="message-text">
+                            That's impressive! Do you think this will make hydrogen competitive with electric vehicles?
+                        </div>
+                        <div class="message-actions">
+                            <button class="message-action"><i class="fas fa-reply"></i> Reply</button>
+                            <button class="message-action"><i class="fas fa-heart"></i> 3</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-message system">
+                    <div class="message-content">
+                        <div class="message-text">
+                            <i class="fas fa-info-circle"></i> Emma Wilson joined the room
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-message">
+                    <img src="/src/assets/images/user-3.jpg" alt="User" class="message-avatar">
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="message-author">Emma Wilson</span>
+                            <span class="message-time">11:30 AM</span>
+                        </div>
+                        <div class="message-text">
+                            Hi everyone! Just joined the discussion. The cost reduction is significant, but infrastructure is still the biggest challenge.
+                        </div>
+                        <div class="message-actions">
+                            <button class="message-action"><i class="fas fa-reply"></i> Reply</button>
+                            <button class="message-action"><i class="fas fa-heart"></i> 7</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="chat-input-tools">
+                    <button class="tool-btn" title="Add emoji">
+                        <i class="fas fa-smile"></i>
+                    </button>
+                    <button class="tool-btn" title="Attach file">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                    <button class="tool-btn" title="Add image">
+                        <i class="fas fa-image"></i>
+                    </button>
+                </div>
+
+                <div class="chat-input-wrapper">
+                    <textarea id="message-input" placeholder="Type a message..." rows="1"></textarea>
+                    <button id="send-message" class="send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room Participants Sidebar (Hidden by default) -->
+        <div class="chat-participants-sidebar hidden">
+            <div class="participants-header">
+                <h3>Room Participants</h3>
+                <button class="close-participants"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="participants-list">
+                <div class="participant-item">
+                    <img src="/src/assets/images/user-1.jpg" alt="User" class="participant-avatar">
+                    <div class="participant-info">
+                        <div class="participant-name">Sarah Johnson</div>
+                        <div class="participant-role">Admin</div>
+                    </div>
+                    <div class="participant-status online"></div>
+                </div>
+
+                <div class="participant-item">
+                    <img src="/src/assets/images/user-2.jpg" alt="User" class="participant-avatar">
+                    <div class="participant-info">
+                        <div class="participant-name">Michael Chen</div>
+                        <div class="participant-role">Expert</div>
+                    </div>
+                    <div class="participant-status online"></div>
+                </div>
+
+                <div class="participant-item">
+                    <img src="/src/assets/images/user-3.jpg" alt="User" class="participant-avatar">
+                    <div class="participant-info">
+                        <div class="participant-name">Emma Wilson</div>
+                        <div class="participant-role">Member</div>
+                    </div>
+                    <div class="participant-status online"></div>
+                </div>
+
+                <div class="participant-item">
+                    <img src="/src/assets/images/user-4.jpg" alt="User" class="participant-avatar">
+                    <div class="participant-info">
+                        <div class="participant-name">David Lee</div>
+                        <div class="participant-role">Member</div>
+                    </div>
+                    <div class="participant-status away"></div>
+                </div>
+
+                <div class="participant-item">
+                    <img src="/src/assets/images/user-5.jpg" alt="User" class="participant-avatar">
+                    <div class="participant-info">
+                        <div class="participant-name">Lisa Anderson</div>
+                        <div class="participant-role">Member</div>
+                    </div>
+                    <div class="participant-status offline"></div>
+                </div>
+            </div>
+
+            <div class="invite-participant">
+                <button class="invite-btn"><i class="fas fa-user-plus"></i> Invite People</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Create Room Modal -->
+    <div id="create-room-modal" class="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Room</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="room-name">Room Name</label>
+                    <input type="text" id="room-name" placeholder="Enter room name" maxlength="50">
+                </div>
+
+                <div class="form-group">
+                    <label for="room-description">Description</label>
+                    <textarea id="room-description" placeholder="Describe the purpose of this room" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="room-category">Category</label>
+                    <select id="room-category">
+                        <option value="general">General</option>
+                        <option value="hydrogen">Hydrogen</option>
+                        <option value="biofuels">Biofuels</option>
+                        <option value="solar">Solar</option>
+                        <option value="wind">Wind</option>
+                        <option value="nuclear">Nuclear</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Room Type</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="room-type" value="public" checked>
+                            <span class="radio-custom"></span>
+                            <span class="radio-label">Public - Anyone can join</span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="room-type" value="private">
+                            <span class="radio-custom"></span>
+                            <span class="radio-label">Private - Invite only</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary cancel-btn">Cancel</button>
+                <button class="btn-primary create-btn">Create Room</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder" data-component="/src/components/footer/footer.html"></div>
+
+    <script type="module" src="/src/components/chat/chat.js"></script>
+</body>
+</html>

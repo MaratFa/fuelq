@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - FuelQ</title>
+    <link rel="stylesheet" href="/src/assets/css/styles.css">
+    <link rel="stylesheet" href="/src/components/user-profile/user-profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="header-placeholder" data-component="/src/components/header/header.html"></div>
+
+    <main class="profile-container">
+        <div class="profile-header">
+            <div class="profile-avatar-section">
+                <div class="avatar-container">
+                    <img id="user-avatar" src="/src/assets/images/default-avatar.png" alt="User Avatar" class="user-avatar">
+                    <div class="avatar-upload-btn">
+                        <i class="fas fa-camera"></i>
+                        <input type="file" id="avatar-upload" accept="image/*">
+                    </div>
+                </div>
+                <div class="user-info">
+                    <h1 id="user-name">John Doe</h1>
+                    <p class="user-title">Energy Enthusiast</p>
+                    <div class="user-badges">
+                        <span class="badge badge-premium"><i class="fas fa-crown"></i> Premium Member</span>
+                        <span class="badge badge-expert"><i class="fas fa-award"></i> Topic Expert</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-stats">
+                <div class="stat-card">
+                    <div class="stat-value">152</div>
+                    <div class="stat-label">Posts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">1.2k</div>
+                    <div class="stat-label">Reputation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">Best Answers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Badges</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-content">
+            <div class="profile-sidebar">
+                <div class="profile-card">
+                    <h3>Profile Completion</h3>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%"></div>
+                        </div>
+                        <span class="progress-text">75%</span>
+                    </div>
+                    <ul class="completion-items">
+                        <li class="completed"><i class="fas fa-check-circle"></i> Profile Picture</li>
+                        <li class="completed"><i class="fas fa-check-circle"></i> Bio Information</li>
+                        <li><i class="fas fa-circle"></i> Social Links</li>
+                        <li><i class="fas fa-circle"></i> Expertise Areas</li>
+                    </ul>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Recent Badges</h3>
+                    <div class="badges-container">
+                        <div class="badge-item">
+                            <div class="badge-icon badge-icon-gold">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div class="badge-info">
+                                <div class="badge-name">Hot Streak</div>
+                                <div class="badge-desc">10 posts in a week</div>
+                            </div>
+                        </div>
+                        <div class="badge-item">
+                            <div class="badge-icon badge-icon-silver">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="badge-info">
+                                <div class="badge-name">Idea Generator</div>
+                                <div class="badge-desc">Started 5 popular threads</div>
+                            </div>
+                        </div>
+                        <div class="badge-item">
+                            <div class="badge-icon badge-icon-bronze">
+                                <i class="fas fa-hands-helping"></i>
+                            </div>
+                            <div class="badge-info">
+                                <div class="badge-name">Helper</div>
+                                <div class="badge-desc">Answered 10 questions</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Expertise Areas</h3>
+                    <div class="expertise-tags">
+                        <span class="expertise-tag">Hydrogen Energy</span>
+                        <span class="expertise-tag">Biofuels</span>
+                        <span class="expertise-tag">Solar Technology</span>
+                        <button class="add-expertise-btn"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-main">
+                <div class="profile-tabs">
+                    <button class="tab-btn active" data-tab="activity">Activity</button>
+                    <button class="tab-btn" data-tab="posts">Posts</button>
+                    <button class="tab-btn" data-tab="achievements">Achievements</button>
+                    <button class="tab-btn" data-tab="settings">Settings</button>
+                </div>
+
+                <div class="tab-content active" id="activity-tab">
+                    <div class="activity-feed">
+                        <div class="activity-item">
+                            <div class="activity-icon activity-comment">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p>Commented on <a href="#">"Future of Hydrogen Fuel Cells"</a></p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon activity-post">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p>Created new thread <a href="#">"Efficiency Improvements in Solar Panels"</a></p>
+                                <span class="activity-time">Yesterday at 3:45 PM</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon activity-badge">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p>Earned the <span class="highlight">"Hot Streak"</span> badge</p>
+                                <span class="activity-time">3 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="posts-tab">
+                    <div class="posts-container">
+                        <div class="post-item">
+                            <h4><a href="#">Future of Hydrogen Fuel Cells</a></h4>
+                            <p class="post-preview">I've been researching the latest developments in hydrogen fuel cell technology and wanted to share some insights...</p>
+                            <div class="post-meta">
+                                <span><i class="fas fa-comments"></i> 23 comments</span>
+                                <span><i class="fas fa-eye"></i> 156 views</span>
+                                <span><i class="fas fa-thumbs-up"></i> 42 likes</span>
+                            </div>
+                        </div>
+                        <div class="post-item">
+                            <h4><a href="#">Efficiency Improvements in Solar Panels</a></h4>
+                            <p class="post-preview">Recent breakthroughs in photovoltaic technology have increased solar panel efficiency by up to 30%...</p>
+                            <div class="post-meta">
+                                <span><i class="fas fa-comments"></i> 18 comments</span>
+                                <span><i class="fas fa-eye"></i> 210 views</span>
+                                <span><i class="fas fa-thumbs-up"></i> 67 likes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="achievements-tab">
+                    <div class="achievements-container">
+                        <div class="achievement-category">
+                            <h3>Community Badges</h3>
+                            <div class="achievement-grid">
+                                <div class="achievement-badge earned">
+                                    <div class="badge-icon badge-icon-gold">
+                                        <i class="fas fa-fire"></i>
+                                    </div>
+                                    <div class="badge-name">Hot Streak</div>
+                                    <div class="badge-desc">10 posts in a week</div>
+                                </div>
+                                <div class="achievement-badge earned">
+                                    <div class="badge-icon badge-icon-silver">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </div>
+                                    <div class="badge-name">Idea Generator</div>
+                                    <div class="badge-desc">Started 5 popular threads</div>
+                                </div>
+                                <div class="achievement-badge earned">
+                                    <div class="badge-icon badge-icon-bronze">
+                                        <i class="fas fa-hands-helping"></i>
+                                    </div>
+                                    <div class="badge-name">Helper</div>
+                                    <div class="badge-desc">Answered 10 questions</div>
+                                </div>
+                                <div class="achievement-badge">
+                                    <div class="badge-icon badge-icon-gray">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                    <div class="badge-name">Conversation Starter</div>
+                                    <div class="badge-desc">Started 20 threads</div>
+                                    <div class="badge-progress">15/20</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="achievement-category">
+                            <h3>Expertise Badges</h3>
+                            <div class="achievement-grid">
+                                <div class="achievement-badge earned">
+                                    <div class="badge-icon badge-icon-gold">
+                                        <i class="fas fa-atom"></i>
+                                    </div>
+                                    <div class="badge-name">Hydrogen Expert</div>
+                                    <div class="badge-desc">Top contributor in hydrogen topics</div>
+                                </div>
+                                <div class="achievement-badge">
+                                    <div class="badge-icon badge-icon-gray">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                    <div class="badge-name">Biofuels Master</div>
+                                    <div class="badge-desc">50 helpful posts in biofuels</div>
+                                    <div class="badge-progress">32/50</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="settings-tab">
+                    <form class="settings-form">
+                        <div class="form-section">
+                            <h3>Profile Information</h3>
+                            <div class="form-group">
+                                <label for="display-name">Display Name</label>
+                                <input type="text" id="display-name" value="John Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="user-title">Title</label>
+                                <input type="text" id="user-title" value="Energy Enthusiast">
+                            </div>
+                            <div class="form-group">
+                                <label for="user-bio">Bio</label>
+                                <textarea id="user-bio" rows="4">Passionate about renewable energy and sustainable technologies. Working towards a greener future.</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Notification Preferences</h3>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    Email notifications for replies to my posts
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" checked>
+                                    <span class="checkmark"></span>
+                                    Email notifications for mentions
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox">
+                                    <span class="checkmark"></span>
+                                    Weekly digest of popular threads
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Privacy Settings</h3>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="profile-visibility" value="public" checked>
+                                    <span class="radio-mark"></span>
+                                    Public Profile - Everyone can view my profile
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="profile-visibility" value="members">
+                                    <span class="radio-mark"></span>
+                                    Members Only - Only logged-in users can view my profile
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="profile-visibility" value="private">
+                                    <span class="radio-mark"></span>
+                                    Private - Only I can view my profile
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary">Cancel</button>
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder" data-component="/src/components/footer/footer.html"></div>
+
+    <script src="/src/components/header/header.js"></script>
+    <script src="/src/components/user-profile/user-profile.js"></script>
+</body>
+</html>
