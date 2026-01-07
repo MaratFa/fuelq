@@ -2,7 +2,7 @@
 // Use the actual domain for production or localhost for development
 const API_BASE_URL = window.location.hostname === 'localhost' 
   ? window.location.origin + "/api" 
-  : "https://fuelq.ru/api";
+  : window.location.origin + "/src/api";
 
 // Initialize empty threads array - will be populated from API
 var threads = [];

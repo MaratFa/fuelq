@@ -4,7 +4,7 @@
  */
 
 class ForumApiClient {
-  constructor(baseUrl = '/api/forum') {
+  constructor(baseUrl = window.location.origin + '/src/api/forum') {
     this.baseUrl = baseUrl;
   }
 

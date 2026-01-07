@@ -20,6 +20,9 @@ const pageModules = {
   ],
   '/src/pages/contacts.html': [
     { path: '../modules/contact-form-handler.js', name: 'contactForm' }
+  ],
+  '/src/pages/discovery.html': [
+    { path: '../pages/discovery-page-controller.js', name: 'discoveryPage' }
   ]
 };
 

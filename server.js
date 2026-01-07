@@ -28,6 +28,7 @@ function startServer() {
 
     // Apply rate limiting to all API routes
     app.use('/api/', apiLimiter);
+    app.use('/src/api/', apiLimiter);
 
     // Serve static files from multiple directories
     // Handle paths with /src prefix
@@ -52,6 +53,11 @@ function startServer() {
     app.use('*.mjs', (req, res, next) => {
         res.type('application/javascript');
         next();
+    });
+    
+    // Discovery page route
+    app.get('/src/pages/discovery.html', (req, res) => {
+        res.sendFile(path.join(__dirname, 'src', 'pages', 'discovery.html'));
     });
 
     // Database connection pool with environment variables
@@ -322,6 +328,483 @@ function startServer() {
                 author: commentAuthor,
                 created_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
             });
+        });
+    });
+
+    // Discovery API endpoints
+    app.post('/api/discovery/content', (req, res) => {
+        const { contentTypes, energyTypes, sortBy } = req.body;
+        
+        // In a real implementation, this would query the database based on filters
+        // For now, we'll return mock data
+        
+        const mockTrendingTopics = [
+            {
+                id: 1,
+                title: "Latest developments in hydrogen fuel cell efficiency",
+                description: "New research shows a 12% improvement in energy conversion through novel catalyst materials.",
+                category: "hydrogen",
+                author: "Dr. Elena Rodriguez",
+                views: 245,
+                comments: 18,
+                trend: "+15%",
+                icon: "fa-atom",
+                color: "#009688"
+            },
+            {
+                id: 2,
+                title: "Biofuels from algae: Scaling production challenges",
+                description: "New photobioreactor design increases productivity by 35% while reducing water usage.",
+                category: "biofuels",
+                author: "Prof. James Chen",
+                views: 189,
+                comments: 12,
+                trend: "+22%",
+                icon: "fa-leaf",
+                color: "#4CAF50"
+            },
+            {
+                id: 3,
+                title: "Geothermal energy in cold climates",
+                description: "Community heating project in Alaska shows promising results despite efficiency challenges.",
+                category: "geothermal",
+                author: "Sarah Kim",
+                views: 156,
+                comments: 9,
+                trend: "+8%",
+                icon: "fa-temperature-high",
+                color: "#FF9800"
+            }
+        ];
+        
+        const mockFeaturedExperts = [
+            {
+                id: 1,
+                name: "Dr. Elena Rodriguez",
+                title: "Hydrogen Fuel Cell Researcher",
+                bio: "Leading researcher in PEM fuel cell technology with over 15 years of experience in catalyst development.",
+                avatar: "/src/assets/images/experts/expert1.jpg",
+                followers: 1240,
+                articles: 42,
+                expertise: ["Hydrogen", "Fuel Cells", "Catalysts"]
+            },
+            {
+                id: 2,
+                name: "Prof. James Chen",
+                title: "Biofuels Specialist",
+                bio: "Expert in algae-based biofuels with a focus on scalable production methods and harvesting techniques.",
+                avatar: "/src/assets/images/experts/expert2.jpg",
+                followers: 980,
+                articles: 35,
+                expertise: ["Biofuels", "Algae", "Sustainability"]
+            },
+            {
+                id: 3,
+                name: "Sarah Kim",
+                title: "Renewable Energy Engineer",
+                bio: "Specializes in geothermal systems with experience in extreme climate installations and community projects.",
+                avatar: "/src/assets/images/experts/expert3.jpg",
+                followers: 756,
+                articles: 28,
+                expertise: ["Geothermal", "Renewables", "Energy Systems"]
+            }
+        ];
+        
+        const mockRecommendedContent = [
+            {
+                id: 1,
+                type: "article",
+                title: "The Future of Hydrogen: Opportunities and Challenges",
+                description: "An in-depth analysis of the hydrogen economy and its potential to transform the energy sector.",
+                category: "Hydrogen",
+                author: "Dr. Elena Rodriguez",
+                date: "2023-06-15",
+                readTime: "8 min",
+                views: 1240,
+                likes: 87,
+                image: "/src/assets/images/content/hydrogen-future.jpg"
+            },
+            {
+                id: 2,
+                type: "discussion",
+                title: "Is algae the future of sustainable biofuels?",
+                description: "Join the discussion on the potential of algae-based biofuels to replace fossil fuels.",
+                category: "Biofuels",
+                author: "Prof. James Chen",
+                date: "2023-06-12",
+                readTime: "5 min",
+                views: 890,
+                likes: 65,
+                image: "/src/assets/images/content/algae-biofuels.jpg"
+            },
+            {
+                id: 3,
+                type: "resource",
+                title: "Geothermal Energy Implementation Guide",
+                description: "A comprehensive guide to implementing geothermal energy systems in various climates.",
+                category: "Geothermal",
+                author: "Sarah Kim",
+                date: "2023-06-10",
+                readTime: "12 min",
+                views: 670,
+                likes: 43,
+                image: "/src/assets/images/content/geothermal-guide.jpg"
+            },
+            {
+                id: 4,
+                type: "article",
+                title: "Solar Panel Efficiency: Recent Breakthroughs",
+                description: "Exploring the latest technological advances in photovoltaic cell efficiency.",
+                category: "Solar",
+                author: "Dr. Michael Johnson",
+                date: "2023-06-08",
+                readTime: "7 min",
+                views: 1120,
+                likes: 78,
+                image: "/src/assets/images/content/solar-efficiency.jpg"
+            },
+            {
+                id: 5,
+                type: "discussion",
+                title: "Wind energy in urban environments",
+                description: "Discussing the challenges and opportunities of implementing wind turbines in cities.",
+                category: "Wind",
+                author: "Alex Thompson",
+                date: "2023-06-05",
+                readTime: "4 min",
+                views: 560,
+                likes: 32,
+                image: "/src/assets/images/content/urban-wind.jpg"
+            },
+            {
+                id: 6,
+                type: "resource",
+                title: "Nuclear Energy Safety Standards",
+                description: "A comprehensive overview of modern nuclear safety protocols and regulations.",
+                category: "Nuclear",
+                author: "Dr. Rebecca Lee",
+                date: "2023-06-02",
+                readTime: "15 min",
+                views: 830,
+                likes: 54,
+                image: "/src/assets/images/content/nuclear-safety.jpg"
+            }
+        ];
+        
+        // Filter content based on user selections
+        const filteredTrendingTopics = mockTrendingTopics.filter(topic => {
+            return energyTypes.includes(topic.category);
+        });
+        
+        const filteredFeaturedExperts = mockFeaturedExperts.filter(expert => {
+            if (!contentTypes.includes('experts')) return false;
+            return expert.expertise.some(expertise => {
+                const expertiseLower = expertise.toLowerCase();
+                return energyTypes.some(energyType => expertiseLower.includes(energyType));
+            });
+        });
+        
+        const filteredRecommendedContent = mockRecommendedContent.filter(content => {
+            if (!contentTypes.includes(content.type)) return false;
+            return energyTypes.some(energyType => 
+                content.category.toLowerCase() === energyType.toLowerCase()
+            );
+        });
+        
+        // Sort content based on user selection
+        const sortContent = (content) => {
+            switch(sortBy) {
+                case 'trending':
+                    return content.sort((a, b) => {
+                        const aTrend = parseInt(a.trend?.replace('+', '').replace('%', '') || 0);
+                        const bTrend = parseInt(b.trend?.replace('+', '').replace('%', '') || 0);
+                        return bTrend - aTrend;
+                    });
+                case 'recent':
+                    return content.sort((a, b) => new Date(b.date) - new Date(a.date));
+                case 'popular':
+                    return content.sort((a, b) => b.views - a.views);
+                case 'relevant':
+                    return content.sort((a, b) => b.likes - a.likes);
+                default:
+                    return content;
+            }
+        };
+        
+        res.json({
+            trendingTopics: sortContent(filteredTrendingTopics),
+            featuredExperts: filteredFeaturedExperts,
+            recommendedContent: sortContent(filteredRecommendedContent)
+        });
+    });
+
+    // Expert follow/unfollow endpoints
+    app.post('/api/experts/follow', authenticateToken, (req, res) => {
+        const { expertId } = req.body;
+        const userId = req.user.id;
+        
+        if (!expertId) {
+            return res.status(400).json({ error: 'Expert ID is required' });
+        }
+        
+        // In a real implementation, this would update the database
+        // For now, we'll just return a success response
+        console.log(`User ${userId} following expert ${expertId}`);
+        
+        res.json({ success: true, message: 'Expert followed successfully' });
+    });
+    
+    app.post('/api/experts/unfollow', authenticateToken, (req, res) => {
+        const { expertId } = req.body;
+        const userId = req.user.id;
+        
+        if (!expertId) {
+            return res.status(400).json({ error: 'Expert ID is required' });
+        }
+        
+        // In a real implementation, this would update the database
+        // For now, we'll just return a success response
+        console.log(`User ${userId} unfollowing expert ${expertId}`);
+        
+        res.json({ success: true, message: 'Expert unfollowed successfully' });
+    });
+
+    // API endpoint for discovery content
+    app.get('/src/api/discovery', (req, res) => {
+        // Return default content for initial load
+        res.json({
+            trendingTopics: [
+                {
+                    id: 1,
+                    title: "Latest developments in hydrogen fuel cell efficiency",
+                    description: "New research shows a 12% improvement in energy conversion through novel catalyst materials.",
+                    category: "hydrogen",
+                    author: "Dr. Elena Rodriguez",
+                    views: 245,
+                    comments: 18,
+                    trend: "+15%",
+                    icon: "fa-atom",
+                    color: "#009688"
+                },
+                {
+                    id: 2,
+                    title: "Biofuels from algae: Scaling production challenges",
+                    description: "New photobioreactor design increases productivity by 35% while reducing water usage.",
+                    category: "biofuels",
+                    author: "Prof. James Chen",
+                    views: 189,
+                    comments: 12,
+                    trend: "+22%",
+                    icon: "fa-leaf",
+                    color: "#4CAF50"
+                },
+                {
+                    id: 3,
+                    title: "Geothermal energy in cold climates",
+                    description: "Community heating project in Alaska shows promising results despite efficiency challenges.",
+                    category: "geothermal",
+                    author: "Sarah Kim",
+                    views: 156,
+                    comments: 9,
+                    trend: "+8%",
+                    icon: "fa-temperature-high",
+                    color: "#FF9800"
+                }
+            ],
+            featuredExperts: [
+                {
+                    id: 1,
+                    name: "Dr. Elena Rodriguez",
+                    title: "Hydrogen Fuel Cell Researcher",
+                    bio: "Leading researcher in PEM fuel cell technology with over 15 years of experience in catalyst development.",
+                    avatar: "/src/assets/images/experts/expert1.jpg",
+                    followers: 1240,
+                    articles: 42,
+                    expertise: ["Hydrogen", "Fuel Cells", "Catalysts"]
+                },
+                {
+                    id: 2,
+                    name: "Prof. James Chen",
+                    title: "Biofuels Specialist",
+                    bio: "Expert in algae-based biofuels with a focus on scalable production methods and harvesting techniques.",
+                    avatar: "/src/assets/images/experts/expert2.jpg",
+                    followers: 980,
+                    articles: 35,
+                    expertise: ["Biofuels", "Algae", "Sustainability"]
+                },
+                {
+                    id: 3,
+                    name: "Sarah Kim",
+                    title: "Renewable Energy Engineer",
+                    bio: "Specializes in geothermal systems with experience in extreme climate installations and community projects.",
+                    avatar: "/src/assets/images/experts/expert3.jpg",
+                    followers: 756,
+                    articles: 28,
+                    expertise: ["Geothermal", "Renewables", "Energy Systems"]
+                }
+            ],
+            recommendedContent: [
+                {
+                    id: 1,
+                    type: "article",
+                    title: "The Future of Hydrogen: Opportunities and Challenges",
+                    description: "An in-depth analysis of the hydrogen economy and its potential to transform the energy sector.",
+                    category: "Hydrogen",
+                    author: "Dr. Elena Rodriguez",
+                    date: "2023-06-15",
+                    readTime: "8 min",
+                    views: 1240,
+                    likes: 87,
+                    image: "/src/assets/images/content/hydrogen-future.jpg"
+                },
+                {
+                    id: 2,
+                    type: "discussion",
+                    title: "Is algae the future of sustainable biofuels?",
+                    description: "Join the discussion on the potential of algae-based biofuels to replace fossil fuels.",
+                    category: "Biofuels",
+                    author: "Prof. James Chen",
+                    date: "2023-06-12",
+                    readTime: "5 min",
+                    views: 890,
+                    likes: 65,
+                    image: "/src/assets/images/content/algae-biofuels.jpg"
+                },
+                {
+                    id: 3,
+                    type: "resource",
+                    title: "Geothermal Energy Implementation Guide",
+                    description: "A comprehensive guide to implementing geothermal energy systems in various climates.",
+                    category: "Geothermal",
+                    author: "Sarah Kim",
+                    date: "2023-06-10",
+                    readTime: "12 min",
+                    views: 670,
+                    likes: 43,
+                    image: "/src/assets/images/content/geothermal-guide.jpg"
+                }
+            ]
+        });
+    });
+    
+    // POST endpoint for filtered discovery content
+    app.post('/src/api/discovery', (req, res) => {
+        const { contentTypes, energyTypes, sortBy } = req.body;
+        
+        // In a real implementation, this would filter and sort content from database
+        // For now, we'll just return the same content
+        res.json({
+            trendingTopics: [
+                {
+                    id: 1,
+                    title: "Latest developments in hydrogen fuel cell efficiency",
+                    description: "New research shows a 12% improvement in energy conversion through novel catalyst materials.",
+                    category: "hydrogen",
+                    author: "Dr. Elena Rodriguez",
+                    views: 245,
+                    comments: 18,
+                    trend: "+15%",
+                    icon: "fa-atom",
+                    color: "#009688"
+                },
+                {
+                    id: 2,
+                    title: "Biofuels from algae: Scaling production challenges",
+                    description: "New photobioreactor design increases productivity by 35% while reducing water usage.",
+                    category: "biofuels",
+                    author: "Prof. James Chen",
+                    views: 189,
+                    comments: 12,
+                    trend: "+22%",
+                    icon: "fa-leaf",
+                    color: "#4CAF50"
+                },
+                {
+                    id: 3,
+                    title: "Geothermal energy in cold climates",
+                    description: "Community heating project in Alaska shows promising results despite efficiency challenges.",
+                    category: "geothermal",
+                    author: "Sarah Kim",
+                    views: 156,
+                    comments: 9,
+                    trend: "+8%",
+                    icon: "fa-temperature-high",
+                    color: "#FF9800"
+                }
+            ],
+            featuredExperts: [
+                {
+                    id: 1,
+                    name: "Dr. Elena Rodriguez",
+                    title: "Hydrogen Fuel Cell Researcher",
+                    bio: "Leading researcher in PEM fuel cell technology with over 15 years of experience in catalyst development.",
+                    avatar: "/src/assets/images/experts/expert1.jpg",
+                    followers: 1240,
+                    articles: 42,
+                    expertise: ["Hydrogen", "Fuel Cells", "Catalysts"]
+                },
+                {
+                    id: 2,
+                    name: "Prof. James Chen",
+                    title: "Biofuels Specialist",
+                    bio: "Expert in algae-based biofuels with a focus on scalable production methods and harvesting techniques.",
+                    avatar: "/src/assets/images/experts/expert2.jpg",
+                    followers: 980,
+                    articles: 35,
+                    expertise: ["Biofuels", "Algae", "Sustainability"]
+                },
+                {
+                    id: 3,
+                    name: "Sarah Kim",
+                    title: "Renewable Energy Engineer",
+                    bio: "Specializes in geothermal systems with experience in extreme climate installations and community projects.",
+                    avatar: "/src/assets/images/experts/expert3.jpg",
+                    followers: 756,
+                    articles: 28,
+                    expertise: ["Geothermal", "Renewables", "Energy Systems"]
+                }
+            ],
+            recommendedContent: [
+                {
+                    id: 1,
+                    type: "article",
+                    title: "The Future of Hydrogen: Opportunities and Challenges",
+                    description: "An in-depth analysis of the hydrogen economy and its potential to transform the energy sector.",
+                    category: "Hydrogen",
+                    author: "Dr. Elena Rodriguez",
+                    date: "2023-06-15",
+                    readTime: "8 min",
+                    views: 1240,
+                    likes: 87,
+                    image: "/src/assets/images/content/hydrogen-future.jpg"
+                },
+                {
+                    id: 2,
+                    type: "discussion",
+                    title: "Is algae the future of sustainable biofuels?",
+                    description: "Join the discussion on the potential of algae-based biofuels to replace fossil fuels.",
+                    category: "Biofuels",
+                    author: "Prof. James Chen",
+                    date: "2023-06-12",
+                    readTime: "5 min",
+                    views: 890,
+                    likes: 65,
+                    image: "/src/assets/images/content/algae-biofuels.jpg"
+                },
+                {
+                    id: 3,
+                    type: "resource",
+                    title: "Geothermal Energy Implementation Guide",
+                    description: "A comprehensive guide to implementing geothermal energy systems in various climates.",
+                    category: "Geothermal",
+                    author: "Sarah Kim",
+                    date: "2023-06-10",
+                    readTime: "12 min",
+                    views: 670,
+                    likes: 43,
+                    image: "/src/assets/images/content/geothermal-guide.jpg"
+                }
+            ]
         });
     });
 

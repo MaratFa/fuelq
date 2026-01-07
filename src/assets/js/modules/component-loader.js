@@ -134,7 +134,9 @@ export class ComponentLoader {
     }
 
     // Construct the full URL using absolute path from root
-    const fullUrl = window.location.origin + componentPath;
+    const fullUrl = componentPath.startsWith('/') 
+        ? window.location.origin + componentPath 
+        : window.location.origin + '/' + componentPath;
     
     // Debug logging
     console.log(`Loading component from: ${fullUrl}`);

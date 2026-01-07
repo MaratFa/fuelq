@@ -82,6 +82,9 @@ function initHeader() {
 // Declare variables in global scope to make them accessible
 let menuToggle, topnav;
 
+// Make the initHeader function globally available
+window.initHeader = initHeader;
+
 // Initialize header when DOM is loaded
 document.addEventListener('DOMContentLoaded', initHeader);
 

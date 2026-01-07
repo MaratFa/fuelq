@@ -63,11 +63,11 @@ export function initComponents() {
 async function loadComponent(name, path) {
   try {
     // Load component HTML
-    const response = await fetch(path + '/' + name + '.html');
+    const response = await fetch(path);
     const html = await response.text();
 
     // Find all elements with this component name
-    const elements = document.querySelectorAll(`[data-component="${path}/${name}"]`);
+    const elements = document.querySelectorAll(`[data-component="${path}"]`);
 
     // Replace elements with component HTML
     elements.forEach(element => {
@@ -76,11 +76,11 @@ async function loadComponent(name, path) {
       // Load component CSS if exists
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = path + '/' + name + '.css';
+      link.href = path.replace('.html', '.css');
       document.head.appendChild(link);
 
       // Load component JS if exists
-      import(path + '/' + name + '.js')
+      import(path.replace('.html', '.js'))
         .then(module => {
           // Register component
           if (module.default) {

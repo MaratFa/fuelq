@@ -72,7 +72,7 @@ function applyFilters() {
     showLoadingState();
 
     // Fetch filtered content
-    fetch('/api/discovery/content', {
+    fetch(`${window.location.origin}/src/api/discovery`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -278,8 +278,7 @@ function refreshRecommendedContent() {
     refreshBtn.disabled = true;
 
     // Fetch new recommendations
-    fetch('/api/discovery/recommendations', {
-        method: 'POST',
+    fetch(`${window.location.origin}/src/api/discovery`, {
         credentials: 'include'
     })
     .then(response => {
@@ -324,10 +323,11 @@ function updateTrendingTopics(topics) {
 
         // Determine trend icon and color
         let trendIcon, trendColor;
-        if (topic.trend > 0) {
+        const trendValue = topic.trend ? topic.trend.replace('+', '').replace('%', '') : 0;
+        if (trendValue > 0) {
             trendIcon = 'fa-arrow-up';
             trendColor = '#4CAF50';
-        } else if (topic.trend < 0) {
+        } else if (trendValue < 0) {
             trendIcon = 'fa-arrow-down';
             trendColor = '#F44336';
         } else {
@@ -343,13 +343,13 @@ function updateTrendingTopics(topics) {
                 <h3>${topic.title}</h3>
                 <p>${topic.description}</p>
                 <div class="topic-stats">
-                    <span><i class="fas fa-comments"></i> ${formatNumber(topic.discussions)} discussions</span>
-                    <span><i class="fas fa-eye"></i> ${formatNumber(topic.views)} views</span>
+                    <span><i class="fas fa-comments"></i> ${formatNumber(topic.comments || 0)} discussions</span>
+                    <span><i class="fas fa-eye"></i> ${formatNumber(topic.views || 0)} views</span>
                 </div>
             </div>
             <div class="topic-trend" style="color: ${trendColor};">
                 <i class="fas ${trendIcon}"></i>
-                <span>${Math.abs(topic.trend)}%</span>
+                <span>${Math.abs(trendValue)}%</span>
             </div>
         `;
 
@@ -383,9 +383,8 @@ function updateFeaturedExperts(experts) {
                 <p class="expert-title">${expert.title}</p>
                 <div class="expert-bio">${expert.bio}</div>
                 <div class="expert-stats">
-                    <span><i class="fas fa-comments"></i> ${formatNumber(expert.posts)} posts</span>
-                    <span><i class="fas fa-award"></i> ${expert.badges} badges</span>
-                    <span><i class="fas fa-users"></i> ${formatNumber(expert.followers)} followers</span>
+                    <span><i class="fas fa-file-alt"></i> ${formatNumber(expert.articles || 0)} articles</span>
+                    <span><i class="fas fa-users"></i> ${formatNumber(expert.followers || 0)} followers</span>
                 </div>
                 <button class="follow-btn ${expert.isFollowing ? 'following' : ''}">
                     ${expert.isFollowing ? '<i class="fas fa-check"></i> Following' : 'Follow'}
@@ -443,9 +442,11 @@ function updateRecommendedContent(content) {
                 <p>${item.description}</p>
                 <div class="content-meta">
                     <span class="content-category">${item.category}</span>
+                    <span class="content-date"><i class="fas fa-calendar"></i> ${item.date || '2023-06-15'}</span>
+                    <span class="read-time"><i class="fas fa-clock"></i> ${item.readTime || '5 min'}</span>
                     <div class="content-stats">
-                        <span><i class="fas fa-eye"></i> ${formatNumber(item.views)}</span>
-                        <span><i class="fas fa-heart"></i> ${formatNumber(item.likes)}</span>
+                        <span><i class="fas fa-eye"></i> ${formatNumber(item.views || 0)}</span>
+                        <span><i class="fas fa-heart"></i> ${formatNumber(item.likes || 0)}</span>
                     </div>
                 </div>
             </div>
@@ -466,7 +467,7 @@ function loadDiscoveryData() {
     showLoadingState();
 
     // Fetch initial data
-    fetch('/api/discovery', {
+    fetch(`${window.location.origin}/src/api/discovery`, {
         credentials: 'include'
     })
     .then(response => {

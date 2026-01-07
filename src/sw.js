@@ -3,14 +3,15 @@
  * Enables offline functionality and caching
  */
 
-const CACHE_NAME = 'fuelq-v1.0.0';
-const STATIC_CACHE = 'fuelq-static-v1.0.0';
-const DYNAMIC_CACHE = 'fuelq-dynamic-v1.0.0';
+const CACHE_NAME = 'fuelq-v1.0.5';
+const STATIC_CACHE = 'fuelq-static-v1.0.5';
+const DYNAMIC_CACHE = 'fuelq-dynamic-v1.0.5';
 
 // Assets to cache on install
 const STATIC_ASSETS = [
   '/',
   '/index.html',
+  '/init-header.js',
   '/src/pages/forengineers.html',
   '/src/pages/contacts.html',
   '/src/pages/forum/index.html',
@@ -20,7 +21,9 @@ const STATIC_ASSETS = [
   '/src/assets/images/biofuels.png',
   '/src/assets/images/solar-wind.png',
   '/src/components/header/header.html',
-  '/src/components/footer/footer.html'
+  '/src/components/footer/footer.html',
+  '/src/api/discovery',
+  '/src/api/forum'
 ];
 
 /**
@@ -33,7 +36,12 @@ self.addEventListener('install', event => {
     caches.open(STATIC_CACHE)
       .then(cache => {
         console.log('Service Worker: Caching static assets');
-        return cache.addAll(STATIC_ASSETS);
+        return cache.addAll(STATIC_ASSETS)
+          .catch(error => {
+            console.error('Service Worker: Failed to cache some assets:', error);
+            // Continue with installation even if some assets fail to cache
+            return Promise.resolve();
+          });
       })
       .then(() => self.skipWaiting())
   );
@@ -52,7 +60,12 @@ self.addEventListener('activate', event => {
           cacheNames.map(cache => {
             if (cache !== STATIC_CACHE && cache !== DYNAMIC_CACHE) {
               console.log('Service Worker: Clearing old cache');
-              return caches.delete(cache);
+              return caches.delete(cache)
+                .catch(error => {
+                  console.error('Service Worker: Failed to delete cache:', cache, error);
+                  // Continue even if cache deletion fails
+                  return Promise.resolve();
+                });
             }
           })
         );
@@ -88,9 +101,23 @@ self.addEventListener('fetch', event => {
             caches.open(DYNAMIC_CACHE)
               .then(cache => {
                 cache.put(event.request, responseToCache);
+              })
+              .catch(error => {
+                console.error('Service Worker: Failed to cache resource:', event.request.url, error);
               });
 
             return fetchResponse;
+          })
+          .catch(error => {
+            console.error('Service Worker: Fetch failed for:', event.request.url, error);
+            // Return a basic offline page for HTML requests
+            if (event.request.headers.get('accept').includes('text/html')) {
+              return new Response('<h1>Offline</h1><p>You are currently offline. Please check your connection.</p>', {
+                headers: { 'Content-Type': 'text/html' }
+              });
+            }
+            // For other requests, just let the error propagate
+            throw error;
           });
       })
       .catch(() => {

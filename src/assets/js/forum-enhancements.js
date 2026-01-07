@@ -3,7 +3,7 @@
  * Adds additional interactive features to the forum page
  */
 
-import forumApiClient from './modules/forum-api-client.js';
+import forumApiClient from './modules/forum-api-client-fixed.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize forum enhancements

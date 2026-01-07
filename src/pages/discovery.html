@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover - FuelQ</title>
+    <link rel="stylesheet" href="/src/assets/css/styles.css">
+    <link rel="stylesheet" href="/src/components/discovery/discovery.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+</head>
+<body>
+    <!-- Header Component -->
+    <div id="header-placeholder" data-component="/src/components/header/header.html"></div>
+
+    <!-- Main Content -->
+    <main class="discovery-container">
+        <div class="discovery-header">
+            <h1>Discover Content</h1>
+            <p>Find interesting discussions, experts, and resources on fuel technology</p>
+        </div>
+
+        <div class="discovery-filters">
+            <div class="filter-group">
+                <h3>Content Type</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-discussions" checked>
+                        <span class="filter-label">Discussions</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-articles" checked>
+                        <span class="filter-label">Articles</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-resources" checked>
+                        <span class="filter-label">Resources</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-experts" checked>
+                        <span class="filter-label">Experts</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3>Energy Type</h3>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-hydrogen" checked>
+                        <span class="filter-label">Hydrogen</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-biofuels" checked>
+                        <span class="filter-label">Biofuels</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-solar" checked>
+                        <span class="filter-label">Solar</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-wind" checked>
+                        <span class="filter-label">Wind</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" id="filter-nuclear" checked>
+                        <span class="filter-label">Nuclear</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3>Sort By</h3>
+                <div class="filter-options">
+                    <label class="radio-option">
+                        <input type="radio" name="sort" id="sort-trending" checked>
+                        <span class="filter-label">Trending</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sort" id="sort-recent">
+                        <span class="filter-label">Most Recent</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sort" id="sort-popular">
+                        <span class="filter-label">Most Popular</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sort" id="sort-relevant">
+                        <span class="filter-label">Most Relevant</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="discovery-content">
+            <div class="trending-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-fire"></i> Trending Topics</h2>
+                    <button class="view-all-btn">View All</button>
+                </div>
+
+                <div class="trending-topics">
+                    <!-- Trending topics will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <div class="experts-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-tie"></i> Featured Experts</h2>
+                    <button class="view-all-btn">View All</button>
+                </div>
+
+                <div class="experts-grid">
+                    <!-- Expert cards will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-newspaper"></i> Recommended Content</h2>
+                    <button class="refresh-btn"><i class="fas fa-sync-alt"></i> Refresh</button>
+                </div>
+
+                <div class="content-grid">
+                    <!-- Content cards will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Component -->
+    <div id="footer-placeholder" data-component="/src/components/footer/footer.html"></div>
+
+    <!-- JavaScript -->
+    <script type="module" src="/src/assets/js/core/app.js"></script>
+    <script src="/src/components/discovery/discovery.js"></script>
+</body>
+</html>
