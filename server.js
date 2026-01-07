@@ -354,12 +354,9 @@ function startServer() {
         res.status(200).json({ success: true, message: 'Contact form submitted successfully' });
     });
 
-    // Service worker endpoints
-    app.get('/src/sw.js', (req, res) => {
-        res.sendFile(path.join(__dirname, 'src', 'sw.js'));
-    });
 
-    // Note: The root /sw.js endpoint has been removed as it was only for backward compatibility
+
+    // Note: The service worker is now only available at /src/sw.js
 
     // Start the server
     const server = app.listen(PORT, () => {

@@ -21,7 +21,7 @@ class ServiceWorkerManager {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         // Always try /sw.js first, regardless of environment
-        const swPath = config.swPath || '/sw.js';
+        const swPath = config.swPath || '/src/sw.js';
         this.registerServiceWorker(swPath);
       });
     }
@@ -49,10 +49,10 @@ class ServiceWorkerManager {
 
       // Try fallback paths if the initial registration fails
       let fallbackPath;
-      if (swPath === '/sw.js') {
+      if (swPath === '/src/sw.js') {
         fallbackPath = '/src/sw.js';
       } else {
-        fallbackPath = '/sw.js';
+        fallbackPath = '/src/sw.js';
       }
 
       console.log(`Trying fallback path: ${fallbackPath}`);

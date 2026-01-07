@@ -16,7 +16,7 @@ const appConfig = {
   
   // Service worker configuration
   serviceWorkerManager: {
-    swPath: '/sw.js'
+    swPath: '/src/sw.js'
   },
   
   // Theme manager configuration

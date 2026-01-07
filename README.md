@@ -14,7 +14,7 @@ fuelq/
 ├── README.md               # This file
 ├── htaccess                # Apache server configuration
 ├── init-header.js          # Component initialization script
-├── sw.js                  # Service worker for offline support
+├── src/sw.js              # Service worker for offline support
 └── src/
     ├── assets/
     │   ├── css/            # Stylesheets
