@@ -313,7 +313,14 @@ function initNotificationSystem() {
  * @param {string} type - The notification type (info, success, warning, error)
  */
 function showNotification(message, type = 'info') {
-    const notificationContainer = document.querySelector('.notification-container');
+    let notificationContainer = document.querySelector('.notification-container');
+
+    // Create notification container if it doesn't exist
+    if (!notificationContainer) {
+        notificationContainer = document.createElement('div');
+        notificationContainer.className = 'notification-container';
+        document.body.appendChild(notificationContainer);
+    }
 
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;

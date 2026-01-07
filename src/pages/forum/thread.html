@@ -103,7 +103,9 @@
     <script src="../../assets/data/forum-data.js"></script>
     <script src="../../components/forum/forum.js"></script>
     <script src="../../components/header/header.js"></script>
-    <script>
+    <script type="module">
+      import forumApiClient from '../../assets/js/modules/forum-api-client-fixed.js';
+
       document.addEventListener("DOMContentLoaded", async function () {
         // Get thread ID from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
@@ -127,7 +129,7 @@
         let thread;
         try {
           // Fetch thread from API
-          thread = await fetchThread(threadId);
+          thread = await forumApiClient.getThread(threadId);
           
           if (!thread) {
             // If thread not found, show error
@@ -162,7 +164,7 @@
                   <div class="avatar"><i class="fas fa-user-circle"></i></div>
                   <div class="author-info">
                     <h3 class="author-name">${thread.author}</h3>
-                    <span class="post-date">Posted on ${formatDate(thread.date)}</span>
+                    <span class="post-date">Posted on ${formatDate(thread.created_at)}</span>
                   </div>
                 </div>
                 <div class="post-actions">
@@ -187,7 +189,7 @@
                         <div class="avatar"><i class="fas fa-user-circle"></i></div>
                         <div class="author-info">
                           <h4 class="author-name">${comment.author}</h4>
-                          <span class="reply-date">${formatDate(comment.date)}</span>
+                          <span class="reply-date">${formatDate(comment.created_at)}</span>
                         </div>
                       </div>
                     </div>
@@ -263,10 +265,34 @@
         
         // Utility function to format dates
         function formatDate(timestamp) {
-          const date = new Date(timestamp);
+          // Handle both Date objects and timestamp strings from database
+          const date = timestamp instanceof Date ? timestamp : new Date(timestamp);
           return date.toLocaleDateString() + " " + date.toLocaleTimeString();
         }
         
+        // Function to add comment via API
+        async function addComment(threadId, commentData) {
+          try {
+            const response = await fetch(`/api/forum/threads/${threadId}/posts`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+              },
+              body: JSON.stringify(commentData)
+            });
+
+            if (!response.ok) {
+              throw new Error('Failed to add comment');
+            }
+
+            return await response.json();
+          } catch (error) {
+            console.error('Error adding comment:', error);
+            throw error;
+          }
+        }
+
         // Function to show notifications
         function showNotification(message, type = "info") {
           // Create notification element

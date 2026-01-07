@@ -227,18 +227,34 @@ function startServer() {
 
     app.get('/api/forum/threads/:id', (req, res) => {
         const threadId = req.params.id;
-        const query = 'SELECT * FROM threads WHERE id = ?';
-        pool.query(query, [threadId], (error, results) => {
+        const threadQuery = 'SELECT * FROM threads WHERE id = ?';
+
+        pool.query(threadQuery, [threadId], (error, threadResults) => {
             if (error) {
                 console.error('Error fetching thread:', error);
                 res.status(500).json({ error: 'Failed to fetch thread' });
                 return;
             }
-            if (results.length === 0) {
+
+            if (threadResults.length === 0) {
                 res.status(404).json({ error: 'Thread not found' });
                 return;
             }
-            res.json(results[0]);
+
+            // Fetch posts for this thread
+            const postsQuery = 'SELECT * FROM posts WHERE thread_id = ? ORDER BY created_at ASC';
+            pool.query(postsQuery, [threadId], (postsError, postsResults) => {
+                if (postsError) {
+                    console.error('Error fetching posts:', postsError);
+                    res.status(500).json({ error: 'Failed to fetch posts' });
+                    return;
+                }
+
+                // Add posts as comments to thread response
+                const thread = threadResults[0];
+                thread.comments = postsResults;
+                res.json(thread);
+            });
         });
     });
 
@@ -278,12 +294,14 @@ function startServer() {
         });
     });
 
-    app.post('/api/forum/threads/:id/posts', authenticateToken, forumLimiter, [
+    app.post('/api/forum/threads/:id/posts', forumLimiter, [
         body('content').isLength({ min: 5 }).withMessage('Post content must be at least 5 characters')
     ], (req, res) => {
         const threadId = req.params.id;
-        const { content } = req.body;
-        const author = req.user.username; // Use authenticated user's username
+        const { content, author } = req.body;
+
+        // If author is not provided, use "Anonymous"
+        const commentAuthor = author || "Anonymous";
 
         if (!content) {
             res.status(400).json({ error: 'Content is required' });
@@ -291,13 +309,19 @@ function startServer() {
         }
 
         const query = 'INSERT INTO posts (thread_id, content, author) VALUES (?, ?, ?)';
-        pool.query(query, [threadId, content, author], (error, results) => {
+        pool.query(query, [threadId, content, commentAuthor], (error, results) => {
             if (error) {
                 console.error('Error creating post:', error);
                 res.status(500).json({ error: 'Failed to create post' });
                 return;
             }
-            res.status(201).json({ id: results.insertId, thread_id: threadId, content, author });
+            res.status(201).json({ 
+                id: results.insertId, 
+                thread_id: threadId, 
+                content, 
+                author: commentAuthor,
+                created_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
+            });
         });
     });
 

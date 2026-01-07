@@ -1,10 +1,10 @@
 /**
- * Forum API Client
+ * Forum API Client - Fixed Version
  * Handles communication with the forum API
  */
 
 class ForumApiClient {
-  constructor(baseUrl = '/api') {
+  constructor(baseUrl = '/api/forum') {
     this.baseUrl = baseUrl;
   }
 
@@ -32,7 +32,9 @@ class ForumApiClient {
    */
   async getThread(threadId) {
     try {
-      const response = await fetch(`${this.baseUrl}/threads/${threadId}`);
+      const url = `/api/forum/threads/${threadId}`;
+      console.log(`Fetching thread from: ${url}`);
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Failed to fetch thread');
       }
