@@ -1,8 +1,6 @@
 # Server-specific files
 htaccess
-.htaccess
 
 # 
 node_modules
-.env.example
 .env
