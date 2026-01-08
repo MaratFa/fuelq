@@ -1083,48 +1083,6 @@ function startServer() {
         // For now, we'll just return an empty array
         return [];
     }
-                {
-                    id: 1,
-                    type: "article",
-                    title: "The Future of Hydrogen: Opportunities and Challenges",
-                    description: "An in-depth analysis of the hydrogen economy and its potential to transform the energy sector.",
-                    category: "Hydrogen",
-                    author: "Dr. Elena Rodriguez",
-                    date: "2023-06-15",
-                    readTime: "8 min",
-                    views: 1240,
-                    likes: 87,
-                    image: "/src/assets/images/content/hydrogen-future.jpg"
-                },
-                {
-                    id: 2,
-                    type: "discussion",
-                    title: "Is algae the future of sustainable biofuels?",
-                    description: "Join the discussion on the potential of algae-based biofuels to replace fossil fuels.",
-                    category: "Biofuels",
-                    author: "Prof. James Chen",
-                    date: "2023-06-12",
-                    readTime: "5 min",
-                    views: 890,
-                    likes: 65,
-                    image: "/src/assets/images/content/algae-biofuels.jpg"
-                },
-                {
-                    id: 3,
-                    type: "resource",
-                    title: "Geothermal Energy Implementation Guide",
-                    description: "A comprehensive guide to implementing geothermal energy systems in various climates.",
-                    category: "Geothermal",
-                    author: "Sarah Kim",
-                    date: "2023-06-10",
-                    readTime: "12 min",
-                    views: 670,
-                    likes: 43,
-                    image: "/src/assets/images/content/geothermal-guide.jpg"
-                }
-            ]
-        });
-    });
     
     // POST endpoint for filtered discovery content
     app.post('/src/api/discovery', (req, res) => {
@@ -1133,117 +1091,9 @@ function startServer() {
         // In a real implementation, this would filter and sort content from database
         // For now, we'll just return the same content
         res.json({
-            trendingTopics: [
-                {
-                    id: 1,
-                    title: "Latest developments in hydrogen fuel cell efficiency",
-                    description: "New research shows a 12% improvement in energy conversion through novel catalyst materials.",
-                    category: "hydrogen",
-                    author: "Dr. Elena Rodriguez",
-                    views: 245,
-                    comments: 18,
-                    trend: "+15%",
-                    icon: "fa-atom",
-                    color: "#009688"
-                },
-                {
-                    id: 2,
-                    title: "Biofuels from algae: Scaling production challenges",
-                    description: "New photobioreactor design increases productivity by 35% while reducing water usage.",
-                    category: "biofuels",
-                    author: "Prof. James Chen",
-                    views: 189,
-                    comments: 12,
-                    trend: "+22%",
-                    icon: "fa-leaf",
-                    color: "#4CAF50"
-                },
-                {
-                    id: 3,
-                    title: "Geothermal energy in cold climates",
-                    description: "Community heating project in Alaska shows promising results despite efficiency challenges.",
-                    category: "geothermal",
-                    author: "Sarah Kim",
-                    views: 156,
-                    comments: 9,
-                    trend: "+8%",
-                    icon: "fa-temperature-high",
-                    color: "#FF9800"
-                }
-            ],
-            featuredExperts: [
-                {
-                    id: 1,
-                    name: "Dr. Elena Rodriguez",
-                    title: "Hydrogen Fuel Cell Researcher",
-                    bio: "Leading researcher in PEM fuel cell technology with over 15 years of experience in catalyst development.",
-                    avatar: "/src/assets/images/experts/expert1.jpg",
-                    followers: 1240,
-                    articles: 42,
-                    expertise: ["Hydrogen", "Fuel Cells", "Catalysts"]
-                },
-                {
-                    id: 2,
-                    name: "Prof. James Chen",
-                    title: "Biofuels Specialist",
-                    bio: "Expert in algae-based biofuels with a focus on scalable production methods and harvesting techniques.",
-                    avatar: "/src/assets/images/experts/expert2.jpg",
-                    followers: 980,
-                    articles: 35,
-                    expertise: ["Biofuels", "Algae", "Sustainability"]
-                },
-                {
-                    id: 3,
-                    name: "Sarah Kim",
-                    title: "Renewable Energy Engineer",
-                    bio: "Specializes in geothermal systems with experience in extreme climate installations and community projects.",
-                    avatar: "/src/assets/images/experts/expert3.jpg",
-                    followers: 756,
-                    articles: 28,
-                    expertise: ["Geothermal", "Renewables", "Energy Systems"]
-                }
-            ],
-            recommendedContent: [
-                {
-                    id: 1,
-                    type: "article",
-                    title: "The Future of Hydrogen: Opportunities and Challenges",
-                    description: "An in-depth analysis of the hydrogen economy and its potential to transform the energy sector.",
-                    category: "Hydrogen",
-                    author: "Dr. Elena Rodriguez",
-                    date: "2023-06-15",
-                    readTime: "8 min",
-                    views: 1240,
-                    likes: 87,
-                    image: "/src/assets/images/content/hydrogen-future.jpg"
-                },
-                {
-                    id: 2,
-                    type: "discussion",
-                    title: "Is algae the future of sustainable biofuels?",
-                    description: "Join the discussion on the potential of algae-based biofuels to replace fossil fuels.",
-                    category: "Biofuels",
-                    author: "Prof. James Chen",
-                    date: "2023-06-12",
-                    readTime: "5 min",
-                    views: 890,
-                    likes: 65,
-                    image: "/src/assets/images/content/algae-biofuels.jpg"
-                },
-                {
-                    id: 3,
-                    type: "resource",
-                    title: "Geothermal Energy Implementation Guide",
-                    description: "A comprehensive guide to implementing geothermal energy systems in various climates.",
-                    category: "Geothermal",
-                    author: "Sarah Kim",
-                    date: "2023-06-10",
-                    readTime: "12 min",
-                    views: 670,
-                    likes: 43,
-                    image: "/src/assets/images/content/geothermal-guide.jpg"
-                }
-            ]
+            trendingTopics: getTrendingTopics(),
+            featuredExperts: getFeaturedExperts(),
+            recommendedContent: getRecommendedContent()
         });
     });
 

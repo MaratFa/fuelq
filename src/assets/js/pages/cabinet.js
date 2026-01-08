@@ -316,7 +316,7 @@ class CabinetController extends BaseModule {
     const postsContainer = document.getElementById('user-posts');
 
     if (posts.length === 0) {
-      postsContainer.innerHTML = '<p>You haven't posted anything yet.</p>';
+      postsContainer.innerHTML = `<p>You haven't posted anything yet.</p>`;
       return;
     }
 
@@ -377,7 +377,7 @@ class CabinetController extends BaseModule {
     const resourcesContainer = document.getElementById('saved-resources');
 
     if (resources.length === 0) {
-      resourcesContainer.innerHTML = '<p>You haven't saved any resources yet.</p>';
+      resourcesContainer.innerHTML = `<p>You haven't saved any resources yet.</p>`;
       return;
     }
 
@@ -575,186 +575,4 @@ class CabinetController extends BaseModule {
 // Create and initialize the cabinet controller
 const cabinetController = new CabinetController();
 
-export default cabinetController;('.remove-resource-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const resourceId = button.getAttribute('data-id');
-        this.removeResource(resourceId);
-      });
-    });
-  }
-
-  /**
-   * Save user settings
-   */
-  async saveSettings() {
-    try {
-      const settingsData = {
-        emailNotifications: document.getElementById('email-notifications').checked,
-        themePreference: document.getElementById('theme-preference').value,
-        language: document.getElementById('language').value
-      };
-
-      const response = await fetch('/api/user/settings', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          ...authModule.getAuthHeaders()
-        },
-        body: JSON.stringify(settingsData)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update settings');
-      }
-
-      this.showNotification('Settings saved successfully', 'success');
-
-      // Apply theme if changed
-      if (settingsData.themePreference !== this.userData.themePreference) {
-        this.applyTheme(settingsData.themePreference);
-      }
-    } catch (error) {
-      this.handleError(error, 'saveSettings');
-    }
-  }
-
-  /**
-   * Apply theme
-   */
-  applyTheme(theme) {
-    if (theme === 'dark') {
-      document.body.classList.add('dark-theme');
-    } else if (theme === 'light') {
-      document.body.classList.remove('dark-theme');
-    } else if (theme === 'auto') {
-      const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (isDarkMode) {
-        document.body.classList.add('dark-theme');
-      } else {
-        document.body.classList.remove('dark-theme');
-      }
-    }
-  }
-
-  /**
-   * Change password
-   */
-  async changePassword() {
-    try {
-      const currentPassword = document.getElementById('current-password').value;
-      const newPassword = document.getElementById('new-password').value;
-      const confirmPassword = document.getElementById('confirm-new-password').value;
-
-      if (newPassword !== confirmPassword) {
-        this.showNotification('New passwords do not match', 'error');
-        return;
-      }
-
-      const response = await fetch('/api/user/change-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...authModule.getAuthHeaders()
-        },
-        body: JSON.stringify({
-          currentPassword,
-          newPassword
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to change password');
-      }
-
-      this.showNotification('Password changed successfully', 'success');
-      this.closeModal('change-password-modal');
-
-      // Reset form
-      document.getElementById('change-password-form').reset();
-    } catch (error) {
-      this.handleError(error, 'changePassword');
-    }
-  }
-
-  /**
-   * Delete account
-   */
-  async deleteAccount() {
-    try {
-      const confirmation = document.getElementById('delete-confirmation').value;
-
-      if (confirmation !== 'DELETE') {
-        this.showNotification('Please type "DELETE" to confirm', 'error');
-        return;
-      }
-
-      const response = await fetch('/api/user/account', {
-        method: 'DELETE',
-        headers: authModule.getAuthHeaders()
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete account');
-      }
-
-      this.showNotification('Account deleted successfully', 'success');
-
-      // Log out and redirect
-      setTimeout(() => {
-        authModule.logout('Account deleted');
-      }, 1500);
-    } catch (error) {
-      this.handleError(error, 'deleteAccount');
-    }
-  }
-
-  /**
-   * Edit a post
-   */
-  editPost(postId) {
-    // Redirect to edit post page or open modal
-    window.location.href = `/src/pages/forum/edit-post.html?id=${postId}`;
-  }
-
-  /**
-   * Remove a saved resource
-   */
-  async removeResource(resourceId) {
-    try {
-      const response = await fetch(`/api/user/saved-resources/${resourceId}`, {
-        method: 'DELETE',
-        headers: authModule.getAuthHeaders()
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to remove resource');
-      }
-
-      // Remove from UI
-      this.savedResources = this.savedResources.filter(r => r.id !== resourceId);
-      this.renderResources(this.savedResources);
-
-      this.showNotification('Resource removed successfully', 'success');
-    } catch (error) {
-      this.handleError(error, 'removeResource');
-    }
-  }
-
-  /**
-   * Open a modal
-   */
-  openModal(modalId) {
-    document.getElementById(modalId).style.display = 'block';
-  }
-
-  /**
-   * Close a modal
-   */
-  closeModal(modalId) {
-    document.getElementById(modalId).style.display = 'none';
-  }
-}
-
-// Create and export the cabinet controller
-const cabinetController = new CabinetController();
 export default cabinetController;
