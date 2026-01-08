@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { authenticateToken } = require('./middleware/auth');
+const { authenticateToken, authorizeRole, validateInput, validationRules } = require('./middleware/auth-enhanced');
 const { apiLimiter, loginLimiter, forumLimiter } = require('./middleware/rateLimiter');
 const { body, validationResult } = require('express-validator');
 require('dotenv').config();
@@ -87,11 +87,7 @@ function startServer() {
     });
 
     // Authentication endpoints
-    app.post('/api/auth/register', loginLimiter, [
-        body('username').isLength({ min: 3 }).withMessage('Username must be at least 3 characters'),
-        body('email').isEmail().withMessage('Please provide a valid email'),
-        body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
-    ], async (req, res) => {
+    app.post('/api/auth/register', loginLimiter, validateInput(validationRules.register), async (req, res) => {
         try {
             const { username, email, password, firstName, lastName } = req.body;
 
@@ -151,10 +147,7 @@ function startServer() {
         }
     });
 
-    app.post('/api/auth/login', loginLimiter, [
-        body('username').notEmpty().withMessage('Username or email is required'),
-        body('password').notEmpty().withMessage('Password is required')
-    ], async (req, res) => {
+    app.post('/api/auth/login', loginLimiter, validateInput(validationRules.login), async (req, res) => {
         try {
             const { username, password } = req.body;
 
@@ -300,9 +293,7 @@ function startServer() {
         });
     });
 
-    app.post('/api/forum/threads/:id/posts', forumLimiter, [
-        body('content').isLength({ min: 5 }).withMessage('Post content must be at least 5 characters')
-    ], (req, res) => {
+    app.post('/api/forum/threads/:id/posts', forumLimiter, authenticateToken, validateInput(validationRules.forumPost), (req, res) => {
         const threadId = req.params.id;
         const { content, author } = req.body;
 
@@ -571,9 +562,95 @@ function startServer() {
 
     // API endpoint for discovery content
     app.get('/src/api/discovery', (req, res) => {
-        // Return default content for initial load
+        // Get search query and filters from request
+        const { search, contentType, energyType } = req.query;
+        
+        // Get base content
+        const trendingTopics = getTrendingTopics();
+        const featuredExperts = getFeaturedExperts();
+        const recommendedContent = getRecommendedContent();
+        const personalizedRecommendations = getPersonalizedRecommendations(req);
+        
+        // Filter content if search or filters are provided
+        let filteredTrendingTopics = trendingTopics;
+        let filteredFeaturedExperts = featuredExperts;
+        let filteredRecommendedContent = recommendedContent;
+        
+        if (search) {
+            const searchTerm = search.toLowerCase();
+            
+            // Filter trending topics
+            filteredTrendingTopics = trendingTopics.filter(topic => 
+                topic.title.toLowerCase().includes(searchTerm) || 
+                topic.description.toLowerCase().includes(searchTerm)
+            );
+            
+            // Filter featured experts
+            filteredFeaturedExperts = featuredExperts.filter(expert => 
+                expert.name.toLowerCase().includes(searchTerm) || 
+                expert.expertise.toLowerCase().includes(searchTerm)
+            );
+            
+            // Filter recommended content
+            filteredRecommendedContent = recommendedContent.filter(content => 
+                content.title.toLowerCase().includes(searchTerm) || 
+                content.description.toLowerCase().includes(searchTerm)
+            );
+        }
+        
+        // Filter by content type if specified
+        if (contentType) {
+            const types = contentType.split(',');
+            
+            // Only filter content items if experts is not selected
+            if (!types.includes('experts')) {
+                filteredFeaturedExperts = [];
+            }
+            
+            // Only filter trending topics if discussions is not selected
+            if (!types.includes('discussions')) {
+                filteredTrendingTopics = [];
+            }
+            
+            // Only filter recommended content if articles/resources are not selected
+            if (!types.includes('articles') && !types.includes('resources')) {
+                filteredRecommendedContent = [];
+            }
+        }
+        
+        // Filter by energy type if specified
+        if (energyType) {
+            const types = energyType.split(',');
+            
+            // Filter trending topics by energy type
+            filteredTrendingTopics = filteredTrendingTopics.filter(topic => 
+                types.includes(topic.category)
+            );
+            
+            // Filter recommended content by energy type
+            filteredRecommendedContent = filteredRecommendedContent.filter(content => 
+                types.includes(content.category)
+            );
+            
+            // Filter experts by expertise
+            filteredFeaturedExperts = filteredFeaturedExperts.filter(expert => {
+                const expertTypes = expert.expertise.toLowerCase().split(' ');
+                return types.some(type => expertTypes.includes(type));
+            });
+        }
+        
+        // Return filtered content
         res.json({
-            trendingTopics: [
+            trendingTopics: filteredTrendingTopics,
+            featuredExperts: filteredFeaturedExperts,
+            recommendedContent: filteredRecommendedContent,
+            personalizedRecommendations
+        });
+    });
+    
+    // Helper function to get trending topics
+    function getTrendingTopics() {
+        return [
                 {
                     id: 1,
                     title: "Latest developments in hydrogen fuel cell efficiency",

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Cabinet - FuelQ</title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Manage your profile, view your forum posts, and access your saved resources in your personal FuelQ cabinet."
+    />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/src/assets/images/favicon.png" />
+
+    <!-- External CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/src/assets/css/styles.css" />
+    <link rel="stylesheet" href="/src/components/header/header.css" />
+    <link rel="stylesheet" href="/src/components/footer/footer.css" />
+    <link rel="stylesheet" href="/src/assets/css/cabinet.css" />
+  </head>
+  <body>
+    <!-- Header Component -->
+    <div id="header-container"></div>
+
+    <main class="cabinet-container">
+      <div class="cabinet-wrapper">
+        <div class="cabinet-header">
+          <h1>Personal Cabinet</h1>
+          <div class="user-info">
+            <div class="user-avatar">
+              <img src="/src/assets/images/default-avatar.png" alt="User Avatar" id="user-avatar-img">
+            </div>
+            <div class="user-details">
+              <h2 id="user-name">Loading...</h2>
+              <p id="user-email">Loading...</p>
+              <button id="edit-profile-btn" class="btn btn-primary">Edit Profile</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cabinet-tabs">
+          <button class="tab-btn active" data-tab="profile">Profile</button>
+          <button class="tab-btn" data-tab="posts">My Posts</button>
+          <button class="tab-btn" data-tab="saved">Saved Resources</button>
+          <button class="tab-btn" data-tab="settings">Settings</button>
+        </div>
+
+        <div class="cabinet-content">
+          <!-- Profile Tab -->
+          <div id="profile-tab" class="tab-content active">
+            <div class="profile-section">
+              <h3>Profile Information</h3>
+              <div class="profile-form">
+                <div class="form-group">
+                  <label for="first-name">First Name</label>
+                  <input type="text" id="first-name" name="first-name" disabled>
+                </div>
+                <div class="form-group">
+                  <label for="last-name">Last Name</label>
+                  <input type="text" id="last-name" name="last-name" disabled>
+                </div>
+                <div class="form-group">
+                  <label for="bio">Bio</label>
+                  <textarea id="bio" name="bio" rows="5" disabled></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="interests">Interests</label>
+                  <input type="text" id="interests" name="interests" placeholder="e.g., hydrogen, solar, wind" disabled>
+                </div>
+                <div class="form-actions">
+                  <button id="save-profile-btn" class="btn btn-success" style="display: none;">Save Changes</button>
+                  <button id="cancel-edit-btn" class="btn btn-secondary" style="display: none;">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Posts Tab -->
+          <div id="posts-tab" class="tab-content">
+            <div class="posts-section">
+              <h3>My Forum Posts</h3>
+              <div id="user-posts" class="posts-list">
+                <div class="loading-spinner">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  <p>Loading your posts...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Saved Resources Tab -->
+          <div id="saved-tab" class="tab-content">
+            <div class="saved-section">
+              <h3>Saved Resources</h3>
+              <div id="saved-resources" class="resources-grid">
+                <div class="loading-spinner">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  <p>Loading your saved resources...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Settings Tab -->
+          <div id="settings-tab" class="tab-content">
+            <div class="settings-section">
+              <h3>Account Settings</h3>
+              <div class="settings-form">
+                <div class="form-group">
+                  <label for="email-notifications">Email Notifications</label>
+                  <div class="switch">
+                    <input type="checkbox" id="email-notifications" checked>
+                    <span class="slider"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="theme-preference">Theme Preference</label>
+                  <select id="theme-preference">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="auto">Auto (System)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="language">Language</label>
+                  <select id="language">
+                    <option value="en">English</option>
+                    <option value="ru">Russian</option>
+                    <option value="zh">Chinese</option>
+                  </select>
+                </div>
+                <div class="form-actions">
+                  <button id="save-settings-btn" class="btn btn-success">Save Settings</button>
+                </div>
+              </div>
+
+              <div class="danger-zone">
+                <h3>Danger Zone</h3>
+                <div class="form-group">
+                  <button id="change-password-btn" class="btn btn-warning">Change Password</button>
+                  <button id="delete-account-btn" class="btn btn-danger">Delete Account</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Component -->
+    <div id="footer-container"></div>
+
+    <!-- Modals -->
+    <div id="change-password-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Change Password</h2>
+        <form id="change-password-form">
+          <div class="form-group">
+            <label for="current-password">Current Password</label>
+            <input type="password" id="current-password" required>
+          </div>
+          <div class="form-group">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password" required>
+          </div>
+          <div class="form-group">
+            <label for="confirm-new-password">Confirm New Password</label>
+            <input type="password" id="confirm-new-password" required>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Change Password</button>
+            <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="delete-account-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Delete Account</h2>
+        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+        <form id="delete-account-form">
+          <div class="form-group">
+            <label for="delete-confirmation">Type "DELETE" to confirm:</label>
+            <input type="text" id="delete-confirmation" required>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Delete Account</button>
+            <button type="button" class="btn btn-secondary cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script type="module" src="/src/assets/js/core/app.js"></script>
+    <script type="module" src="/src/assets/js/pages/cabinet.js"></script>
+  </body>
+</html>

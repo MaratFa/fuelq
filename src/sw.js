@@ -3,15 +3,14 @@
  * Enables offline functionality and caching
  */
 
-const CACHE_NAME = 'fuelq-v1.0.5';
-const STATIC_CACHE = 'fuelq-static-v1.0.5';
-const DYNAMIC_CACHE = 'fuelq-dynamic-v1.0.5';
+const CACHE_NAME = 'fuelq-v1.1.0';
+const STATIC_CACHE = 'fuelq-static-v1.1.0';
+const DYNAMIC_CACHE = 'fuelq-dynamic-v1.1.0';
 
 // Assets to cache on install
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/init-header.js',
   '/src/pages/forengineers.html',
   '/src/pages/contacts.html',
   '/src/pages/forum/index.html',
@@ -23,7 +22,11 @@ const STATIC_ASSETS = [
   '/src/components/header/header.html',
   '/src/components/footer/footer.html',
   '/src/api/discovery',
-  '/src/api/forum'
+  '/src/api/forum',
+  '/src/assets/js/core/app.js',
+  '/src/assets/js/components.js',
+  '/src/assets/js/modules/navigation-controller.js',
+  '/src/assets/js/modules/theme-manager.js'
 ];
 
 /**

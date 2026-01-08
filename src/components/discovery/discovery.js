@@ -15,6 +15,12 @@ function initDiscovery() {
     // Initialize filters
     initFilters();
 
+    // Initialize search functionality
+    initSearch();
+    
+    // Initialize personalized recommendations
+    initPersonalizedRecommendations();
+
     // Initialize trending topics
     initTrendingTopics();
 
@@ -26,6 +32,222 @@ function initDiscovery() {
 
     // Load initial data
     loadDiscoveryData();
+}
+
+/**
+ * Initialize personalized recommendations
+ */
+function initPersonalizedRecommendations() {
+    const viewAllBtn = document.querySelector('.personalized-recommendations .view-all-btn');
+    
+    if (viewAllBtn) {
+        viewAllBtn.addEventListener('click', () => {
+            // Navigate to full recommendations page
+            window.location.href = '/src/pages/recommendations.html';
+        });
+    }
+    
+    // Add click handlers to recommendation cards
+    const recommendationCards = document.querySelectorAll('.recommendation-card');
+    recommendationCards.forEach(card => {
+        card.addEventListener('click', () => {
+            // Track recommendation click for future personalization
+            trackRecommendationClick(card);
+            
+            // Navigate to content
+            const title = card.querySelector('h3').textContent;
+            navigateToContent(title);
+        });
+    });
+}
+
+/**
+ * Track recommendation click for personalization
+ * @param {HTMLElement} card - The clicked recommendation card
+ */
+function trackRecommendationClick(card) {
+    const title = card.querySelector('h3').textContent;
+    const category = card.querySelector('.recommendation-tag').textContent;
+    
+    // Store interaction in localStorage for personalization
+    const interactions = JSON.parse(localStorage.getItem('fuelq_interactions') || '[]');
+    interactions.push({
+        type: 'recommendation_click',
+        title,
+        category,
+        timestamp: new Date().toISOString()
+    });
+    
+    // Keep only last 50 interactions
+    if (interactions.length > 50) {
+        interactions.shift();
+    }
+    
+    localStorage.setItem('fuelq_interactions', JSON.stringify(interactions));
+}
+
+/**
+ * Navigate to content based on title
+ * @param {string} title - The content title
+ */
+function navigateToContent(title) {
+    // In a real implementation, this would navigate to the actual content
+    // For now, we'll just show a notification
+    showNotification(`Opening: ${title}`, 'info');
+}
+
+/**
+ * Show notification message
+ * @param {string} message - The message to show
+ * @param {string} type - The type of notification (info, success, error)
+ */
+function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    // Style the notification
+    notification.style.position = 'fixed';
+    notification.style.bottom = '20px';
+    notification.style.right = '20px';
+    notification.style.padding = '10px 20px';
+    notification.style.borderRadius = 'var(--border-radius)';
+    notification.style.boxShadow = 'var(--card-shadow)';
+    notification.style.zIndex = '1000';
+    notification.style.opacity = '0';
+    notification.style.transform = 'translateY(20px)';
+    notification.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    
+    // Set background color based on type
+    switch (type) {
+        case 'success':
+            notification.style.backgroundColor = 'var(--success-color)';
+            notification.style.color = 'white';
+            break;
+        case 'error':
+            notification.style.backgroundColor = 'var(--error-color)';
+            notification.style.color = 'white';
+            break;
+        default:
+            notification.style.backgroundColor = 'var(--primary-color)';
+            notification.style.color = 'white';
+    }
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateY(0)';
+    }, 10);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
+/**
+ * Initialize search functionality
+ */
+function initSearch() {
+    const searchInput = document.getElementById('discovery-search');
+    const searchClear = document.getElementById('search-clear');
+    const searchToggle = document.getElementById('search-toggle');
+    
+    if (!searchInput || !searchClear || !searchToggle) return;
+    
+    // Handle search input
+    let searchTimeout;
+    searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        
+        // Show/hide clear button
+        searchClear.style.display = e.target.value ? 'block' : 'none';
+        
+        // Debounce search
+        searchTimeout = setTimeout(() => {
+            performSearch(e.target.value);
+        }, 300);
+    });
+    
+    // Handle clear button
+    searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        searchClear.style.display = 'none';
+        performSearch('');
+    });
+    
+    // Handle advanced search toggle
+    searchToggle.addEventListener('click', () => {
+        const filters = document.querySelector('.discovery-filters');
+        if (filters) {
+            filters.classList.toggle('expanded');
+            searchToggle.querySelector('span').textContent = 
+                filters.classList.contains('expanded') ? 'Hide Filters' : 'Advanced Search';
+        }
+    });
+}
+
+/**
+ * Perform search with the given query
+ * @param {string} query - Search query
+ */
+function performSearch(query) {
+    // Get active filters
+    const activeFilters = getActiveFilters();
+    
+    // Load data with search query and filters
+    loadDiscoveryData(query, activeFilters);
+}
+
+/**
+ * Get active filter values
+ * @returns {Object} Active filters
+ */
+function getActiveFilters() {
+    const contentType = [];
+    const energyType = [];
+    
+    // Get content type filters
+    document.querySelectorAll('input[id^="filter-"]:checked').forEach(input => {
+        if (input.id.includes('discussions')) contentType.push('discussions');
+        if (input.id.includes('articles')) contentType.push('articles');
+        if (input.id.includes('resources')) contentType.push('resources');
+        if (input.id.includes('experts')) contentType.push('experts');
+    });
+    
+    // Get energy type filters
+    document.querySelectorAll('input[id^="filter-"]:checked').forEach(input => {
+        if (input.id.includes('hydrogen')) energyType.push('hydrogen');
+        if (input.id.includes('solar')) energyType.push('solar');
+        if (input.id.includes('wind')) energyType.push('wind');
+        if (input.id.includes('biofuels')) energyType.push('biofuels');
+        if (input.id.includes('geothermal')) energyType.push('geothermal');
+        if (input.id.includes('nuclear')) energyType.push('nuclear');
+    });
+    
+    return {
+        contentType: contentType.join(','),
+        energyType: energyType.join(',')
+    };
+}
+
+/**
+ * Reset content display to show all items
+ */
+function resetContentDisplay() {
+    const allItems = document.querySelectorAll('.trending-topic, .expert-card, .content-item');
+    allItems.forEach(item => {
+        item.style.display = '';
+    });
 }
 
 /**
@@ -462,12 +684,20 @@ function updateRecommendedContent(content) {
 /**
  * Load discovery data
  */
-function loadDiscoveryData() {
+function loadDiscoveryData(searchQuery = '', filters = {}) {
     // Show loading state
     showLoadingState();
 
-    // Fetch initial data
-    fetch(`${window.location.origin}/src/api/discovery`, {
+    // Build query string
+    const params = new URLSearchParams();
+    if (searchQuery) params.append('search', searchQuery);
+    
+    // Add filters if any are active
+    if (filters.contentType) params.append('contentType', filters.contentType);
+    if (filters.energyType) params.append('energyType', filters.energyType);
+    
+    // Fetch data with search parameters
+    fetch(`${window.location.origin}/src/api/discovery?${params.toString()}`, {
         credentials: 'include'
     })
     .then(response => {

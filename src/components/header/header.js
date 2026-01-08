@@ -4,6 +4,23 @@
 function initHeader() {
   // Get current page path
   const currentPath = window.location.pathname;
+  
+  // Handle authentication links
+  const loginLink = document.getElementById('login-link');
+  const cabinetLink = document.getElementById('cabinet-link');
+  
+  // Check if user is authenticated
+  const isAuthenticated = localStorage.getItem('auth_token') !== null;
+  
+  if (isAuthenticated) {
+    // User is logged in
+    loginLink.style.display = 'none';
+    cabinetLink.style.display = 'block';
+  } else {
+    // User is not logged in
+    loginLink.style.display = 'block';
+    cabinetLink.style.display = 'none';
+  }
 
   // Find all navigation links
   const navLinks = document.querySelectorAll('.topnav a');

@@ -52,6 +52,24 @@ header {
   background-color: #f0f0f0;
 }
 
+.auth-nav {
+  display: flex;
+  margin-left: 1rem;
+}
+
+.auth-nav a {
+  background-color: var(--primary-color, #009688);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.auth-nav a:hover {
+  background-color: var(--primary-dark, #00796b);
+}
+
 .topnav a.active {
   color: #0066cc;
   background-color: #e6f2ff;
