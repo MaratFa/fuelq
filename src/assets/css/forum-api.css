@@ -1,0 +1,278 @@
+/**
+ * Forum API Styles
+ * Additional styles for the forum API integration
+ */
+
+/* Loading state */
+.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s linear infinite;
+  z-index: 11;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error state */
+.error-message {
+  padding: 15px;
+  background-color: #fff3f3;
+  border-left: 4px solid var(--error-color);
+  color: var(--error-color);
+  margin: 15px 0;
+  border-radius: var(--border-radius);
+}
+
+.error-message i {
+  margin-right: 8px;
+}
+
+/* Success message */
+.success-message {
+  padding: 15px;
+  background-color: #f3fff3;
+  border-left: 4px solid var(--success-color);
+  color: var(--success-color);
+  margin: 15px 0;
+  border-radius: var(--border-radius);
+}
+
+.success-message i {
+  margin-right: 8px;
+}
+
+/* Thread card hover effects */
+.thread-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.thread-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Thread meta information */
+.thread-meta {
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 10px;
+}
+
+.thread-meta-item {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.thread-meta-item i {
+  margin-right: 5px;
+}
+
+/* Thread category badge */
+.thread-category {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.thread-category.hydrogen {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.thread-category.biofuels {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.thread-category.solar {
+  background-color: #fff8e1;
+  color: #ff8f00;
+}
+
+.thread-category.wind {
+  background-color: #e0f7fa;
+  color: #00838f;
+}
+
+.thread-category.nuclear {
+  background-color: #f3e5f5;
+  color: #6a1b9a;
+}
+
+.thread-category.ammonia {
+  background-color: #e8eaf6;
+  color: #3949ab;
+}
+
+.thread-category.general {
+  background-color: #f5f5f5;
+  color: #424242;
+}
+
+/* Comment section */
+.comment {
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 0;
+}
+
+.comment:last-child {
+  border-bottom: none;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.comment-author {
+  font-weight: 600;
+}
+
+.comment-date {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.comment-content {
+  line-height: 1.5;
+}
+
+/* Form validation styles */
+.field-error {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.field-error::before {
+  content: '\f06a';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  margin-right: 5px;
+}
+
+input.error,
+select.error,
+textarea.error {
+  border-color: var(--error-color);
+  box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.2);
+}
+
+/* Notification styles */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  max-width: 300px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.notification.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.notification.notification-info {
+  border-left: 4px solid var(--primary-color);
+}
+
+.notification.notification-info i {
+  color: var(--primary-color);
+}
+
+.notification.notification-success {
+  border-left: 4px solid var(--success-color);
+}
+
+.notification.notification-success i {
+  color: var(--success-color);
+}
+
+.notification.notification-warning {
+  border-left: 4px solid var(--warning-color);
+}
+
+.notification.notification-warning i {
+  color: var(--warning-color);
+}
+
+.notification.notification-error {
+  border-left: 4px solid var(--error-color);
+}
+
+.notification.notification-error i {
+  color: var(--error-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .thread-meta {
+    flex-wrap: wrap;
+  }
+
+  .thread-meta-item {
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
+
+  .notification {
+    right: 10px;
+    left: 10px;
+    max-width: none;
+  }
+}

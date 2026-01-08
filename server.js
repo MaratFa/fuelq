@@ -61,6 +61,16 @@ function startServer() {
     });
 
     // Database connection pool with environment variables
+    console.log('Initializing database connection with config:', {
+        host: process.env.DB_HOST || 'localhost',
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASSWORD ? '***' : 'EMPTY',
+        database: process.env.DB_NAME || 'fuelq',
+        waitForConnections: true,
+        connectionLimit: 10,
+        queueLimit: 0
+    });
+    
     const pool = mysql.createPool({
         host: process.env.DB_HOST || 'localhost',
         user: process.env.DB_USER || 'root',
@@ -71,15 +81,45 @@ function startServer() {
         queueLimit: 0
     });
 
-    // Test database connection
-    pool.getConnection((error, connection) => {
-        if (error) {
-            console.error('Error connecting to the database: ' + error.stack);
-            return;
-        }
-        console.log('Successfully connected to database.');
-        connection.release();
-    });
+    // Test database connection with retry logic
+    let retryCount = 0;
+    const maxRetries = 3;
+    
+    function testConnection() {
+        pool.getConnection((error, connection) => {
+            if (error) {
+                console.error(`Error connecting to database (attempt ${retryCount + 1}/${maxRetries}):`, error);
+                console.error('Database configuration:', {
+                    host: process.env.DB_HOST || 'localhost',
+                    user: process.env.DB_USER || 'root',
+                    database: process.env.DB_NAME || 'fuelq'
+                });
+                
+                if (retryCount < maxRetries - 1) {
+                    retryCount++;
+                    console.log(`Retrying database connection in 3 seconds...`);
+                    setTimeout(testConnection, 3000);
+                } else {
+                    console.error('Max retries reached. Server will continue without database connection.');
+                }
+                return;
+            }
+            
+            console.log('Successfully connected to database.');
+            connection.release();
+            
+            // Test a simple query
+            connection.query('SELECT 1 as test', (err, results) => {
+                if (err) {
+                    console.error('Database query test failed:', err);
+                } else {
+                    console.log('Database query test successful:', results);
+                }
+            });
+        });
+    }
+    
+    testConnection();
 
     // API Routes
     app.get('/api/health', (req, res) => {
@@ -563,6 +603,202 @@ function startServer() {
     // API endpoint for discovery content
     app.get('/src/api/discovery', (req, res) => {
         // Get search query and filters from request
+        const { search, contentType, energyType, sortBy } = req.query;
+
+        // Get base content
+        const trendingTopics = getTrendingTopics();
+        const featuredExperts = getFeaturedExperts();
+        const recommendedContent = getRecommendedContent();
+
+        // Filter content if search or filters are provided
+        let filteredTrendingTopics = trendingTopics;
+        let filteredFeaturedExperts = featuredExperts;
+        let filteredRecommendedContent = recommendedContent;
+
+        if (search) {
+            const searchTerm = search.toLowerCase();
+
+            // Filter trending topics
+            filteredTrendingTopics = trendingTopics.filter(topic =>
+                topic.title.toLowerCase().includes(searchTerm) ||
+                topic.excerpt.toLowerCase().includes(searchTerm)
+            );
+
+            // Filter featured experts
+            filteredFeaturedExperts = featuredExperts.filter(expert =>
+                expert.name.toLowerCase().includes(searchTerm) ||
+                expert.bio.toLowerCase().includes(searchTerm)
+            );
+
+            // Filter recommended content
+            filteredRecommendedContent = recommendedContent.filter(content =>
+                content.title.toLowerCase().includes(searchTerm) ||
+                content.excerpt.toLowerCase().includes(searchTerm)
+            );
+        }
+
+        // Filter by content type if specified
+        if (contentType) {
+            const types = contentType.split(',');
+
+            // Only filter content items if experts is not selected
+            if (!types.includes('experts')) {
+                filteredFeaturedExperts = [];
+            }
+
+            // Only filter content items if discussions is not selected
+            if (!types.includes('discussions')) {
+                filteredTrendingTopics = [];
+            }
+
+            // Only filter content items if articles is not selected
+            if (!types.includes('articles')) {
+                filteredRecommendedContent = filteredRecommendedContent.filter(
+                    content => content.type !== 'article'
+                );
+            }
+
+            // Only filter content items if resources is not selected
+            if (!types.includes('resources')) {
+                filteredRecommendedContent = filteredRecommendedContent.filter(
+                    content => content.type !== 'resource'
+                );
+            }
+        }
+
+        // Filter by energy type if specified
+        if (energyType) {
+            const types = energyType.split(',');
+
+            // Filter trending topics
+            filteredTrendingTopics = filteredTrendingTopics.filter(topic =>
+                types.includes(topic.category)
+            );
+
+            // Filter featured experts
+            filteredFeaturedExperts = filteredFeaturedExperts.filter(expert => {
+                // Check if any of the expert's expertise matches the selected energy types
+                return expert.expertise.some(expertise =>
+                    types.some(type => expertise.toLowerCase().includes(type.toLowerCase()))
+                );
+            });
+
+            // Filter recommended content
+            filteredRecommendedContent = filteredRecommendedContent.filter(content =>
+                types.includes(content.category)
+            );
+        }
+
+        // Sort content if specified
+        if (sortBy) {
+            switch (sortBy) {
+                case 'recent':
+                    filteredTrendingTopics.sort((a, b) => b.date - a.date);
+                    filteredRecommendedContent.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    break;
+                case 'popular':
+                    filteredTrendingTopics.sort((a, b) => b.views - a.views);
+                    filteredRecommendedContent.sort((a, b) => b.views - a.views);
+                    break;
+                case 'relevant':
+                    // In a real implementation, this would use a relevance algorithm
+                    // For now, we'll just sort by views
+                    filteredTrendingTopics.sort((a, b) => b.views - a.views);
+                    filteredRecommendedContent.sort((a, b) => b.views - a.views);
+                    break;
+                case 'trending':
+                default:
+                    // Default sort is already by trending
+                    break;
+            }
+        }
+
+        // Return filtered content
+        res.json({
+            trendingTopics: filteredTrendingTopics,
+            featuredExperts: filteredFeaturedExperts,
+            recommendedContent: filteredRecommendedContent
+        });
+    });
+
+    // API endpoint for forum threads (alternative path)
+    app.get('/src/api/threads', (req, res) => {
+        const { category, sort, page = 1, limit = 10 } = req.query;
+        
+        // Build query
+        let query = 'SELECT * FROM threads';
+        const params = [];
+        
+        // Add category filter if specified
+        if (category) {
+            query += ' WHERE category = ?';
+            params.push(category);
+        }
+        
+        // Add sorting
+        switch (sort) {
+            case 'oldest':
+                query += ' ORDER BY created_at ASC';
+                break;
+            case 'most-comments':
+                query += ' ORDER BY comment_count DESC';
+                break;
+            case 'most-views':
+                query += ' ORDER BY view_count DESC';
+                break;
+            case 'newest':
+            default:
+                query += ' ORDER BY created_at DESC';
+                break;
+        }
+        
+        // Add pagination
+        const offset = (parseInt(page) - 1) * parseInt(limit);
+        query += ' LIMIT ? OFFSET ?';
+        params.push(parseInt(limit), offset);
+        
+        pool.query(query, params, (error, results) => {
+            if (error) {
+                console.error('Error fetching threads:', error);
+                res.status(500).json({ error: 'Failed to fetch threads' });
+                return;
+            }
+            
+            // Get total count for pagination
+            let countQuery = 'SELECT COUNT(*) as total FROM threads';
+            const countParams = [];
+            
+            if (category) {
+                countQuery += ' WHERE category = ?';
+                countParams.push(category);
+            }
+            
+            pool.query(countQuery, countParams, (countError, countResults) => {
+                if (countError) {
+                    console.error('Error counting threads:', countError);
+                    res.status(500).json({ error: 'Failed to count threads' });
+                    return;
+                }
+                
+                const total = countResults[0].total;
+                const pages = Math.ceil(total / parseInt(limit));
+                
+                res.json({
+                    threads: results,
+                    pagination: {
+                        page: parseInt(page),
+                        limit: parseInt(limit),
+                        total,
+                        pages
+                    }
+                });
+            });
+        });
+    });
+
+    // API endpoint for a specific thread (alternative path)
+    app.get('/src/api/threads/:id', (req, res) => {
+        // Get search query and filters from request
         const { search, contentType, energyType } = req.query;
         
         // Get base content
@@ -671,56 +907,182 @@ function startServer() {
                     author: "Prof. James Chen",
                     views: 189,
                     comments: 12,
-                    trend: "+22%",
+                    trend: "+8%",
                     icon: "fa-leaf",
                     color: "#4CAF50"
                 },
                 {
                     id: 3,
-                    title: "Geothermal energy in cold climates",
-                    description: "Community heating project in Alaska shows promising results despite efficiency challenges.",
-                    category: "geothermal",
-                    author: "Sarah Kim",
+                    title: "Perovskite solar cells in commercial applications",
+                    description: "Recent advances in stability make perovskite cells viable for commercial deployment.",
+                    category: "solar",
+                    author: "Dr. Lisa Park",
+                    views: 312,
+                    comments: 27,
+                    trend: "+22%",
+                    icon: "fa-sun",
+                    color: "#FFC107"
+                },
+                {
+                    id: 4,
+                    title: "Vertical axis wind turbines for urban environments",
+                    description: "New designs show improved efficiency in turbulent urban wind conditions.",
+                    category: "wind",
+                    author: "Jennifer Wu",
                     views: 156,
                     comments: 9,
-                    trend: "+8%",
-                    icon: "fa-temperature-high",
-                    color: "#FF9800"
-                }
-            ],
-            featuredExperts: [
-                {
-                    id: 1,
-                    name: "Dr. Elena Rodriguez",
-                    title: "Hydrogen Fuel Cell Researcher",
-                    bio: "Leading researcher in PEM fuel cell technology with over 15 years of experience in catalyst development.",
-                    avatar: "/src/assets/images/experts/expert1.jpg",
-                    followers: 1240,
-                    articles: 42,
-                    expertise: ["Hydrogen", "Fuel Cells", "Catalysts"]
+                    trend: "+12%",
+                    icon: "fa-wind",
+                    color: "#2196F3"
                 },
                 {
-                    id: 2,
-                    name: "Prof. James Chen",
-                    title: "Biofuels Specialist",
-                    bio: "Expert in algae-based biofuels with a focus on scalable production methods and harvesting techniques.",
-                    avatar: "/src/assets/images/experts/expert2.jpg",
-                    followers: 980,
-                    articles: 35,
-                    expertise: ["Biofuels", "Algae", "Sustainability"]
-                },
-                {
-                    id: 3,
-                    name: "Sarah Kim",
-                    title: "Renewable Energy Engineer",
-                    bio: "Specializes in geothermal systems with experience in extreme climate installations and community projects.",
-                    avatar: "/src/assets/images/experts/expert3.jpg",
-                    followers: 756,
-                    articles: 28,
-                    expertise: ["Geothermal", "Renewables", "Energy Systems"]
+                    id: 5,
+                    title: "Small modular reactors: The future of nuclear energy",
+                    description: "Fourth-generation SMRs offer enhanced safety and reduced construction costs.",
+                    category: "nuclear",
+                    author: "Dr. James Foster",
+                    views: 278,
+                    comments: 21,
+                    trend: "+18%",
+                    icon: "fa-radiation",
+                    color: "#9C27B0"
                 }
-            ],
-            recommendedContent: [
+            ];
+    }
+    
+    // Helper function to get featured experts
+    function getFeaturedExperts() {
+        return [
+            {
+                id: 1,
+                name: "Dr. Elena Rodriguez",
+                title: "Hydrogen Fuel Cell Researcher",
+                organization: "Energy Research Institute",
+                avatar: "/src/assets/images/default-avatar.png",
+                expertise: ["Hydrogen", "Fuel Cells", "Catalysis"],
+                bio: "Leading researcher in PEM fuel cell technology with 15 years of experience",
+                followers: 842,
+                following: false
+            },
+            {
+                id: 2,
+                name: "Prof. James Chen",
+                title: "Alternative Energy Specialist",
+                organization: "University of Energy Studies",
+                avatar: "/src/assets/images/default-avatar.png",
+                expertise: ["Solar", "Wind", "Energy Storage"],
+                bio: "Expert in renewable energy systems and grid integration",
+                followers: 1205,
+                following: false
+            },
+            {
+                id: 3,
+                name: "Dr. Amara Okonkwo",
+                title: "Biofuels Research Director",
+                organization: "Sustainable Fuels Lab",
+                avatar: "/src/assets/images/default-avatar.png",
+                expertise: ["Biofuels", "Sustainability", "Algae"],
+                bio: "Pioneering work in third-generation biofuel development",
+                followers: 678,
+                following: false
+            },
+            {
+                id: 4,
+                name: "Dr. Lisa Park",
+                title: "Solar Energy Researcher",
+                organization: "Advanced Materials Lab",
+                avatar: "/src/assets/images/default-avatar.png",
+                expertise: ["Solar", "Perovskites", "Materials Science"],
+                bio: "Specialist in next-generation photovoltaic materials",
+                followers: 934,
+                following: false
+            },
+            {
+                id: 5,
+                name: "Jennifer Wu",
+                title: "Wind Energy Engineer",
+                organization: "Urban Wind Solutions",
+                avatar: "/src/assets/images/default-avatar.png",
+                expertise: ["Wind", "Urban Energy", "Turbine Design"],
+                bio: "Expert in wind energy systems for urban environments",
+                followers: 521,
+                following: false
+            }
+        ];
+    }
+    
+    // Helper function to get recommended content
+    function getRecommendedContent() {
+        return [
+            {
+                id: 1,
+                type: "discussion",
+                title: "Comparing energy storage solutions for grid applications",
+                author: "Dr. Hassan Al-Mansour",
+                date: "2023-06-15",
+                category: "general",
+                thumbnail: "/src/assets/images/default-resource.png",
+                excerpt: "Analysis of battery, hydrogen, and pumped hydro storage options",
+                views: 542,
+                comments: 23
+            },
+            {
+                id: 2,
+                type: "article",
+                title: "The future of small modular nuclear reactors",
+                author: "Dr. James Foster",
+                date: "2023-06-10",
+                category: "nuclear",
+                thumbnail: "/src/assets/images/default-resource.png",
+                excerpt: "How SMRs could transform the energy landscape",
+                views: 892,
+                comments: 45
+            },
+            {
+                id: 3,
+                type: "resource",
+                title: "Complete guide to ammonia as energy carrier",
+                author: "Dr. Sarah Kim",
+                date: "2023-06-05",
+                category: "ammonia",
+                thumbnail: "/src/assets/images/default-resource.png",
+                excerpt: "Technical overview of production, storage, and applications",
+                views: 721,
+                comments: 18
+            },
+            {
+                id: 4,
+                type: "discussion",
+                title: "Hydrogen infrastructure challenges and solutions",
+                author: "Michael Thompson",
+                date: "2023-05-28",
+                category: "hydrogen",
+                thumbnail: "/src/assets/images/default-resource.png",
+                excerpt: "Exploring the obstacles to widespread hydrogen adoption",
+                views: 435,
+                comments: 31
+            },
+            {
+                id: 5,
+                type: "article",
+                title: "Advances in perovskite solar cell stability",
+                author: "Dr. Lisa Park",
+                date: "2023-05-22",
+                category: "solar",
+                thumbnail: "/src/assets/images/default-resource.png",
+                excerpt: "New encapsulation techniques extend lifespan to 20+ years",
+                views: 657,
+                comments: 27
+            }
+        ];
+    }
+
+    // Helper function to get personalized recommendations
+    function getPersonalizedRecommendations(req) {
+        // In a real implementation, this would use user data and browsing history
+        // For now, we'll just return an empty array
+        return [];
+    }
                 {
                     id: 1,
                     type: "article",

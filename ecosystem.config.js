@@ -6,11 +6,19 @@ module.exports = {
     exec_mode: 'cluster',
     env: {
       NODE_ENV: 'production',
-      PORT: 3000
+      PORT: 3000,
+      DB_HOST: 'server39.hosting.reg.ru',
+      DB_USER: 'u3363187_fuelq_admin',
+      DB_PASSWORD: '3r6flP9H4zUFXcS2',
+      DB_NAME: 'u3363187_fuelq'
     },
     env_development: {
       NODE_ENV: 'development',
-      PORT: 3000
+      PORT: 3000,
+      DB_HOST: 'server39.hosting.reg.ru',
+      DB_USER: 'u3363187_fuelq_admin',
+      DB_PASSWORD: '3r6flP9H4zUFXcS2',
+      DB_NAME: 'u3363187_fuelq'
     },
     error_file: './logs/err.log',
     out_file: './logs/out.log',

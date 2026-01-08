@@ -3,9 +3,9 @@
  * Enables offline functionality and caching
  */
 
-const CACHE_NAME = 'fuelq-v1.1.0';
-const STATIC_CACHE = 'fuelq-static-v1.1.0';
-const DYNAMIC_CACHE = 'fuelq-dynamic-v1.1.0';
+const CACHE_NAME = 'fuelq-v1.1.1';
+const STATIC_CACHE = 'fuelq-static-v1.1.1';
+const DYNAMIC_CACHE = 'fuelq-dynamic-v1.1.1';
 
 // Assets to cache on install
 const STATIC_ASSETS = [
@@ -21,8 +21,6 @@ const STATIC_ASSETS = [
   '/src/assets/images/solar-wind.png',
   '/src/components/header/header.html',
   '/src/components/footer/footer.html',
-  '/src/api/discovery',
-  '/src/api/forum',
   '/src/assets/js/core/app.js',
   '/src/assets/js/components.js',
   '/src/assets/js/modules/navigation-controller.js',
