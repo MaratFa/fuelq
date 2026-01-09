@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { body, validationResult, ValidationChain } from 'express-validator';
+const { body, validationResult, ValidationChain } = require('express-validator');
 import { Request, Response, NextFunction } from 'express';
 
 // Define user interface
@@ -54,7 +54,7 @@ const authorizeRole = (roles: string[]) => {
 };
 
 // Middleware to validate input
-const validateInput = (validations: ValidationChain[]) => {
+const validateInput = (validations: any[]) => {
     return (req: Request, res: Response, next: NextFunction): void => {
         // Run all validations
         const errors = validationResult(req);
@@ -91,7 +91,7 @@ const validationRules = {
             .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
             .withMessage('Password must contain at least 8 characters, including uppercase, lowercase, number, and special character'),
         body('confirmPassword')
-            .custom((value, { req }) => {
+            .custom((value: string, { req }: { req: Request }) => {
                 if (value !== req.body.password!) {
                     throw new Error('Password confirmation does not match');
                 }

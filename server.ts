@@ -8,7 +8,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { authenticateToken, authorizeRole, validateInput, validationRules } from './middleware/auth-enhanced';
 import { apiLimiter, loginLimiter, forumLimiter } from './middleware/rateLimiter';
-import { body, validationResult } from 'express-validator';
+const { body, validationResult } = require('express-validator');
 require('dotenv').config();
 
 // Create logs directory if it doesn't exist
@@ -114,11 +114,11 @@ function startServer() {
 
     // Serve static files from multiple directories
     // Handle paths with /src prefix
-    app.use('/src/assets', express.static(path.join(__dirname, 'src', 'assets')));
+    app.use('/src/assets', express.static(path.join(__dirname, 'dist', 'src', 'assets')));
     app.use('/src/components', express.static(path.join(__dirname, 'src', 'components')));
 
     // Handle paths without /src prefix
-    app.use('/assets', express.static(path.join(__dirname, 'src', 'assets')));
+    app.use('/assets', express.static(path.join(__dirname, 'dist', 'src', 'assets')));
     app.use('/components', express.static(path.join(__dirname, 'src', 'components')));
 
     // Serve other static files
