@@ -3,4 +3,9 @@ htaccess
 
 # 
 node_modules
+dist
+logs
 .env
+ecosystem.config.cjs
+ecosystem.config.js
+ecosystem.config.ts
