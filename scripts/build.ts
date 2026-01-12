@@ -55,9 +55,15 @@ try {
   }
   
   // Copy other necessary files
-  const filesToCopy = ['index.html', 'manifest.json'];
+  const filesToCopy = ['index.html', 'manifest.json', 'sw.js'];
   for (const file of filesToCopy) {
-    const srcFile: string = path.join(__dirname, '..', file);
+    let srcFile: string = path.join(__dirname, '..', file);
+    
+    // Special handling for sw.js
+    if (file === 'sw.js') {
+      srcFile = path.join(distDir, file);
+    }
+    
     if (fs.existsSync(srcFile)) {
       const destFile: string = path.join(distDir, file);
       fs.copyFileSync(srcFile, destFile);
