@@ -115,11 +115,11 @@ function startServer() {
     // Serve static files from multiple directories
     // Handle paths with /src prefix
     app.use('/src/assets', express.static(path.join(__dirname, 'dist', 'src', 'assets')));
-    app.use('/src/components', express.static(path.join(__dirname, 'src', 'components')));
+    app.use('/src/components', express.static(path.join(__dirname, 'dist', 'src', 'components')));
 
     // Handle paths without /src prefix
     app.use('/assets', express.static(path.join(__dirname, 'dist', 'src', 'assets')));
-    app.use('/components', express.static(path.join(__dirname, 'src', 'components')));
+    app.use('/components', express.static(path.join(__dirname, 'dist', 'src', 'components')));
 
     // Serve other static files
     app.use(express.static(path.join(__dirname)));
@@ -133,6 +133,12 @@ function startServer() {
 
     // Set MIME type for mjs files (ES6 modules)
     app.use('*.mjs', (req, res, next) => {
+        res.type('application/javascript');
+        next();
+    });
+
+    // Set MIME type for TypeScript files
+    app.use('*.ts', (req, res, next) => {
         res.type('application/javascript');
         next();
     });
@@ -1216,6 +1222,18 @@ function startServer() {
 
 
 
+    // Service worker route - serve the compiled JS version
+    app.get('/src/sw.js', (req, res) => {
+        res.type('application/javascript');
+        res.sendFile(path.join(__dirname, 'dist', 'sw.js'));
+    });
+    
+    // Also serve the service worker at the root path
+    app.get('/sw.js', (req, res) => {
+        res.type('application/javascript');
+        res.sendFile(path.join(__dirname, 'dist', 'sw.js'));
+    });
+    
     // Note: The service worker is now only available at /src/sw.js
 
     // Start the server
