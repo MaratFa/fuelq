@@ -42,7 +42,7 @@ class ServiceWorkerManager {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         // Always use service worker in src directory
-        const swPath = '/src/sw.ts';
+        const swPath = '/src/sw.js';
         this.registerServiceWorker(swPath);
       });
     }
@@ -57,7 +57,7 @@ class ServiceWorkerManager {
    */
   async registerServiceWorker(swPath: string): Promise<void> {
     try {
-      this.swRegistration = await navigator.serviceWorker.register(swPath);
+      this.swRegistration = await navigator.serviceWorker.register(swPath, { scope: '/' });
       console.log('Service Worker registered with scope:', this.swRegistration.scope);
 
       // Check for updates
@@ -69,11 +69,11 @@ class ServiceWorkerManager {
       console.error('Service Worker registration failed:', error);
 
       // Use same path as fallback
-      const fallbackPath = '/src/sw.ts';
+      const fallbackPath = '/src/sw.js';
 
       console.log(`Trying fallback path: ${fallbackPath}`);
       try {
-        this.swRegistration = await navigator.serviceWorker.register(fallbackPath);
+        this.swRegistration = await navigator.serviceWorker.register(fallbackPath, { scope: '/' });
         console.log('Service Worker registered with fallback path, scope:', this.swRegistration.scope);
 
         // Check for updates

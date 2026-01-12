@@ -87,11 +87,11 @@ async function loadComponent(name: string, path: string): Promise<void> {
       // Load component CSS if exists
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = path.replace('.html', '.css');
+      link.href = path.replace('/src/components/', '/dist/src/components/').replace('.html', '.css');
       document.head.appendChild(link);
 
       // Load component JS if exists
-      import(path.replace('.html', '.js'))
+      import(path.replace('/src/components/', '/dist/src/components/').replace('.html', '.js'))
         .then(module => {
           // Register component
           if (module.default) {
