@@ -8,3 +8,4 @@ logs
 .env
 ecosystem.config.cjs
 ecosystem.config.ts
+.vscode
