@@ -27,26 +27,26 @@
       property="og:url"
       content="https://www.fuelq.ru/src/pages/forum/thread.html"
     />
-    <meta property="og:image" content="https://www.fuelq.ru/hydrogen.png" />
+    <meta property="og:image" content="https://www.fuelq.ru/src/assets/images/hydrogen.png" />
     <meta property="og:site_name" content="fuelq.ru" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../../assets/images/favicon.png" />
+    <link rel="icon" type="image/png" href="/src/assets/images/favicon.png" />
 
     <!-- External CSS -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="../../assets/css/styles.css" />
-    <link rel="stylesheet" href="../../components/header/header.css" />
-    <link rel="stylesheet" href="../../components/forum/forum.css" />
-    <link rel="stylesheet" href="../../assets/css/forum-api.css" />
+    <link rel="stylesheet" href="/src/assets/css/styles.css" />
+    <link rel="stylesheet" href="/src/components/header/header.css" />
+    <link rel="stylesheet" href="/src/components/forum/forum.css" />
+    <link rel="stylesheet" href="/src/assets/css/forum-api.css" />
   </head>
 
   <body>
     <!-- Header Component -->
-    <div id="header-placeholder" data-component="../../components/header/header.html"></div>
+    <div id="header-placeholder" data-component="/src/components/header/header.html"></div>
 
     <main>
       <section class="forum-header">
@@ -95,16 +95,16 @@
     </main>
 
     <!-- Footer Component -->
-    <div id="footer-placeholder" data-component="../../components/footer/footer.html"></div>
+    <div id="footer-placeholder" data-component="/src/components/footer/footer.html"></div>
 
     <!-- JavaScript -->
-    <script src="../../assets/js/components.js"></script>
-    <script src="../../assets/js/main.js"></script>
-    <script src="../../assets/data/forum-data.js"></script>
-    <script src="../../components/forum/forum.js"></script>
-    <script src="../../components/header/header.js"></script>
+    <script src="/dist/src/assets/js/components.js"></script>
+    <script src="/dist/src/assets/js/main.js"></script>
+    <script src="/dist/src/assets/data/forum-data.js"></script>
+    <script src="/dist/src/components/forum/forum.js"></script>
+    <script src="/dist/src/components/header/header.js"></script>
     <script type="module">
-      import forumApiClient from '../../assets/js/modules/forum-api-client.js';
+      import forumApiClient from '/dist/src/assets/js/modules/forum-api-client.js';
 
       document.addEventListener("DOMContentLoaded", async function () {
         // Get thread ID from URL parameters
@@ -339,7 +339,7 @@
         }
       });
     </script>
-    <script type="module" src="../../assets/js/core/app.js"></script>
+    <script type="module" src="/dist/src/assets/js/core/app.js"></script>
 
   </body>
 </html>
