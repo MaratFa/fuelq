@@ -4,40 +4,10 @@
  * Handles filtering, sorting, and chart visualization
  */
 
-// Define interfaces for type safety
-interface ChartData {
-  efficiency: {
-    label: string;
-    data: number[];
-    backgroundColor: string;
-    borderColor: string;
-  };
-  cost: {
-    label: string;
-    data: number[];
-    backgroundColor: string;
-    borderColor: string;
-  };
-  scalability: {
-    label: string;
-    data: number[];
-    backgroundColor: string;
-    borderColor: string;
-  };
-  landuse: {
-    label: string;
-    data: number[];
-    backgroundColor: string;
-    borderColor: string;
-  };
-  capacity: {
-    label: string;
-    data: number[];
-    backgroundColor: string;
-    borderColor: string;
-  };
-}
+import type { ChartType } from './forengineers-types';
+import { Chart } from './forengineers-types';
 
+// Define interface for type safety
 interface ChartMetric {
   [key: string]: {
     label: string;
@@ -47,11 +17,7 @@ interface ChartMetric {
   };
 }
 
-// Declare Chart type for external library
-declare class Chart {
-  constructor(ctx: CanvasRenderingContext2D, config: any);
-  destroy(): void;
-}
+// Chart type is imported from forengineers-types.ts
 
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize filter and sort functionality
@@ -139,10 +105,10 @@ function initChart(): void {
   if (!chartCanvas) return;
 
   const ctx = chartCanvas.getContext('2d')!;
-  let currentChart: Chart | null = null;
+  let currentChart: ChartType | null = null;
 
   // Chart data
-  const chartData: ChartData = {
+  const chartData: ChartMetric = {
     efficiency: {
       label: 'Efficiency (%)',
       data: [50, 30, 18, 40, 16, 40, 45],
@@ -178,7 +144,12 @@ function initChart(): void {
   // Function to create or update chart
   function updateChart(): void {
     const metric = chartMetric.value;
-    const data = chartData[metric as keyof ChartData];
+    const data = chartData[metric];
+
+    if (!data) {
+      console.error(`No data found for metric: ${metric}`);
+      return;
+    }
 
     if (currentChart) {
       currentChart.destroy();
@@ -255,3 +226,6 @@ function initTabs(): void {
     });
   });
 }
+
+// Export functions for external use
+export { initFilterAndSort, initChart, initTabs };

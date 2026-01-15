@@ -5,7 +5,7 @@
 
 import { BaseModule } from '../core/module-initializer.js';
 import authModule from '../core/auth.js';
-import { User, Thread, ContentItem, UserSettings } from '../../../types/index.js';
+import { User, Thread, ContentItem, UserSettings } from '../../../../types/index';
 
 class CabinetController extends BaseModule {
   userData: User | null = null;
@@ -468,7 +468,7 @@ class CabinetController extends BaseModule {
         </div>
         <div class="resource-content">
           <h3 class="resource-title">${resource.title}</h3>
-          <p class="resource-description">${resource.description.substring(0, 150)}${resource.description.length > 150 ? '...' : ''}</p>
+          <p class="resource-description">${(resource.description || '').substring(0, 150)}${(resource.description && resource.description.length > 150) ? '...' : ''}</p>
           <a href="${resource.url || '#'}" class="btn btn-primary" target="_blank">View Resource</a>
           <button class="btn btn-secondary remove-resource-btn" data-id="${resource.id}">Remove</button>
         </div>

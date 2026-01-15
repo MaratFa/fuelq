@@ -28,18 +28,20 @@
     "allowUnreachableCode": false,
     "exactOptionalPropertyTypes": true,
     "resolveJsonModule": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"],
-      "@/components/*": ["./components/*"],
-      "@/assets/*": ["./assets/*"],
-      "@/pages/*": ["./pages/*"],
-      "@/core/*": ["./core/*"],
-      "@/utils/*": ["./utils/*"]
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/assets/*": ["./src/assets/*"],
+      "@/pages/*": ["./src/pages/*"],
+      "@/core/*": ["./src/core/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/types/*": ["./types/*"]
     }
   },
   "include": [
     "src/**/*",
+    "types/**/*",
     "*.ts"
   ],
   "exclude": [

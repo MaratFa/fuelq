@@ -39,7 +39,7 @@ interface ValidationRules {
 }
 
 interface FieldErrors {
-  [fieldName: string]: string[];
+  [key: string]: string[];
 }
 
 /**

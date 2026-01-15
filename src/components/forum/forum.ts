@@ -2,7 +2,7 @@
 // Forum functionality in TypeScript
 
 // Type definitions for forum functionality
-interface Thread {
+export interface Thread {
   id: string;
   title: string;
   content: string;
@@ -13,7 +13,7 @@ interface Thread {
   views: number;
 }
 
-interface Comment {
+export interface Comment {
   id: string;
   author: string;
   content: string;
@@ -21,11 +21,11 @@ interface Comment {
 }
 
 // Global variables
-let forumCurrentPage: number = 1;
-const threadsPerPage: number = 10;
-let forumFilteredThreads: Thread[] = [];
-let currentView: string = "grid";
-let forumThreads: Thread[] = [];
+export let forumCurrentPage: number = 1;
+export const threadsPerPage: number = 10;
+export let forumFilteredThreads: Thread[] = [];
+export let currentView: string = "grid";
+export let forumThreads: Thread[] = [];
 
 // Initialize forum when DOM is loaded
 document.addEventListener("DOMContentLoaded", async function (): Promise<void> {
